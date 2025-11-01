@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><Data></Data>Internships</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --text-color: #2b2d42;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+            --hero-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --btn-text: white;
+        }
+
+        .dark-mode {
+            --primary-color: #4cc9f0;
+            --secondary-color: #4361ee;
+            --accent-color: #f72585;
+            --text-color: #f8f9fa;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: #1a1a1a;
+            --hero-bg: linear-gradient(135deg, #0f172a, #1e293b);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --btn-text: #121212;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            color: var(--text-color);
+        }
+
+        .hero {
+            background: var(--hero-bg);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1470&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin: 40px 0 30px;
+            color: var(--primary-color);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .internship-list, .portal-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .internship-card, .portal-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .internship-card:hover, .portal-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .internship-header, .portal-header {
+            padding: 25px 25px 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .company-name, .portal-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .internship-role {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        .internship-description, .portal-desc {
+            padding: 20px 25px;
+            color: var(--text-color);
+        }
+
+        .internship-details {
+            padding: 0 25px 20px;
+            list-style: none;
+        }
+
+        .internship-details li {
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            display: flex;
+        }
+
+        .internship-details strong {
+            min-width: 110px;
+            display: inline-block;
+            color: var(--primary-color);
+        }
+
+        .internship-footer, .portal-footer {
+            padding: 15px 25px 25px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .apply-btn, .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-color);
+            color: var(--btn-text);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover, .visit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background: var(--border-color);
+            margin: 60px 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .internship-list, .portal-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .internship-header, .portal-header {
+                padding: 20px 20px 15px;
+            }
+            
+            .internship-details li {
+                flex-direction: column;
+            }
+            
+            .internship-details strong {
+                margin-bottom: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>AI Engineer Internships</h1>
+            <p>Launch your career in artificial intelligence with these premium internship opportunities</p>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Internships Section -->
+        <h2 class="section-title">
+            <i class="fas fa-briefcase"></i> Featured Internships
+        </h2>
+        
+        <div class="internship-list">
+            {% for internship in internships %}
+            <div class="internship-card">
+                <div class="internship-header">
+                    <h3 class="company-name">{{ internship.company }}</h3>
+                    <p class="internship-role">{{ internship.role }}</p>
+                </div>
+        
+                <p class="internship-description">{{ internship.description }}</p>
+        
+                <ul class="internship-details">
+                    <li><strong>Location:</strong> {{ internship.location }}</li>
+                    <li><strong>Start Date:</strong> {{ internship.start_date }}</li>
+                    <li><strong>End Date:</strong> {{ internship.end_date }}</li>
+                    <li><strong>Duration:</strong> {{ internship.duration }}</li>
+                    <li><strong>Requirements:</strong> {{ internship.requirements }}</li>
+                </ul>
+        
+                <div class="internship-footer">
+                    <a class="apply-btn" href="{{ internship.apply_link }}" target="_blank">
+                        <i class="fas fa-paper-plane"></i> Apply Now
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="divider"></div>
+
+    
+        
+        <div class="portal-list">
+            {% for portal in portals %}
+            <div class="portal-card">
+                <div class="portal-header">
+                    <h3 class="portal-name">{{ portal.name }}</h3>
+                </div>
+                
+                <p class="portal-desc">{{ portal.desc }}</p>
+                
+                <div class="portal-footer">
+                    <a class="visit-btn" href="{{ portal.link }}" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Visit Portal
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Animate cards on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const cards = document.querySelectorAll('.internship-card, .portal-card');
+            
+            const animateCards = () => {
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            };
+
+            // Set initial state
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            });
+
+            // Trigger animation
+            setTimeout(animateCards, 300);
+        });
+    </script>
+</body>
+</html>

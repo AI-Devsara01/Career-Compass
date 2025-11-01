@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Analyzer Pro</title>
+  <style>
+    :root {
+      --primary-blue: #1a56db;
+      --dark-blue: #0e3a8a;
+      --light-blue: #e1effe;
+      --accent-blue: #3f83f8;
+      --text-dark: #1f2937;
+      --text-light: #f9fafb;
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
+      --card-bg-light: #ffffff;
+      --card-bg-dark: #1e293b;
+      --border-light: #e2e8f0;
+      --border-dark: #334155;
+      --success: #10b981;
+      --warning: #f59e0b;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      padding: 2rem;
+      line-height: 1.6;
+      transition: all 0.3s ease;
+    }
+    
+    .dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    
+    h1, h2, h3, h4 {
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 2px solid var(--light-blue);
+      position: relative;
+    }
+    
+    h2:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+    }
+    
+    .dark-mode h2 {
+      border-bottom-color: var(--border-dark);
+    }
+    
+    h3 {
+      font-size: 1.5rem;
+      margin-top: 2rem;
+    }
+    
+    button {
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+      color: white;
+      border: none;
+      padding: 0.8rem 1.6rem;
+      margin-top: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+      background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+    }
+    
+    button:active {
+      transform: translateY(0);
+    }
+    
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: var(--card-bg-dark);
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      border-radius: 50px;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dark-mode .theme-toggle {
+      background-color: var(--card-bg-light);
+      color: var(--text-dark);
+    }
+    
+    .result-box {
+      background-color: var(--card-bg-light);
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+      margin-top: 3rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+    }
+    
+    .dark-mode .result-box {
+      background-color: var(--card-bg-dark);
+      border-color: var(--border-dark);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+    
+    ul, ol {
+      margin-left: 1.5rem;
+      padding-left: 0.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.75rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    li:before {
+      content: '•';
+      color: var(--accent-blue);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+    
+    .fit-message {
+      background: linear-gradient(135deg, rgba(26, 86, 219, 0.1), rgba(63, 131, 248, 0.1)));
+      border-left: 4px solid var(--primary-blue);
+      padding: 2rem;
+      margin: 2rem 0;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .fit-message:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(63, 131, 248, 0.1) 0%, rgba(63, 131, 248, 0) 70%);
+    }
+    
+    .dark-mode .fit-message {
+      background: linear-gradient(135deg, rgba(26, 86, 219, 0.2), rgba(63, 131, 248, 0.2)));
+      border-left-color: var(--accent-blue);
+    }
+    
+    .roadmap-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      color: var(--primary-blue);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      padding: 0.75rem 1.5rem;
+      background-color: rgba(26, 86, 219, 0.1);
+      border-radius: 8px;
+    }
+    
+    .roadmap-link:hover {
+      color: var(--dark-blue);
+      background-color: rgba(26, 86, 219, 0.2);
+      transform: translateX(5px);
+    }
+    
+    input[type="file"] {
+      display: block;
+      margin: 1.5rem 0;
+      padding: 0.8rem;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      background-color: var(--card-bg-light);
+      width: 100%;
+      max-width: 500px;
+      transition: all 0.3s ease;
+    }
+    
+    input[type="file"]:hover {
+      border-color: var(--accent-blue);
+    }
+    
+    input[type="file"]:focus {
+      outline: none;
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 3px rgba(63, 131, 248, 0.3);
+    }
+    
+    .dark-mode input[type="file"] {
+      background-color: var(--card-bg-dark);
+      border-color: var(--border-dark);
+      color: var(--text-light);
+    }
+    
+    strong {
+      color: var(--primary-blue);
+      font-weight: 700;
+    }
+    
+    .dark-mode strong {
+      color: var(--accent-blue);
+    }
+    
+    .ats-score {
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      display: inline-block;
+      margin-bottom: 1rem;
+    }
+    
+    .progress-container {
+      width: 100%;
+      max-width: 400px;
+      height: 10px;
+      background-color: var(--light-blue);
+      border-radius: 5px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+    
+    .dark-mode .progress-container {
+      background-color: rgba(30, 58, 138, 0.5);
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+      border-radius: 5px;
+      transition: width 1s ease-in-out;
+    }
+    
+    .match-card {
+      background-color: var(--card-bg-light);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.3s ease;
+    }
+    
+    .match-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      border-color: var(--accent-blue);
+    }
+    
+    .dark-mode .match-card {
+      background-color: rgba(30, 41, 59, 0.5);
+      border-color: var(--border-dark);
+    }
+    
+    .match-percentage {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-blue);
+    }
+    
+    .dark-mode .match-percentage {
+      color: var(--accent-blue);
+    }
+    
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .skill-tag {
+      background-color: var(--light-blue);
+      color: var(--primary-blue);
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+    
+    .dark-mode .skill-tag {
+      background-color: rgba(30, 58, 138, 0.5);
+      color: var(--accent-blue);
+    }
+    
+    .recommendation-card {
+      background-color: var(--light-blue);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .dark-mode .recommendation-card {
+      background-color: rgba(30, 58, 138, 0.3);
+    }
+    
+    .recommendation-card h4 {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .recommendation-card h4:before {
+      content: '✓';
+      color: var(--success);
+      font-weight: bold;
+    }
+    
+    .upload-area {
+      text-align: center;
+      padding: 3rem 2rem;
+      border: 2px dashed var(--border-light);
+      border-radius: 12px;
+      margin: 2rem 0;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--accent-blue);
+      background-color: rgba(63, 131, 248, 0.05);
+    }
+    
+    .dark-mode .upload-area {
+      border-color: var(--border-dark);
+    }
+    
+    .dark-mode .upload-area:hover {
+      background-color: rgba(63, 131, 248, 0.1);
+    }
+    
+    .upload-icon {
+      font-size: 2.5rem;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
+    }
+    
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .result-box {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="theme-toggle" id="themeToggle">
+      <span id="themeIcon">🌙</span> Toggle Theme
+    </button>
+
+    <h1>Resume Analyzer Pro</h1>
+    <p>Upload your resume to get a detailed analysis and personalized career recommendations</p>
+
+    {% if error %}
+      <p style="color: #ef4444; background-color: #fee2e2; padding: 1rem; border-radius: 8px;">{{ error }}</p>
+    {% endif %}
+
+    <form action="{{ url_for('res') }}" method="post" enctype="multipart/form-data">
+      <div class="upload-area" onclick="document.querySelector('input[type=file]').click()">
+        <div class="upload-icon">📄</div>
+        <h3>Drag & drop your resume here</h3>
+        <p>or click to browse files (PDF or DOCX)</p>
+        <input type="file" name="resume" accept=".pdf,.docx" required style="display: none;">
+      </div>
+      <button type="submit">
+        <span>Analyze Resume</span> 🔍
+      </button>
+    </form>
+
+    {% if result %}
+      <div class="result-box">
+        <h2>Analysis Results</h2>
+        <p><strong>File analyzed:</strong> {{ result.filename }}</p>
+
+        <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
+          <div>
+            <h3>ATS Score</h3>
+            <div class="ats-score">{{ result.ats_score }}%</div>
+            <div class="progress-container">
+              <div class="progress-bar" style="width: {{ result.ats_score }}%;"></div>
+            </div>
+          </div>
+          <div>
+            <p>This score indicates how well your resume matches typical Applicant Tracking System requirements.</p>
+          </div>
+        </div>
+
+        {% if result.analysis %}
+          {% set top_matches = result.analysis[:2] %}
+          {% if top_matches %}
+            {% set top_role = top_matches[0][0] %}
+            {% set matched_skills = top_matches[0][1].matched_skills %}
+
+            <h3>Top Role Matches</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 1.5rem 0;">
+              {% for role, info in top_matches %}
+                <div class="match-card">
+                  <h4>{{ role }}</h4>
+                  <div class="match-percentage">{{ info.score }}% match</div>
+                  <p>Matched skills:</p>
+                  <div class="skills-list">
+                    {% for skill in info.matched_skills %}
+                      <span class="skill-tag">{{ skill }}</span>
+                    {% endfor %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+
+            <div class="fit-message">
+              <h3>🎯 Your Best Fit: <strong>{{ top_role }}</strong></h3>
+              <p>Based on your skills and experience, you're well-positioned for this role. Here's how to strengthen your candidacy:</p>
+            </div>
+
+            <h3>Career Roadmap</h3>
+            <div style="display: grid; gap: 1.5rem; margin: 1.5rem 0;">
+              <div class="recommendation-card">
+                <h4>Highlight Key Skills</h4>
+                <p>Make these skills more prominent in your resume: <strong>{{ matched_skills[:3] | join(', ') }}</strong></p>
+              </div>
+
+              <div class="recommendation-card">
+                <h4>Quantify Achievements</h4>
+                <p>Add metrics to your experience (e.g., "Increased sales by 30%", "Reduced costs by $50K")</p>
+              </div>
+
+              <div class="recommendation-card">
+                <h4>Consider Certification</h4>
+                <p>Boost your qualifications with: <strong>Google/AWS/Professional Certification</strong> in your field</p>
+              </div>
+            </div>
+
+            <a href="#" class="roadmap-link">
+              Get your personalized career roadmap →
+            </a>
+          {% else %}
+            <p>No role matches found. Please try uploading a different resume or check the file format.</p>
+          {% endif %}
+        {% else %}
+          <p>Analysis could not be completed. Please try again with a valid resume file.</p>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme') || 
+                      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    // Apply the saved theme
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      themeIcon.textContent = '☀️';
+    }
+    
+    toggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      
+      // Update icon and save preference
+      if (document.body.classList.contains('dark-mode')) {
+        themeIcon.textContent = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeIcon.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+    
+    // Drag and drop functionality
+    const uploadArea = document.querySelector('.upload-area');
+    const fileInput = document.querySelector('input[type=file]');
+    
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = 'var(--accent-blue)';
+      uploadArea.style.backgroundColor = 'rgba(63, 131, 248, 0.1)';
+    });
+    
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = 'var(--border-light)';
+      uploadArea.style.backgroundColor = '';
+    });
+    
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = 'var(--border-light)';
+      uploadArea.style.backgroundColor = '';
+      
+      if (e.dataTransfer.files.length) {
+        fileInput.files = e.dataTransfer.files;
+        // Update UI to show file name
+        const fileName = document.createElement('p');
+        fileName.textContent = `Selected: ${e.dataTransfer.files[0].name}`;
+        fileName.style.marginTop = '1rem';
+        fileName.style.color = 'var(--accent-blue)';
+        uploadArea.appendChild(fileName);
+      }
+    });
+  </script>
+</body>
+</html>

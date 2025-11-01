@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Leadership Skills</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --secondary-color: #1e40af;
+      --accent-color: #3b82f6;
+      --text-dark: #1f2937;
+      --text-light: #f9fafb;
+      --bg-light: #ffffff;
+      --bg-dark: #111827;
+      --card-light: #f3f4f6;
+      --card-dark: #1f2937;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+    }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 40px;
+      border-radius: var(--border-radius);
+      margin-bottom: 30px;
+      text-align: center;
+      color: white;
+      box-shadow: var(--box-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      z-index: 1;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    .header p {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .subtopic {
+      background-color: var(--card-light);
+      margin: 25px 0;
+      padding: 30px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    body.dark-mode .subtopic {
+      background-color: var(--card-dark);
+    }
+
+    .subtopic:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    body.dark-mode h2 {
+      color: var(--accent-color);
+    }
+
+    h3 {
+      color: var(--secondary-color);
+      font-size: 1.3rem;
+      margin: 20px 0 15px;
+    }
+
+    body.dark-mode h3 {
+      color: #93c5fd;
+    }
+
+    p {
+      margin-bottom: 20px;
+      font-size: 1.05rem;
+    }
+
+    .video-container {
+      margin: 25px 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .question-list {
+      padding-left: 20px;
+    }
+
+    .question-list li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .question-list li::before {
+      content: '•';
+      color: var(--primary-color);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    body.dark-mode .question-list li::before {
+      color: var(--accent-color);
+    }
+
+    .toggle-container {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+    }
+
+    .toggle-btn {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .toggle-btn:hover {
+      background: var(--secondary-color);
+      transform: translateY(-2px);
+    }
+
+    body.dark-mode .toggle-btn {
+      background: var(--card-dark);
+      color: var(--text-light);
+      border: 1px solid var(--accent-color);
+    }
+
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      .header p {
+        font-size: 1rem;
+      }
+      .container {
+        padding: 20px 15px;
+      }
+      .subtopic {
+        padding: 20px;
+      }
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 30px 20px;
+      }
+      .header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toggle-container">
+    <button class="toggle-btn" id="themeToggle">
+      <i class="fas fa-moon"></i> Dark Mode
+    </button>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <h1><i class="fas fa-user-tie"></i> Leadership Skills</h1>
+        <p>Develop your leadership skills to inspire, manage, and guide teams to success in any professional setting.</p>
+      </div>
+    </div>
+
+    <!-- Subtopics -->
+    <div class="subtopic">
+      <h2><i class="fas fa-bullseye"></i> Visionary Leadership</h2>
+      <p>Visionary leadership involves creating and communicating a compelling future vision that inspires others to follow and achieve ambitious goals. Effective visionary leaders anticipate future trends and align their teams toward long-term success.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/dGQk5EFHUZU" title="Visionary Leadership" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>What does it mean to be a visionary leader and how do you embody this style?</li>
+        <li>Can you provide an example of a time when you demonstrated visionary leadership in a challenging situation?</li>
+        <li>How do you balance visionary thinking with practical execution when leading a team?</li>
+        <li>What techniques do you use to communicate your vision effectively to different stakeholders?</li>
+        <li>How do you measure the success of your visionary leadership approach?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a time when you had to pivot your vision due to changing market conditions. How did you communicate this change to your team?</li>
+        <li>Imagine your team is resistant to a new vision you've proposed. What steps would you take to gain their buy-in?</li>
+      </ul>
+    </div>
+
+    <div class="subtopic">
+      <h2><i class="fas fa-chess"></i> Strategic Leadership</h2>
+      <p>Strategic leadership involves analyzing complex business environments, making data-driven decisions, and aligning organizational resources to achieve long-term objectives while maintaining competitive advantage.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/GT_NNu0JIMA" title="Strategic Leadership" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you approach the strategic planning process for your organization or team?</li>
+        <li>Can you share an example of a strategic initiative you led that resulted in measurable business impact?</li>
+        <li>What frameworks or tools do you use to analyze competitive landscapes and industry trends?</li>
+        <li>How do you ensure strategic alignment between different departments or teams?</li>
+        <li>What methods do you use to evaluate the effectiveness of your strategic decisions?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a situation where you had to make a strategic decision with incomplete information. How did you proceed?</li>
+        <li>Your company is facing disruption from new technologies. How would you develop and execute a strategy to address this challenge?</li>
+      </ul>
+    </div>
+
+    <div class="subtopic">
+      <h2><i class="fas fa-users"></i> Team Leadership</h2>
+      <p>Team leadership focuses on building high-performing teams through effective communication, trust-building, and creating an environment that fosters collaboration and professional growth.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/95QwKa34PU4" title="Team Leadership" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>What is your philosophy for building and maintaining effective teams?</li>
+        <li>How do you handle underperformance or conflict within your team while maintaining morale?</li>
+        <li>What strategies do you use to identify and develop talent within your team?</li>
+        <li>How do you balance achieving results with maintaining team well-being?</li>
+        <li>What metrics do you use to assess team performance and satisfaction?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a time when you had to rebuild trust within a team after a leadership failure. What steps did you take?</li>
+        <li>You inherit a team with low morale and declining performance. Outline your 90-day plan to turn the situation around.</li>
+      </ul>
+    </div>
+
+    <div class="subtopic">
+      <h2><i class="fas fa-arrows-spin"></i> Adaptive Leadership</h2>
+      <p>Adaptive leadership requires navigating uncertainty, embracing change, and empowering teams to solve complex problems in dynamic environments through flexibility and resilience.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/9kVxxfknua4" title="Adaptive Leadership" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you distinguish between technical and adaptive challenges in your leadership approach?</li>
+        <li>Can you share an example where you successfully led through a period of significant organizational change?</li>
+        <li>What strategies do you use to help your team develop adaptability and resilience?</li>
+        <li>How do you balance maintaining stability while driving necessary change?</li>
+        <li>What indicators do you look for to determine when a pivot in strategy is needed?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a situation where your initial approach failed and you had to adapt your leadership style. What did you learn?</li>
+        <li>A major market shift requires your team to acquire completely new skills quickly. How would you approach this challenge?</li>
+      </ul>
+    </div>
+
+    <div class="subtopic">
+      <h2><i class="fas fa-scale-balanced"></i> Ethical Leadership</h2>
+      <p>Ethical leadership establishes trust through integrity, transparency, and accountability while balancing stakeholder interests and making principled decisions that align with organizational values.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/CHzL4PJIKLw" title="Ethical Leadership" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you embed ethical considerations into your daily decision-making processes?</li>
+        <li>Can you describe a difficult ethical dilemma you faced as a leader and how you resolved it?</li>
+        <li>What systems have you implemented to promote ethical behavior within your team or organization?</li>
+        <li>How do you handle situations where business objectives appear to conflict with ethical standards?</li>
+        <li>What role should leaders play in shaping organizational culture around ethics and compliance?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>You discover a high-performing team member has violated company policy. How would you handle this situation?</li>
+        <li>Senior leadership pressures you to meet targets using questionable methods. What would you do?</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+    const icon = themeToggle.querySelector('i');
+
+    // Check for saved user preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      body.classList.add('dark-mode');
+      icon.classList.replace('fa-moon', 'fa-sun');
+      themeToggle.textContent = ' Light Mode';
+      themeToggle.insertBefore(icon, themeToggle.firstChild);
+    }
+
+    // Toggle theme
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        themeToggle.textContent = ' Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        themeToggle.textContent = ' Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+      
+      themeToggle.insertBefore(icon, themeToggle.firstChild);
+    });
+  </script>
+</body>
+</html>

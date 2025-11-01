@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Skills Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://img.freepik.com/premium-vector/minimal-geometric-gradient-blue-stripe-shape-background_699934-148.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 50px;
+        }
+        h1, h2 {
+            color: #FFD700;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        .options button {
+            display: block;
+            width: 100%;
+            margin: 5px 0;
+            padding: 10px;
+            background: #FFD700;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .options button:hover {
+            background: #FFA500;
+        }
+        #timer {
+            font-size: 20px;
+            color: red;
+            margin-bottom: 20px;
+        }
+        #result {
+            font-size: 24px;
+            font-weight: bold;
+            color: lightgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>📝 Soft Skills Quiz</h1>
+        <p>Test your knowledge in communication, leadership, and more!</p>
+        <h2 id="timer">Time Left: 10:00</h2>
+
+        <div id="quiz-container">
+            <div class="question" id="question"></div>
+            <div class="options" id="options"></div>
+            <button onclick="nextQuestion()">Next</button>
+        </div>
+
+        <div id="result" style="display: none;"></div>
+    </div>
+
+    <script>
+        const questions = [
+            { q: "What is the most important element of active listening?", options: ["Speaking clearly", "Making eye contact", "Understanding before responding", "Giving immediate feedback"], answer: "Understanding before responding" },
+            { q: "Which communication type is most impactful?", options: ["Verbal", "Non-verbal", "Written", "All are equally impactful"], answer: "Non-verbal" },
+            { q: "What does emotional intelligence primarily involve?", options: ["IQ improvement", "Understanding and managing emotions", "Being persuasive", "Public speaking"], answer: "Understanding and managing emotions" },
+            { q: "What is a key trait of a good leader?", options: ["Being bossy", "Listening actively", "Avoiding feedback", "Talking more than others"], answer: "Listening actively" },
+            { q: "What is the first step in conflict resolution?", options: ["Reacting immediately", "Ignoring the issue", "Understanding both sides", "Raising your voice"], answer: "Understanding both sides" },
+            { q: "Which soft skill is crucial for teamwork?", options: ["Public speaking", "Empathy", "Self-motivation", "Creativity"], answer: "Empathy" },
+            { q: "Why is body language important in communication?", options: ["It conveys emotions and intentions", "It makes you look confident", "It replaces spoken words", "It is not important"], answer: "It conveys emotions and intentions" },
+            { q: "What is the best way to provide constructive criticism?", options: ["Being direct and rude", "Using the sandwich method", "Avoiding the issue", "Criticizing publicly"], answer: "Using the sandwich method" },
+            { q: "Which is a sign of good teamwork?", options: ["One person dominates", "Blaming others", "Effective collaboration", "Avoiding discussions"], answer: "Effective collaboration" },
+            { q: "How can you improve public speaking?", options: ["Avoid practice", "Ignore feedback", "Practice regularly", "Speak fast to finish quickly"], answer: "Practice regularly" },
+            { q: "Which of these is a key time management skill?", options: ["Procrastination", "Setting priorities", "Working non-stop", "Ignoring deadlines"], answer: "Setting priorities" },
+            { q: "What is the best way to handle stress at work?", options: ["Avoiding work", "Managing workload", "Ignoring problems", "Taking unplanned breaks"], answer: "Managing workload" },
+            { q: "Which of these improves professional networking?", options: ["Being shy", "Building genuine relationships", "Ignoring colleagues", "Only reaching out when needed"], answer: "Building genuine relationships" },
+            { q: "Why is adaptability a key soft skill?", options: ["It allows flexibility", "It avoids responsibility", "It prevents communication", "It is unnecessary"], answer: "It allows flexibility" },
+            { q: "What is an effective way to show confidence?", options: ["Slouching", "Speaking clearly and maintaining eye contact", "Avoiding conversations", "Interrupting others"], answer: "Speaking clearly and maintaining eye contact" },
+            { q: "What should you do when receiving feedback?", options: ["Get defensive", "Listen and learn", "Ignore it", "Criticize back"], answer: "Listen and learn" },
+            { q: "What is a common barrier to communication?", options: ["Clarity", "Listening", "Distractions", "Empathy"], answer: "Distractions" },
+            { q: "What is a benefit of self-awareness?", options: ["Improved emotional intelligence", "Overconfidence", "Avoiding teamwork", "Being bossy"], answer: "Improved emotional intelligence" },
+            { q: "What is the goal of persuasive communication?", options: ["Tricking others", "Manipulation", "Influencing decisions ethically", "Being aggressive"], answer: "Influencing decisions ethically" },
+            { q: "How do you handle a difficult conversation professionally?", options: ["Raise your voice", "Avoid the topic", "Stay calm and listen actively", "Blame others"], answer: "Stay calm and listen actively" }
+        ];
+
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let timeLeft = 600;
+
+        function displayQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                document.getElementById("quiz-container").style.display = "none";
+                document.getElementById("result").innerHTML = `Quiz Over! You scored ${score}/${questions.length}`;
+                document.getElementById("result").style.display = "block";
+                return;
+            }
+            
+            const questionData = questions[currentQuestionIndex];
+            document.getElementById("question").innerHTML = questionData.q;
+            const optionsContainer = document.getElementById("options");
+            optionsContainer.innerHTML = "";
+            
+            questionData.options.forEach(option => {
+                const button = document.createElement("button");
+                button.innerText = option;
+                button.onclick = () => {
+                    if (option === questionData.answer) score++;
+                    currentQuestionIndex++;
+                    displayQuestion();
+                };
+                optionsContainer.appendChild(button);
+            });
+        }
+
+        function startTimer() {
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById("timer").innerText = `Time Left: ${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    document.getElementById("quiz-container").style.display = "none";
+                    document.getElementById("result").innerHTML = `Time's up! You scored ${score}/${questions.length}`;
+                    document.getElementById("result").style.display = "block";
+                }
+            }, 1000);
+        }
+
+        displayQuestion();
+        startTimer();
+    </script>
+</body>
+</html>

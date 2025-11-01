@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Bot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            color: #333;
+        }
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+        #chatbox {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .user {
+            color: #4A90E2;
+            font-weight: bold;
+        }
+        .bot {
+            color: #00B894;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 75%;
+            padding: 10px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #4A90E2;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <h2 style="text-align: center;">Ask EduGuide Chatbot</h2>
+    <div id="chatbox"></div>
+    <input type="text" id="userInput" placeholder="Type your question..." />
+    <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+    function sendMessage() {
+        const input = document.getElementById('userInput');
+        const message = input.value.trim();
+        if (message === '') return;
+
+        const chatbox = document.getElementById('chatbox');
+        chatbox.innerHTML += `<div class="message user">You: ${message}</div>`;
+        input.value = '';
+
+        // Simulated bot response for demo
+        setTimeout(() => {
+            chatbox.innerHTML += `<div class="message bot">Bot: Let me guide you on that!</div>`;
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }, 600);
+    }
+</script>
+
+<!-- ✅ Chatbase Script -->
+<script>
+(function(){
+    if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+        window.chatbase = (...args) => {
+            if (!window.chatbase.q) window.chatbase.q = [];
+            window.chatbase.q.push(args);
+        };
+        window.chatbase = new Proxy(window.chatbase, {
+            get(target, prop) {
+                if (prop === "q") return target.q;
+                return (...args) => target(prop, ...args);
+            }
+        });
+    }
+    const onLoad = function() {
+        const script = document.createElement("script");
+        script.src = "https://www.chatbase.co/embed.min.js";
+        script.id = "IpVQF6-ZegJg2V7nGyKeN";  // Make sure this is your actual Chatbase bot ID
+        script.domain = "www.chatbase.co";
+        document.body.appendChild(script);
+    };
+    if (document.readyState === "complete") onLoad();
+    else window.addEventListener("load", onLoad);
+})();
+</script>
+
+</body>
+</html>

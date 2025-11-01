@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+<h1>Mock Interview: Data Scientist</h1>
+
+<h2>Role Introduction</h2>
+<p>Data Scientists gather, process, and analyze large sets of structured and unstructured data to extract valuable insights. They work with statistical models, machine learning, and data visualization to solve business problems and enable data-driven decision-making.</p>
+
+<h2>Key Skills Required</h2>
+<ul>
+    <li>Data wrangling and preprocessing</li>
+    <li>Statistics & Probability</li>
+    <li>Machine Learning (Regression, Classification, Clustering)</li>
+    <li>Python, R, SQL</li>
+    <li>Big Data Tools (Hadoop, Spark)</li>
+    <li>Data Visualization (Tableau, Power BI, Matplotlib, Seaborn)</li>
+</ul>
+
+<h2>Top 3 YouTube Videos for Preparation</h2>
+<ul>
+    <li><a href="https://www.youtube.com/watch?v=ua-CiDNNj30" target="_blank">Data Science Full Course - Simplilearn</a></li>
+    <li><a href="https://www.youtube.com/watch?v=5cG6s3c4oJc" target="_blank">Data Science Interview Questions - Krish Naik</a></li>
+    <li><a href="https://www.youtube.com/watch?v=RBSGKlAvoiM" target="_blank">Statistics for Data Science - FreeCodeCamp</a></li>
+</ul>
+
+<h2>25 Interview Questions</h2>
+<ol>
+    <li><strong>(Easy)</strong> What is the difference between supervised and unsupervised learning?</li>
+    <li><strong>(Easy)</strong> Explain variance and bias in machine learning.</li>
+    <li><strong>(Easy)</strong> What are the different types of sampling techniques?</li>
+    <li><strong>(Easy)</strong> How is missing data handled?</li>
+    <li><strong>(Easy)</strong> What is overfitting? How can you avoid it?</li>
+    <li><strong>(Medium)</strong> What is A/B testing and how is it used in Data Science?</li>
+    <li><strong>(Medium)</strong> Explain the difference between bagging and boosting.</li>
+    <li><strong>(Medium)</strong> How does a random forest work?</li>
+    <li><strong>(Medium)</strong> What’s the role of p-value in hypothesis testing?</li>
+    <li><strong>(Medium)</strong> Describe precision, recall, and F1-score.</li>
+    <li><strong>(Medium)</strong> What’s the curse of dimensionality?</li>
+    <li><strong>(Medium)</strong> Explain how Principal Component Analysis (PCA) works.</li>
+    <li><strong>(Medium)</strong> What’s the difference between L1 and L2 regularization?</li>
+    <li><strong>(Medium)</strong> When would you use a decision tree over logistic regression?</li>
+    <li><strong>(Difficult)</strong> Implement a k-means clustering algorithm from scratch.</li>
+    <li><strong>(Difficult)</strong> Design an end-to-end pipeline for real-time fraud detection.</li>
+    <li><strong>(Difficult)</strong> Explain gradient descent with respect to convex vs. non-convex functions.</li>
+    <li><strong>(Difficult)</strong> How do you handle imbalanced datasets?</li>
+    <li><strong>(Difficult)</strong> Compare Time Series Forecasting methods (ARIMA vs. Prophet).</li>
+    <li><strong>(Difficult)</strong> What’s the mathematical intuition behind deep learning?</li>
+    <li><strong>(Difficult)</strong> Explain backpropagation with respect to a neural network.</li>
+    <li><strong>(Difficult)</strong> Design a recommendation system from scratch.</li>
+    <li><strong>(Difficult)</strong> How would you deploy a machine learning model at scale?</li>
+    <li><strong>(Difficult)</strong> Explain the working of an autoencoder.</li>
+    <li><strong>(Difficult)</strong> What are generative adversarial networks (GANs)?</li>
+</ol>
+
+<h2>Scenario-Based Questions</h2>
+<ol>
+    <li>You’re given a dataset with millions of rows and hundreds of features. How would you approach cleaning and analyzing it?</li>
+    <li>Your model has high accuracy but poor recall. What steps would you take?</li>
+    <li>You are assigned to predict churn for a telecom company. Walk through your pipeline from data collection to deployment.</li>
+</ol>
+
+<h2>Project Ideas</h2>
+<ul>
+    <li>Customer segmentation using unsupervised learning</li>
+    <li>Predicting credit card fraud</li>
+    <li>Analyzing Twitter sentiment about a political topic</li>
+    <li>Movie recommendation engine using collaborative filtering</li>
+</ul>
+
+<h2>Bonus Tips</h2>
+<ul>
+    <li>Always validate assumptions with exploratory data analysis (EDA).</li>
+    <li>Explain concepts clearly using simple examples.</li>
+    <li>Practice case studies for domain-specific applications.</li>
+</ul>
+
+<h2>Top 10 Companies Hiring Data Scientists (With Job Descriptions & Requirements)</h2>
+<ul>
+    <li><strong>Google</strong> - Strong ML skills, SQL, and deployment experience. PhD preferred.</li>
+    <li><strong>Amazon</strong> - Statistical modeling, demand forecasting, AWS knowledge.</li>
+    <li><strong>Microsoft</strong> - Expertise in data storytelling, cloud tools (Azure), and ML algorithms.</li>
+    <li><strong>Facebook (Meta)</strong> - Strong Python/R, deep learning frameworks, data product experience.</li>
+    <li><strong>Netflix</strong> - Recommendation engines, A/B testing, product analytics.</li>
+    <li><strong>Airbnb</strong> - Advanced analytics for marketplace optimization, experimentation.</li>
+    <li><strong>Uber</strong> - Geo-spatial data analysis, pricing models, strong business sense.</li>
+    <li><strong>Spotify</strong> - NLP, user behavior modeling, large-scale ML systems.</li>
+    <li><strong>LinkedIn</strong> - Economic graph modeling, data pipelines, personalization systems.</li>
+    <li><strong>Adobe</strong> - Digital media insights, cloud data architecture, predictive modeling.</li>
+</ul>
+{% endblock %}

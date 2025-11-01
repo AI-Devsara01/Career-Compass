@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis</title>
+</head>
+<body>
+    <h1>Resume Analysis</h1>
+
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="resume" required>
+        <button type="submit">Upload Resume</button>
+    </form>
+
+    {% if analysis %}
+        <h2>Analysis Results:</h2>
+        <p><strong>ATS Score:</strong> {{ ats_score }}%</p>
+
+        <p><strong>Matched Keywords:</strong></p>
+        <ul>
+            {% for keyword in matched_keywords %}
+                <li>{{ keyword }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Missing Keywords:</strong></p>
+        <ul>
+            {% for keyword in missing_keywords %}
+                <li>{{ keyword }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Grammar Issues:</strong></p>
+        <ul>
+            {% for issue in grammar_issues %}
+                <li>{{ issue }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Recommendations:</strong></p>
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>{{ recommendation }}</li>
+            {% endfor %}
+        </ul>
+
+        <p><strong>Raw Text Extracted:</strong></p>
+        <pre>{{ raw_text }}</pre>
+    {% endif %}
+</body>
+</html>

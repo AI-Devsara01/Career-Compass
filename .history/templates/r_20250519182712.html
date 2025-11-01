@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Analysis Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        .score {
+            font-size: 20px;
+            font-weight: bold;
+            color: #27ae60;
+        }
+        .job-match {
+            margin-top: 20px;
+        }
+        .job-match h2 {
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Resume Analysis Result</h1>
+        <p class="score">ATS Score: {{ ats_score }}%</p>
+
+        <div class="job-match">
+            <h2>Top Matching Job Role:</h2>
+            <p><strong>Role:</strong> {{ top_job }}</p>
+            <p><strong>Match Score:</strong> {{ top_score }}%</p>
+        </div>
+    </div>
+</body>
+</html>

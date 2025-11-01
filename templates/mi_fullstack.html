@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Full Stack Developer Mock Interview</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --accent-blue: #4285f4;
+      --white: #ffffff;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #5f6368;
+      --dark-bg: #121212;
+      --dark-surface: #1e1e1e;
+      --dark-text: #e0e0e0;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      --bg-color: var(--white);
+      --surface-color: var(--light-gray);
+      --card-color: var(--white);
+      --text-color: #333333;
+      --heading-color: var(--primary-blue);
+      --border-color: var(--medium-gray);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --hover-color: #f1f3f4;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-color: var(--dark-bg);
+      --surface-color: var(--dark-surface);
+      --card-color: #2d2d2d;
+      --text-color: var(--dark-text);
+      --heading-color: var(--accent-blue);
+      --border-color: #3c4043;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --hover-color: #3d3d3d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    a {
+      text-decoration: none;
+      color: var(--primary-blue);
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--hover-color);
+    }
+
+    .theme-toggle i {
+      font-size: 18px;
+      color: var(--heading-color);
+    }
+
+    .theme-text {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin: 100px 0 50px;
+      padding: 0 20px;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      color: var(--heading-color);
+      margin-bottom: 20px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Section Styling */
+    .section {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--box-shadow);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px var(--shadow-color);
+    }
+
+    .section h2 {
+      color: var(--heading-color);
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section h2 i {
+      font-size: 1.4rem;
+    }
+
+    /* Lists */
+    ul, ol {
+      margin: 20px 0 20px 30px;
+    }
+
+    ul li, ol li {
+      margin-bottom: 12px;
+      padding-left: 5px;
+      position: relative;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li::before {
+      content: "•";
+      color: var(--heading-color);
+      font-weight: bold;
+      position: absolute;
+      left: -1.2em;
+    }
+
+    ol {
+      counter-reset: item;
+      list-style-type: none;
+    }
+
+    ol li {
+      counter-increment: item;
+    }
+
+    ol li::before {
+      content: counter(item) ".";
+      color: var(--heading-color);
+      font-weight: bold;
+      position: absolute;
+      left: -1.5em;
+    }
+
+    /* Difficulty Tags */
+    .difficulty {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .easy {
+      background-color: #e6f4ea;
+      color: #0d652d;
+    }
+
+    [data-theme="dark"] .easy {
+      background-color: #1e3a2a;
+      color: #81c995;
+    }
+
+    .medium {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+    }
+
+    [data-theme="dark"] .medium {
+      background-color: #1a2c4f;
+      color: #8ab4f8;
+    }
+
+    .difficult {
+      background-color: #fce8e6;
+      color: #c5221f;
+    }
+
+    [data-theme="dark"] .difficult {
+      background-color: #3c1a19;
+      color: #f28b82;
+    }
+
+    /* Video Cards */
+    .video-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .video-card {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      padding-top: 56.25%;
+      background-color: #000;
+    }
+
+    .video-thumbnail img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 48px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .video-card:hover .play-icon {
+      opacity: 1;
+    }
+
+    .video-info {
+      padding: 18px;
+    }
+
+    .video-info h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    /* Company Cards */
+    .company-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .company-card {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .company-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    .company-card h3 {
+      color: var(--heading-color);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .company-card p {
+      font-size: 14px;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+      z-index: 10;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background-color: var(--dark-blue);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+      text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .page-header {
+        margin: 80px 0 40px;
+      }
+      
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 25px;
+      }
+      
+      .video-cards, .company-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .theme-toggle {
+        padding: 8px 12px;
+      }
+      
+      .theme-text {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+      
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon" id="themeIcon"></i>
+    <span class="theme-text" id="themeText">Dark Mode</span>
+  </div>
+
+  <div class="page-header">
+    <h1><i class="fas fa-code"></i> Full Stack Developer Mock Interview</h1>
+    <p>Your complete guide to acing full stack developer interviews. Includes top questions, project ideas, and company requirements.</p>
+  </div>
+
+  <div class="container">
+    <section class="section">
+      <h2><i class="fas fa-info-circle"></i> Role Introduction</h2>
+      <p>Full Stack Developers are skilled in both frontend and backend technologies. They design, build, and maintain entire web applications, ensuring both user experience and system performance.</p>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-tools"></i> Key Skills</h2>
+      <ul>
+        <li><strong>Frontend:</strong> HTML, CSS, JavaScript, React/Vue/Angular</li>
+        <li><strong>Backend:</strong> Node.js, Express, Django, Flask, Spring Boot</li>
+        <li><strong>Databases:</strong> MongoDB, MySQL, PostgreSQL, Firebase</li>
+        <li><strong>DevOps:</strong> Docker, Kubernetes, CI/CD pipelines</li>
+        <li><strong>APIs:</strong> REST, GraphQL, WebSockets</li>
+        <li><strong>Version Control:</strong> Git, GitHub, GitLab</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-video"></i> Top Learning Resources</h2>
+      <div class="video-cards">
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=nu_pCVPKzTk" target="_blank">
+            <div class="video-thumbnail">
+              <img src="https://img.youtube.com/vi/nu_pCVPKzTk/maxresdefault.jpg" alt="Full Stack Developer Roadmap 2024">
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-info">
+              <h3>Full Stack Developer Roadmap 2024</h3>
+            </div>
+          </a>
+        </div>
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=Ukg_U3CnJWI" target="_blank">
+            <div class="video-thumbnail">
+              <img src="https://img.youtube.com/vi/Ukg_U3CnJWI/maxresdefault.jpg" alt="How to Become a Full Stack Web Developer">
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-info">
+              <h3>How to Become a Full Stack Web Developer</h3>
+            </div>
+          </a>
+        </div>
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=ENrzD9HAZK4" target="_blank">
+            <div class="video-thumbnail">
+              <img src="https://img.youtube.com/vi/ENrzD9HAZK4/maxresdefault.jpg" alt="System Design for Full Stack Developers">
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-info">
+              <h3>System Design for Full Stack Developers</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-question-circle"></i> Interview Questions</h2>
+      <ol>
+        <li>Explain the difference between HTML and HTML5. <span class="difficulty easy">Easy</span></li>
+        <li>What is the virtual DOM? <span class="difficulty easy">Easy</span></li>
+        <li>How does JavaScript event delegation work? <span class="difficulty easy">Easy</span></li>
+        <li>What is the difference between == and === in JavaScript? <span class="difficulty easy">Easy</span></li>
+        <li>Explain RESTful APIs. <span class="difficulty easy">Easy</span></li>
+        <li>What are hooks in React? <span class="difficulty medium">Medium</span></li>
+        <li>How does the event loop work in Node.js? <span class="difficulty medium">Medium</span></li>
+        <li>Difference between SQL and NoSQL databases? <span class="difficulty medium">Medium</span></li>
+        <li>How do you secure a REST API? <span class="difficulty medium">Medium</span></li>
+        <li>Describe the MVC architecture. <span class="difficulty medium">Medium</span></li>
+        <li>How do you handle CORS issues? <span class="difficulty medium">Medium</span></li>
+        <li>What are middlewares in Express.js? <span class="difficulty medium">Medium</span></li>
+        <li>How does Docker help in deployment? <span class="difficulty medium">Medium</span></li>
+        <li>Explain JWT authentication. <span class="difficulty medium">Medium</span></li>
+        <li>How would you scale a full-stack application? <span class="difficulty difficult">Difficult</span></li>
+        <li>Describe your approach to implementing SSR with React. <span class="difficulty difficult">Difficult</span></li>
+        <li>Explain microservices architecture in full stack apps. <span class="difficulty difficult">Difficult</span></li>
+        <li>How would you optimize performance in a large-scale React app? <span class="difficulty difficult">Difficult</span></li>
+        <li>What are GraphQL advantages over REST? <span class="difficulty difficult">Difficult</span></li>
+        <li>How do you manage state in large React applications? <span class="difficulty difficult">Difficult</span></li>
+        <li>Describe the process of CI/CD with Docker and GitHub Actions. <span class="difficulty difficult">Difficult</span></li>
+        <li>What is serverless architecture and its pros/cons? <span class="difficulty difficult">Difficult</span></li>
+        <li>Discuss WebSockets and real-time data communication. <span class="difficulty difficult">Difficult</span></li>
+        <li>How do you structure a full stack monorepo? <span class="difficulty difficult">Difficult</span></li>
+        <li>Explain your approach to testing a full-stack app (unit, integration, E2E). <span class="difficulty difficult">Difficult</span></li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-lightbulb"></i> Scenario-Based Questions</h2>
+      <ol>
+        <li>Your client wants a secure e-commerce app. Walk through your tech stack and security approach.</li>
+        <li>You need to optimize a React app for mobile. What steps do you take?</li>
+        <li>A team member pushes broken backend code to main. How do you manage the rollback & deployment?</li>
+        <li>How would you design a real-time collaborative document editor?</li>
+        <li>Describe your approach to migrating a monolithic app to microservices.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-project-diagram"></i> Project Ideas</h2>
+      <ul>
+        <li><strong>Full-stack blog platform:</strong> With user auth and markdown editor</li>
+        <li><strong>Real-time chat application:</strong> Using socket.io and React</li>
+        <li><strong>Dashboard with data visualization:</strong> Role-based access and API integration</li>
+        <li><strong>E-commerce platform:</strong> With payment integration and admin dashboard</li>
+        <li><strong>Task management system:</strong> With drag-and-drop interface and team collaboration</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-trophy"></i> Bonus Tips</h2>
+      <ul>
+        <li>Master version control and branching strategies (Git Flow, Trunk-Based Development)</li>
+        <li>Build reusable components and optimize rendering performance</li>
+        <li>Always keep accessibility and responsive design in mind</li>
+        <li>Understand both SQL and NoSQL database tradeoffs</li>
+        <li>Practice system design and architecture patterns</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-building"></i> Top Companies & Requirements</h2>
+      <div class="company-cards">
+        <div class="company-card">
+          <h3><i class="fab fa-google"></i> Google</h3>
+          <p>React, TypeScript, scalable backend (Go/Node), system design</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-microsoft"></i> Microsoft</h3>
+          <p>Full-stack .NET & JS, cloud services (Azure), CI/CD</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-amazon"></i> Amazon</h3>
+          <p>Microservices, AWS, security best practices</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-meta"></i> Meta</h3>
+          <p>React + GraphQL, scalable architecture, testing expertise</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-netflix"></i> Netflix</h3>
+          <p>JavaScript performance, Node.js, micro frontends</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-home"></i> Airbnb</h3>
+          <p>React, RESTful APIs, cross-functional collaboration</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-store"></i> Shopify</h3>
+          <p>Full-stack Ruby/JS, accessibility, unit testing</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-taxi"></i> Uber</h3>
+          <p>React + Redux, Node.js, real-time data systems</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <a href="/mock_interview" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to All Roles
+  </a>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const currentTheme = localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    // Set initial icon and text
+    if (currentTheme === 'dark') {
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+      themeText.textContent = 'Light Mode';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Toggle icon and text
+      if (newTheme === 'dark') {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+        themeText.textContent = 'Light Mode';
+      } else {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+        themeText.textContent = 'Dark Mode';
+      }
+    });
+  </script>
+</body>
+</html>

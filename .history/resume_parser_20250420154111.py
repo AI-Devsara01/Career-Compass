@@ -1,0 +1,173 @@
+import os
+import re
+import spacy
+import docx
+from collections import defaultdict
+import language_tool_python
+import pdfplumber
+from PyPDF2 import PdfReader
+
+# Load SpaCy model and grammar checker
+nlp = spacy.load("en_core_web_sm")
+tool = language_tool_python.LanguageTool('en-US')
+
+# Role keywords dictionary
+ROLE_KEYWORDS = {
+    "AI Engineer": ["machine learning", "deep learning", "tensorflow", "pytorch", "AI", "ML", "scikit-learn", "model training", "neural networks"],
+    "Data Scientist": ["data analysis", "python", "statistics", "pandas", "numpy", "visualization", "regression", "EDA", "data mining"],
+    "Cloud Engineer": ["aws", "azure", "gcp", "cloud", "devops", "kubernetes", "docker", "infrastructure", "cloud computing"],
+    "Cybersecurity Analyst": ["cybersecurity", "network", "threat", "vulnerability", "security", "encryption", "firewall", "penetration testing"],
+    "Full Stack Developer": ["javascript", "react", "node", "backend", "frontend", "django", "flask", "express", "api", "database"],
+    "DevOps Engineer": ["CI/CD", "jenkins", "docker", "kubernetes", "ansible", "terraform", "monitoring", "automation", "infrastructure"],
+    "Software Engineer": ["java", "c++", "python", "algorithms", "system design", "oop", "data structures", "software development"],
+    "Product Manager": ["agile", "roadmap", "stakeholders", "market research", "user stories", "product", "MVP", "product strategy"],
+    "Blockchain Developer": ["blockchain", "ethereum", "solidity", "smart contract", "web3", "dapps", "crypto", "nft", "decentralized"],
+    "UI/UX Designer": ["wireframes", "prototyping", "user research", "figma", "adobe xd", "interaction design", "usability", "ui", "ux"]
+}
+
+# Role slugs for cleaner naming (optional usage)
+ROLE_SLUGS = {
+    "AI Engineer": "ai_engineer",
+    "Data Scientist": "data_scientist",
+    "Cloud Engineer": "cloud_engineer",
+    "Cybersecurity Analyst": "cybersecurity_analyst",
+    "Full Stack Developer": "full_stack",
+    "DevOps Engineer": "devops",
+    "Software Engineer": "software_engineer",
+    "Product Manager": "product_manager",
+    "Blockchain Developer": "blockchain_dev",
+    "UI/UX Designer": "uiux"
+}
+
+# Section weights for scoring
+SECTION_WEIGHTS = {
+    "education": 20,
+    "experience": 30,
+    "skills": 25,
+    "projects": 15,
+    "certifications": 10
+}
+
+# Extract text from resume file (PDF, DOCX, DOC)
+
+# Grade the structure of the resume based on key sections
+def grade_sections(resume_text):
+    section_scores = {}
+    for section, weight in SECTION_WEIGHTS.items():
+        pattern = re.compile(rf"\b{re.escape(section)}\b", re.IGNORECASE)
+        section_scores[section] = weight if pattern.search(resume_text) else 0
+    total_score = sum(section_scores.values())
+    return section_scores, total_score
+
+# Find grammar issues in the resume
+def grammar_issues(resume_text):
+    matches = tool.check(resume_text)
+    return [{
+        "message": m.message,
+        "sentence": m.context.strip(),
+        "offset": m.offset
+    } for m in matches]
+
+# Main role recommender and resume evaluator
+def recommend_role(resume_text):
+    if not resume_text.strip():
+        print("No text extracted from the resume!")  # Debugging line
+        return {
+            "role_slug": "",
+            "recommended_role": "No suitable match",
+            "ats_score": 0,
+            "matched_keywords": [],
+            "missing_keywords": [],
+            "recommendations": {},
+            "section_scores": {},
+            "section_total": 0,
+            "grammar_issues": [],
+            "areas_of_improvement": ["Ensure your resume contains key skills and experience."]
+        }
+
+    scores = {role: 0 for role in ROLE_KEYWORDS}
+    keyword_hits = {role: [] for role in ROLE_KEYWORDS}
+
+    for role, keywords in ROLE_KEYWORDS.items():
+        for kw in keywords:
+            if re.search(r'\b' + re.escape(kw.lower()) + r'\b', resume_text):
+                scores[role] += 1
+                keyword_hits[role].append(kw)
+
+    print(f"Scores: {scores}")  # Debugging line to see the keyword match scores
+
+    best_match = max(scores, key=scores.get)
+    matched_keywords = keyword_hits[best_match]
+
+    if scores[best_match] == 0:
+        return {
+            "role_slug": "",
+            "recommended_role": "No suitable match",
+            "ats_score": 0,
+            "matched_keywords": [],
+            "missing_keywords": [],
+            "recommendations": {},
+            "section_scores": {},
+            "section_total": 0,
+            "grammar_issues": [],
+            "areas_of_improvement": ["Ensure your resume contains key skills and experience."]
+        }
+
+    total_keywords = ROLE_KEYWORDS[best_match]
+    missing_keywords = list(set(total_keywords) - set(matched_keywords))
+    ats_score = round((len(matched_keywords) / len(total_keywords)) * 100)
+
+    recommendations = {
+        skill: f"Learn more about {skill}" for skill in missing_keywords
+    }
+
+    section_scores, section_total = grade_sections(resume_text)
+    grammar_feedback = grammar_issues(resume_text)
+
+    return {
+        "role_slug": ROLE_SLUGS.get(best_match, best_match.replace(" ", "_").lower()),
+        "recommended_role": best_match,
+        "ats_score": ats_score,
+        "matched_keywords": matched_keywords,
+        "missing_keywords": missing_keywords,
+        "recommendations": recommendations,
+        "section_scores": section_scores,
+        "section_total": section_total,
+        "grammar_issues": grammar_feedback,
+        "areas_of_improvement": ["Ensure your resume contains key skills and experience."]
+    }
+
+def main():
+    file_path = input("Enter the path to the resume file (PDF, DOCX, DOC): ")
+    
+    # Check if the file exists
+    if not os.path.exists(file_path):
+        print(f"File {file_path} not found. Please provide a valid path.")
+        return
+    
+    # Extract text from resume
+    resume_text = extract_text(file_path)
+    
+    if resume_text:
+        # Get role recommendation and analysis
+        result = recommend_role(resume_text)
+        
+        # Output the result
+        print("\nResume Analysis Result:")
+        print(f"Recommended Role: {result['recommended_role']}")
+        print(f"ATS Score: {result['ats_score']}%")
+        print(f"Matched Keywords: {', '.join(result['matched_keywords'])}")
+        print(f"Missing Keywords: {', '.join(result['missing_keywords'])}")
+        print("Section Scores:")
+        for section, score in result['section_scores'].items():
+            print(f"  {section.capitalize()}: {score}")
+        print(f"Total Section Score: {result['section_total']}")
+        print(f"Grammar Issues:")
+        for issue in result['grammar_issues']:
+            print(f"  - {issue['message']} in sentence: {issue['sentence']}")
+        print(f"Areas of Improvement: {', '.join(result['areas_of_improvement'])}")
+    else:
+        print("Failed to extract text from the resume.")
+
+if __name__ == "__main__":
+    main()

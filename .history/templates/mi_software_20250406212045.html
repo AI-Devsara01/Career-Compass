@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Software Engineer Mock Interview</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+  <body>
+    <div class="page-header">
+      <h1>Software Engineer Mock Interview</h1>
+      <p>Master your software engineering interviews with real questions, core skills, scenario practices, and company expectations.</p>
+    </div>
+  
+    <div class="module-container">
+      <div class="module-section">
+        <div class="content-section">
+          <h2>🧠 Key Skills</h2>
+          <ul>
+            <li>Data Structures and Algorithms</li>
+            <li>Object-Oriented Programming</li>
+            <li>System Design</li>
+            <li>Database Design (SQL & NoSQL)</li>
+            <li>API Development & REST</li>
+            <li>Version Control (Git)</li>
+            <li>Testing & Debugging</li>
+            <li>Agile Methodologies</li>
+          </ul>
+  
+          <h2>🎞️ Top 3 YouTube Resources</h2>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=8hly31xKli0" target="_blank">System Design Primer</a></li>
+            <li><a href="https://www.youtube.com/watch?v=Yv2jzDzYlp8" target="_blank">Top DSA Interview Questions</a></li>
+            <li><a href="https://www.youtube.com/watch?v=fis26HvvDII" target="_blank">Behavioral Interview for SEs</a></li>
+          </ul>
+  
+          <h2>💼 Interview Questions (with Difficulty)</h2>
+          <ul>
+            <li><strong>Easy:</strong> What are the principles of OOP?</li>
+            <li><strong>Easy:</strong> Explain differences between stack and queue.</li>
+            <li><strong>Easy:</strong> What is a RESTful API?</li>
+            <li><strong>Easy:</strong> How do you use version control in a team setting?</li>
+            <li><strong>Easy:</strong> Describe your favorite programming language and why.</li>
+  
+            <li><strong>Medium:</strong> Explain how hash tables work and where they are used.</li>
+            <li><strong>Medium:</strong> Design a basic library management system.</li>
+            <li><strong>Medium:</strong> How would you optimize SQL queries?</li>
+            <li><strong>Medium:</strong> Describe a time you handled a production issue.</li>
+            <li><strong>Medium:</strong> How do you perform unit and integration testing?</li>
+  
+            <li><strong>Difficult:</strong> How would you design a URL shortener system?</li>
+            <li><strong>Difficult:</strong> Implement LRU Cache from scratch.</li>
+            <li><strong>Difficult:</strong> How do you handle database sharding?</li>
+            <li><strong>Difficult:</strong> What are CAP Theorem implications in distributed systems?</li>
+            <li><strong>Difficult:</strong> How do you ensure scalability in a microservice architecture?</li>
+          </ul>
+  
+          <h2>📚 Scenario-Based Questions</h2>
+          <ul>
+            <li>You're given a legacy monolith app. How would you modernize it?</li>
+            <li>You find a critical bug during deployment—what’s your course of action?</li>
+            <li>Design a notification system with retries and failure handling.</li>
+          </ul>
+  
+          <h2>🚀 Project Ideas</h2>
+          <ul>
+            <li>Build a real-time chat application using WebSockets.</li>
+            <li>Create a collaborative document editor with autosave and history tracking.</li>
+            <li>Develop a backend for an e-commerce site with product search and cart system.</li>
+          </ul>
+  
+          <h2>🏆 Top Companies Hiring Software Engineers</h2>
+          <ul>
+            <li><strong>Google:</strong> Scalable system design, algorithm optimization</li>
+            <li><strong>Amazon:</strong> High availability systems, performance engineering</li>
+            <li><strong>Meta:</strong> Distributed infrastructure, machine learning</li>
+            <li><strong>Netflix:</strong> Data-driven development, microservices</li>
+            <li><strong>Microsoft:</strong> Full-stack engineering, secure coding practices</li>
+            <li><strong>Apple:</strong> Performance optimization, mobile app development</li>
+            <li><strong>Adobe:</strong> API development, clean UI integration</li>
+            <li><strong>Salesforce:</strong> CRM tools, scalable cloud solutions</li>
+            <li><strong>LinkedIn:</strong> Real-time data pipelines, search optimization</li>
+            <li><strong>Spotify:</strong> Streaming architecture, personalized recommendation systems</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    <a href="/mock_interview" class="back-btn">⬅ Back to Roles</a>
+  </body>
+  </html>
+  

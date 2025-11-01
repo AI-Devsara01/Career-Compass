@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI/ML Engineer Interview Prep</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2103/2103633.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-light: #f8fafc;
+      --text-light: #1e293b;
+      --bg-dark: #0f172a;
+      --text-dark: #f8fafc;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --accent-yellow: #f59e0b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      padding: 2rem 0;
+    }
+
+    .header h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin: 0 0 1rem;
+      background: linear-gradient(90deg, var(--primary-blue), var(--dark-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-light);
+      opacity: 0.9;
+    }
+
+    .dark-mode .header p {
+      color: var(--text-dark);
+    }
+
+    /* Toggle Switch */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 15px;
+      border-radius: 30px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .dark-mode .theme-toggle {
+      background: rgba(30, 41, 59, 0.9);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 34px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--primary-blue);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+
+    /* Section Styles */
+    .section {
+      background-color: var(--card-light);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .dark-mode .section {
+      background-color: var(--card-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .section:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dark-mode .section h2 {
+      color: var(--light-blue);
+    }
+
+    /* List Styles */
+    ul, ol {
+      margin-left: 1.5rem;
+      padding-left: 0;
+    }
+
+    ul li, ol li {
+      margin-bottom: 0.8rem;
+      padding-left: 0;
+      position: relative;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li::before {
+      content: "•";
+      color: var(--primary-blue);
+      font-weight: bold;
+      position: absolute;
+      left: -1.2em;
+    }
+
+    .dark-mode ul li::before {
+      color: var(--light-blue);
+    }
+
+    ol {
+      counter-reset: item;
+      list-style-type: none;
+    }
+
+    ol li {
+      counter-increment: item;
+    }
+
+    ol li::before {
+      content: counter(item) ".";
+      color: var(--primary-blue);
+      font-weight: bold;
+      position: absolute;
+      left: -1.5em;
+    }
+
+    .dark-mode ol li::before {
+      color: var(--light-blue);
+    }
+
+    /* Difficulty Indicators */
+    li[difficulty="easy"]::after {
+      content: " (Easy)";
+      color: var(--accent-green);
+      font-size: 0.85em;
+      margin-left: 8px;
+    }
+
+    li[difficulty="medium"]::after {
+      content: " (Medium)";
+      color: var(--accent-yellow);
+      font-size: 0.85em;
+      margin-left: 8px;
+    }
+
+    li[difficulty="difficult"]::after {
+      content: " (Difficult)";
+      color: var(--accent-red);
+      font-size: 0.85em;
+      margin-left: 8px;
+    }
+
+    /* Link Styles */
+    a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 1px dashed transparent;
+    }
+
+    a:hover {
+      color: var(--dark-blue);
+      border-bottom: 1px dashed var(--primary-blue);
+    }
+
+    .dark-mode a {
+      color: var(--light-blue);
+    }
+
+    .dark-mode a:hover {
+      color: #bfdbfe;
+      border-bottom: 1px dashed var(--light-blue);
+    }
+
+    /* Company List */
+    .company-list li {
+      margin-bottom: 1.2rem;
+    }
+
+    .company-list strong {
+      color: var(--primary-blue);
+    }
+
+    .dark-mode .company-list strong {
+      color: var(--light-blue);
+    }
+
+    /* Back Button */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 0.8rem 1.8rem;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      margin-top: 2rem;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      box-shadow: 0 4px 6px rgba(37, 99, 235, 0.2);
+      gap: 8px;
+    }
+
+    .back-btn:hover {
+      background-color: var(--dark-blue);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(37, 99, 235, 0.3);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .header p {
+        font-size: 1rem;
+      }
+      
+      .section {
+        padding: 1.5rem;
+      }
+      
+      .section h2 {
+        font-size: 1.5rem;
+      }
+
+      .theme-toggle {
+        top: 10px;
+        right: 10px;
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
+
+      .toggle-switch {
+        width: 40px;
+        height: 20px;
+      }
+
+      .slider:before {
+        height: 12px;
+        width: 12px;
+      }
+
+      input:checked + .slider:before {
+        transform: translateX(20px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      .header {
+        padding: 1rem 0;
+      }
+      
+      .header h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle">
+    <span id="themeText">Dark Mode</span>
+    <label class="toggle-switch">
+      <input type="checkbox" id="theme-toggle">
+      <span class="slider"></span>
+    </label>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-robot"></i> AI/ML Engineer Interview Prep</h1>
+      <p>Comprehensive guide to ace your AI/ML engineering interviews with key concepts, questions, and resources</p>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-brain"></i> Role Introduction</h2>
+      <p>AI/ML Engineers design and implement intelligent systems that learn from data. They develop algorithms, train models, build data pipelines, and deploy scalable AI solutions across various industries.</p>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-tools"></i> Key Skills</h2>
+      <ul>
+        <li><strong>Programming:</strong> Python, R, SQL</li>
+        <li><strong>Frameworks:</strong> TensorFlow, PyTorch, Scikit-learn</li>
+        <li><strong>Data Processing:</strong> Data preprocessing, feature engineering</li>
+        <li><strong>Deep Learning:</strong> CNNs, RNNs, Transformers</li>
+        <li><strong>Deployment:</strong> Docker, Kubernetes, Flask APIs</li>
+        <li><strong>MLOps:</strong> CI/CD pipelines, model monitoring</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-video"></i> Top Learning Resources</h2>
+      <ul>
+        <li><a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank"><i class="fab fa-youtube"></i> Neural Networks from Scratch - 3Blue1Brown</a></li>
+        <li><a href="https://www.youtube.com/watch?v=GwIo3gDZCVQ" target="_blank"><i class="fab fa-youtube"></i> Deep Learning with PyTorch - freeCodeCamp</a></li>
+        <li><a href="https://www.youtube.com/watch?v=7eh4d6sabA0" target="_blank"><i class="fab fa-youtube"></i> Machine Learning in 10 Minutes - Fireship</a></li>
+        <li><a href="https://www.coursera.org/specializations/deep-learning" target="_blank"><i class="fas fa-graduation-cap"></i> Deep Learning Specialization - Andrew Ng</a></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-question-circle"></i> 25 Interview Questions</h2>
+      <ol>
+        <li difficulty="easy">What is overfitting and how can it be avoided?</li>
+        <li difficulty="easy">Explain the difference between supervised and unsupervised learning.</li>
+        <li difficulty="easy">What is the bias-variance trade-off?</li>
+        <li difficulty="easy">What is a confusion matrix?</li>
+        <li difficulty="easy">Define precision and recall.</li>
+        <li difficulty="medium">How does a random forest work?</li>
+        <li difficulty="medium">Explain how gradient descent works.</li>
+        <li difficulty="medium">What is dropout in neural networks?</li>
+        <li difficulty="medium">What is the vanishing gradient problem?</li>
+        <li difficulty="medium">How do you select features in a dataset?</li>
+        <li difficulty="medium">Explain the role of activation functions.</li>
+        <li difficulty="medium">What is PCA and when do you use it?</li>
+        <li difficulty="medium">Describe the architecture of a CNN.</li>
+        <li difficulty="medium">What are the differences between bagging and boosting?</li>
+        <li difficulty="difficult">How do transformers work in NLP?</li>
+        <li difficulty="difficult">How would you scale a model to millions of users?</li>
+        <li difficulty="difficult">Explain reinforcement learning with an example.</li>
+        <li difficulty="difficult">What are LLMs and how are they trained?</li>
+        <li difficulty="difficult">Describe how attention mechanism works.</li>
+        <li difficulty="difficult">How do you evaluate model drift in production?</li>
+        <li difficulty="difficult">How would you design a real-time fraud detection system?</li>
+        <li difficulty="difficult">Explain the difference between batch and online learning.</li>
+        <li difficulty="difficult">How do you handle imbalanced datasets in real projects?</li>
+        <li difficulty="difficult">Design an ML system for YouTube recommendations.</li>
+        <li difficulty="difficult">How do you monitor and retrain models in production?</li>
+      </ol>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-lightbulb"></i> Scenario-Based Questions</h2>
+      <ul>
+        <li>You are given a high-variance model with 90% training accuracy and 60% testing accuracy. What steps will you take?</li>
+        <li>A client's model accuracy drops sharply in production. What would you investigate?</li>
+        <li>How would you choose between different ML algorithms for a classification problem?</li>
+        <li>You need to deploy a model with strict latency requirements. How would you approach this?</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-rocket"></i> Project Ideas</h2>
+      <ul>
+        <li><strong>Fake news detection</strong> using NLP and transformer models</li>
+        <li><strong>AI-based Resume Screener</strong> with custom entity recognition</li>
+        <li><strong>Stock price prediction</strong> using LSTM networks</li>
+        <li><strong>ML-powered Personal Finance Assistant</strong> with spending pattern analysis</li>
+        <li><strong>Medical diagnosis assistant</strong> using computer vision</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-bullseye"></i> Interview Tips</h2>
+      <ul>
+        <li>Explain concepts with real-world use cases and examples</li>
+        <li>Know your past projects thoroughly—be prepared for deep dives</li>
+        <li>Practice whiteboarding and writing pseudocode</li>
+        <li>Stay updated with recent AI breakthroughs (LLMs, diffusion models, etc.)</li>
+        <li>Prepare questions about the company's ML infrastructure and challenges</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-building"></i> Top Companies & Requirements</h2>
+      <ol class="company-list">
+        <li><strong>Google:</strong> TensorFlow, LLMs, JAX, distributed training, PhD preferred.</li>
+        <li><strong>Microsoft:</strong> Azure ML, model optimization, PyTorch, AI ethics understanding.</li>
+        <li><strong>Amazon:</strong> AWS SageMaker, NLP, recommender systems, scalable inference.</li>
+        <li><strong>Meta:</strong> PyTorch, large-scale ML, AR/VR-based AI research.</li>
+        <li><strong>OpenAI:</strong> LLMs, GPT training, reinforcement learning, safety research.</li>
+        <li><strong>NVIDIA:</strong> CUDA, deep learning frameworks, computer vision models.</li>
+        <li><strong>Apple:</strong> CoreML, on-device ML optimization, privacy-preserving ML.</li>
+        <li><strong>Netflix:</strong> ML in personalization & recommendations, scalable ML pipelines.</li>
+        <li><strong>Adobe:</strong> Generative AI, computer vision, user-centric ML tools.</li>
+        <li><strong>Salesforce:</strong> Einstein AI, NLP, CRM data models, ML APIs.</li>
+      </ol>
+    </div>
+
+    <button class="back-btn" onclick="window.history.back()"><i class="fas fa-arrow-left"></i> Back to Roadmaps</button>
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    const toggle = document.getElementById('theme-toggle');
+    const themeText = document.getElementById('themeText');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const icon = document.createElement('i');
+    icon.className = 'fas fa-moon';
+    themeText.parentNode.insertBefore(icon, themeText);
+
+    // Check for saved theme preference or use system preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+      toggle.checked = true;
+      icon.className = 'fas fa-sun';
+      themeText.textContent = ' Light Mode';
+    }
+
+    // Toggle theme
+    toggle.addEventListener('change', function() {
+      if (this.checked) {
+        document.body.classList.add('dark-mode');
+        localStorage.setItem('theme', 'dark');
+        icon.className = 'fas fa-sun';
+        themeText.textContent = ' Light Mode';
+      } else {
+        document.body.classList.remove('dark-mode');
+        localStorage.setItem('theme', 'light');
+        icon.className = 'fas fa-moon';
+        themeText.textContent = ' Dark Mode';
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

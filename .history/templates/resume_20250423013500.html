@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Resume Analyzer</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+</head>
+<body>
+  <div class="overlay">
+
+    <!-- Navbar -->
+    <div class="navbar">
+      <a href="/">🏠 Home</a>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="hero-card">
+      <h1>📤 Upload Your Resume</h1>
+      <form method="POST" action="/resume/" enctype="multipart/form-data">
+        <input type="file" name="resume" accept=".pdf,.doc,.docx" required><br><br>
+        <button type="submit" class="btn">Analyze Resume</button>
+      </form>
+    </div>
+
+    <!-- Success Case: Role Matched -->
+    {% if role %}
+    <div class="hero-card">
+      <h1>🧠 Resume Analysis Complete!</h1>
+      <p>Based on your resume, we recommend the career path:</p>
+      <h2 style="color:#00bcd4;">{{ role | replace('_', ' ') | title }}</h2>
+      <p><strong>ATS Score:</strong> {{ ats_score }}%</p>
+
+      {% if matched_keywords %}
+      <p><strong>Matched Skills:</strong></p>
+      <ul>
+        {% for skill in matched_keywords %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if missing_keywords %}
+      <p><strong>Missing Skills:</strong></p>
+      <ul>
+        {% for skill in missing_keywords %}
+        <li>{{ skill }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if recommendations %}
+      <p><strong>Recommended Resources:</strong></p>
+      <ul>
+        {% for skill, link in recommendations.items() %}
+        <li><a href="{{ link }}" target="_blank">{{ skill | capitalize }}</a></li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      {% if grammar_issues %}
+      <p><strong>Grammar Issues:</strong></p>
+      <ul>
+        {% for issue in grammar_issues %}
+        <li>{{ issue }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+
+      <a href="/view/{{ role }}" class="btn">View Roadmap</a>
+    </div>
+
+    <!-- Failure Case: No Role Detected -->
+    {% elif analysis %}
+    <div class="hero-card">
+      <h1>🧠 Resume Analysis Complete!</h1>
+      <p>Sorry, we couldn't confidently match your resume to a specific role.</p>
+      <p><strong>Suggestions for Improvement:</strong></p>
+      <ul>
+        {% for tip in areas_of_improvement %}
+        <li>{{ tip }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <!-- Optional: Extracted Text Debug -->
+    {% if raw_text %}
+    <div class="hero-card">
+      <h3>📄 Extracted Resume Text (Debug View)</h3>
+      <pre style="background:#f9f9f9;padding:10px;border-radius:5px;max-height:300px;overflow-y:auto;">{{ raw_text[:1000] }}</pre>
+    </div>
+    {% endif %}
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Data Scientist Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Data Scientist Roadmap</h1>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+
+    <div class="container">
+        {% for row in dataset %}
+        <div class="card">
+            <h2>{{ row['subtopic'] }}</h2>
+            <p><strong>Description:</strong> {{ row['desc'] }}</p>
+
+              <!-- Video Section -->
+              <p><strong>Video Link:</strong> {{ row['video links'] }}</p>
+             {% set embed_url = row['video links'] | replace('watch?v=', 'embed/') %}
+             <iframe width="560" height="315" 
+             src="{{ embed_url }}" 
+             frameborder="0" 
+             allowfullscreen 
+             title="Video Player"
+             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture">
+     </iframe>
+            {% else %}
+            <p style="background-color: black; color: white; padding: 10px; text-align: center;">
+            No Video Available
+            </p>
+            {% endif %}
+
+            <!-- Interview Questions -->
+            <h3>Interview Questions:</h3>
+            <ul>
+                {% for question in row['interview questions'].split(';') %}
+                    <li>{{ question.strip() }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

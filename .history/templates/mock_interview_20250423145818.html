@@ -1,0 +1,388 @@
+<!-- templates/mock_interview.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    :root {
+      --primary-bg: #f8fafc;
+      --secondary-bg: #ffffff;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --accent-blue: #2563eb;
+      --accent-light-blue: #3b82f6;
+      --accent-yellow: #f59e0b;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --card-border: 1px solid #e2e8f0;
+    }
+
+    [data-theme="dark"] {
+      --primary-bg: #0f172a;
+      --secondary-bg: #1e293b;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --accent-blue: #3b82f6;
+      --accent-light-blue: #60a5fa;
+      --accent-yellow: #fbbf24;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      --card-border: 1px solid #334155;
+    }
+
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--primary-bg);
+      color: var(--text-primary);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header Section */
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 30px;
+      right: 20px;
+      background: var(--secondary-bg);
+      border: none;
+      color: var(--text-primary);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow);
+      font-weight: 500;
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--accent-blue);
+      color: white;
+    }
+
+    .page-header {
+      text-align: center;
+      margin: 60px 0 40px;
+      padding: 0 20px;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      color: var(--accent-blue);
+      margin-bottom: 16px;
+      
+      background: linear-gradient(to right, var(--accent-blue), var(--accent-light-blue));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--text-secondary);
+    }
+
+    /* Interview Grid */
+    .interview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .interview-card {
+      background: var(--secondary-bg);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      border: var(--card-border);
+      transition: transform 0.3s, box-shadow 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .interview-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--accent-blue), var(--accent-light-blue));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 16px;
+      color: white;
+      font-size: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      flex-grow: 1;
+    }
+
+    .card-footer {
+      margin-top: auto;
+    }
+
+    .start-btn {
+      display: inline-block;
+      background: linear-gradient(to right, var(--accent-blue), var(--accent-light-blue));
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 500;
+      text-align: center;
+      width: 100%;
+      transition: transform 0.2s;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent-blue);
+      color: white;
+      padding: 14px 32px;
+      font-size: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .back-btn:hover {
+      background: var(--accent-light-blue);
+      transform: translateX(-50%) scale(1.05);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .interview-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .theme-toggle {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 20px auto;
+        display: inline-flex;
+      }
+    }
+</style>
+
+<div class="header-container">
+  <button class="theme-toggle" id="themeToggle">
+    <span id="themeIcon">🌙</span>
+    <span id="themeText">Dark Mode</span>
+  </button>
+  
+  <div class="page-header">
+    <h1>Mock Interview Preparation</h1>
+    <p>Practice with realistic interview scenarios tailored to your dream role. Select a track below to begin your preparation journey.</p>
+  </div>
+</div>
+
+<div class="interview-grid">
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">🤖</div>
+      <h3 class="card-title">AI/ML Engineer</h3>
+    </div>
+    <p class="card-description">Practice algorithms, model optimization, and ML system design questions for technical interviews at top tech companies.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/ai_engineer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">📊</div>
+      <h3 class="card-title">Data Scientist</h3>
+    </div>
+    <p class="card-description">Master statistics, SQL, and case studies for data science interviews at FAANG and startups.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/data_scientist" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">☁️</div>
+      <h3 class="card-title">Cloud Engineer</h3>
+    </div>
+    <p class="card-description">Prepare for AWS, GCP, and Azure architecture questions with real-world scenarios.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/cloud_engineer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">🔒</div>
+      <h3 class="card-title">Cybersecurity Analyst</h3>
+    </div>
+    <p class="card-description">Practice threat analysis, security protocols, and penetration testing scenarios.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/cybersecurity_analyst" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">💻</div>
+      <h3 class="card-title">Full Stack Developer</h3>
+    </div>
+    <p class="card-description">Prepare for coding challenges and system design interviews for full stack positions.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/full_stack_developer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">🔄</div>
+      <h3 class="card-title">DevOps Engineer</h3>
+    </div>
+    <p class="card-description">Practice CI/CD pipelines, infrastructure as code, and troubleshooting scenarios.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/devops_engineer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">⛓️</div>
+      <h3 class="card-title">Blockchain Developer</h3>
+    </div>
+    <p class="card-description">Prepare for smart contract development and distributed systems questions.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/blockchain_developer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">🎨</div>
+      <h3 class="card-title">UI/UX Designer</h3>
+    </div>
+    <p class="card-description">Practice design critiques, portfolio reviews, and whiteboarding challenges.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/uiux_designer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">📈</div>
+      <h3 class="card-title">Product Manager</h3>
+    </div>
+    <p class="card-description">Prepare for product sense, execution, and leadership questions for PM roles.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/product_manager" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+
+  <div class="interview-card">
+    <div class="card-header">
+      <div class="card-icon">👨‍💻</div>
+      <h3 class="card-title">Software Engineer</h3>
+    </div>
+    <p class="card-description">Master coding interviews with data structures, algorithms, and system design.</p>
+    <div class="card-footer">
+      <a href="/mock_interview/software_engineer" class="start-btn">Start Practice</a>
+    </div>
+  </div>
+</div>
+
+<a href="/" class="back-btn">
+  <span>←</span> Back to Dashboard
+</a>
+
+<script>
+  // Theme Toggle Functionality
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const themeText = document.getElementById('themeText');
+  
+  // Check for saved theme preference or use preferred color scheme
+  const currentTheme = localStorage.getItem('theme') || 
+    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  
+  // Apply the current theme
+  document.documentElement.setAttribute('data-theme', currentTheme);
+  updateThemeToggle(currentTheme);
+  
+  // Toggle theme on button click
+  themeToggle.addEventListener('click', () => {
+    const newTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeToggle(newTheme);
+  });
+  
+  function updateThemeToggle(theme) {
+    if (theme === 'dark') {
+      themeIcon.textContent = '☀️';
+      themeText.textContent = 'Light Mode';
+    } else {
+      themeIcon.textContent = '🌙';
+      themeText.textContent = 'Dark Mode';
+    }
+  }
+</script>
+
+{% endblock %}

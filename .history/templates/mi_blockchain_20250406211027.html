@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blockchain Developer Mock Interview</title>
+</head>
+
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+<body>
+  <div class="page-header">
+    <h1>Blockchain Developer Mock Interview</h1>
+    <p>Your complete guide to mastering Blockchain interviews with real-world scenarios, trending questions, and project tips.</p>
+  </div>
+
+  <div class="module-container">
+    <div class="module-section">
+      <div class="content-section">
+        <h2>Role Introduction</h2>
+        <p>Blockchain Developers design and implement decentralized applications (DApps) and smart contracts. They work on blockchain protocols like Ethereum, Hyperledger, or Solana to create secure, transparent, and tamper-proof systems.</p>
+
+        <h2>Key Skills</h2>
+        <ul>
+          <li>Smart Contract Development (Solidity)</li>
+          <li>Blockchain Protocols (Ethereum, Hyperledger)</li>
+          <li>Web3.js, Ethers.js</li>
+          <li>Consensus Mechanisms</li>
+          <li>Security Auditing</li>
+        </ul>
+
+        <h2>Top 3 YouTube Videos</h2>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=gyMwXuJrbJQ" target="_blank">Blockchain Full Course – 10 Hours | Simplilearn</a></li>
+          <li><a href="https://www.youtube.com/watch?v=8o9QxMxhTp8" target="_blank">Smart Contract Tutorial | Dapp University</a></li>
+          <li><a href="https://www.youtube.com/watch?v=8wMKq7f_EeY" target="_blank">Solidity in 1 Hour | JavaScript Mastery</a></li>
+        </ul>
+
+        <h2>25 Interview Questions</h2>
+        <ul>
+          <li><strong>[Easy]</strong> What is a blockchain?</li>
+          <li><strong>[Easy]</strong> Define smart contracts.</li>
+          <li><strong>[Easy]</strong> Explain consensus mechanisms like PoW and PoS.</li>
+          <li><strong>[Easy]</strong> What is Ethereum Virtual Machine?</li>
+          <li><strong>[Easy]</strong> Differences between a public and private blockchain.</li>
+          <li><strong>[Medium]</strong> What are gas fees and how do they work in Ethereum?</li>
+          <li><strong>[Medium]</strong> Describe the function of a Merkle Tree.</li>
+          <li><strong>[Medium]</strong> How does sharding improve blockchain scalability?</li>
+          <li><strong>[Medium]</strong> What is a nonce in mining?</li>
+          <li><strong>[Medium]</strong> Explain the role of cryptographic hashing.</li>
+          <li><strong>[Medium]</strong> How do Layer-2 solutions help?</li>
+          <li><strong>[Medium]</strong> What’s the difference between Solidity and Vyper?</li>
+          <li><strong>[Difficult]</strong> How would you mitigate reentrancy attacks?</li>
+          <li><strong>[Difficult]</strong> Design a secure token contract with burn, mint, and pause capabilities.</li>
+          <li><strong>[Difficult]</strong> How do oracles work and what security risks do they introduce?</li>
+          <li><strong>[Difficult]</strong> Walk through a smart contract audit process.</li>
+          <li><strong>[Difficult]</strong> Explain zero-knowledge proofs in blockchain.</li>
+          <li><strong>[Difficult]</strong> Compare Plasma vs Rollups in Layer 2 scaling.</li>
+          <li><strong>[Difficult]</strong> Design a voting dApp that ensures user privacy and transparency.</li>
+          <li><strong>[Difficult]</strong> How to securely manage private keys in a DApp?</li>
+        </ul>
+
+        <h2>Scenario-Based Questions</h2>
+        <ul>
+          <li>You are building a DeFi app, how will you ensure smart contract security?</li>
+          <li>Your contract is under a DDoS gas attack. What would you do?</li>
+          <li>A DAO you built needs an upgrade – explain your process.</li>
+        </ul>
+
+        <h2>Project Ideas</h2>
+        <ul>
+          <li>Decentralized Voting System</li>
+          <li>Tokenized Crowdfunding Platform</li>
+          <li>Real Estate Registry on Blockchain</li>
+        </ul>
+
+        <h2>Bonus Tips</h2>
+        <ul>
+          <li>Keep learning from actual blockchain documentation.</li>
+          <li>Contribute to open-source projects like Ethereum or Polkadot.</li>
+          <li>Always test smart contracts on testnets (Rinkeby, Goerli).</li>
+        </ul>
+
+        <h2>Top 10 Companies Hiring</h2>
+        <ul>
+          <li><strong>Consensys:</strong> Ethereum-based development, requires strong Solidity skills.</li>
+          <li><strong>Polygon:</strong> Layer 2 development, seeks DApp builders and SDK experts.</li>
+          <li><strong>Chainlink:</strong> Focus on decentralized oracle networks, cryptography knowledge preferred.</li>
+          <li><strong>Binance:</strong> Exchange and DApp engineering roles, requires DeFi knowledge.</li>
+          <li><strong>Coinbase:</strong> Smart contract audits, security-focused roles.</li>
+          <li><strong>Solana Labs:</strong> Rust and high-performance blockchain expertise required.</li>
+          <li><strong>Alchemy:</strong> Infrastructure and API development for developers.</li>
+          <li><strong>Ripple:</strong> Cross-border payment blockchain roles, finance domain knowledge useful.</li>
+          <li><strong>Kraken:</strong> Exchange security and cold wallet management roles.</li>
+          <li><strong>OpenSea:</strong> NFT marketplace development, experience with EIP-721 preferred.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <a href="/mock_interview.html" class="back-btn">⬅ Back to Mock Interviews</a>
+</body>
+</html>

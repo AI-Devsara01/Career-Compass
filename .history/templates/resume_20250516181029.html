@@ -1,0 +1,399 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  :root {
+    --primary-blue: #1a73e8;
+    --dark-blue: #0d47a1;
+    --light-blue: #e8f0fe;
+    --white: #ffffff;
+    --dark-bg: #121212;
+    --dark-surface: #1e1e1e;
+    --dark-text: #e0e0e0;
+    --light-text: #333333;
+    --gray: #5f6368;
+    --light-gray: #f5f5f5;
+  }
+
+  [data-theme="light"] {
+    --bg-color: var(--white);
+    --surface-color: var(--light-blue);
+    --text-color: var(--light-text);
+    --heading-color: var(--dark-blue);
+    --border-color: #dadce0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-color: #f1f3f4;
+    --success-color: #34a853;
+    --warning-color: #f9ab00;
+    --danger-color: #ea4335;
+  }
+
+  [data-theme="dark"] {
+    --bg-color: var(--dark-bg);
+    --surface-color: var(--dark-surface);
+    --text-color: var(--dark-text);
+    --heading-color: #8ab4f8;
+    --border-color: #3c4043;
+    --shadow-color: rgba(0, 0, 0, 0.3);
+    --hover-color: #2d2d2d;
+    --success-color: #81c995;
+    --warning-color: #fbbc04;
+    --danger-color: #f28b82;
+  }
+
+  body {
+    font-family: 'Google Sans', Roboto, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    padding-bottom: 40px;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .header h1 {
+    color: var(--heading-color);
+    font-size: 36px;
+    margin-bottom: 10px;
+  }
+
+  .header p {
+    color: var(--text-color);
+    font-size: 18px;
+  }
+
+  .card {
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+    border: 1px solid var(--border-color);
+  }
+
+  .card h2 {
+    color: var(--heading-color);
+    margin-bottom: 20px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+
+  .card h2 i {
+    margin-right: 10px;
+  }
+
+  .score-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .score-circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    font-weight: bold;
+    position: relative;
+  }
+
+  .high-score {
+    background: conic-gradient(var(--success-color) {{ parsed_data.ats_score * 3.6 }}deg, var(--light-gray) 0deg);
+    color: var(--success-color);
+  }
+
+  .medium-score {
+    background: conic-gradient(var(--warning-color) {{ parsed_data.ats_score * 3.6 }}deg, var(--light-gray) 0deg);
+    color: var(--warning-color);
+  }
+
+  .low-score {
+    background: conic-gradient(var(--danger-color) {{ parsed_data.ats_score * 3.6 }}deg, var(--light-gray) 0deg);
+    color: var(--danger-color);
+  }
+
+  .score-circle::before {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: var(--surface-color);
+    border-radius: 50%;
+  }
+
+  .score-circle span {
+    position: relative;
+    z-index: 1;
+  }
+
+  .score-details {
+    flex: 1;
+    margin-left: 30px;
+  }
+
+  .progress-container {
+    margin-bottom: 15px;
+  }
+
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
+
+  .progress-bar {
+    height: 10px;
+    background-color: var(--border-color);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 5px;
+  }
+
+  .role-match .progress-fill {
+    background-color: var(--primary-blue);
+    width: {{ parsed_data.role_match.match_score }}%;
+  }
+
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .skill-chip {
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+  }
+
+  .match-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border-color);
+  }
+
+  .match-item:last-child {
+    border-bottom: none;
+  }
+
+  .match-score {
+    font-weight: bold;
+    color: var(--heading-color);
+  }
+
+  .experience-item {
+    margin-bottom: 15px;
+  }
+
+  .experience-item h3 {
+    color: var(--heading-color);
+    margin-bottom: 5px;
+  }
+
+  .suggestion-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    padding: 15px;
+    background-color: rgba(234, 67, 53, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid var(--danger-color);
+  }
+
+  .suggestion-item i {
+    margin-right: 15px;
+    color: var(--danger-color);
+    font-size: 20px;
+  }
+
+  .suggestion-content h4 {
+    margin-bottom: 5px;
+    color: var(--danger-color);
+  }
+
+  .suggestion-content p {
+    margin: 0;
+  }
+
+  .back-btn {
+    display: inline-block;
+    background-color: var(--primary-blue);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+
+  .back-btn:hover {
+    background-color: var(--dark-blue);
+  }
+
+  @media (max-width: 768px) {
+    .score-container {
+      flex-direction: column;
+    }
+    
+    .score-details {
+      margin-left: 0;
+      margin-top: 20px;
+      width: 100%;
+    }
+    
+    .header h1 {
+      font-size: 28px;
+    }
+  }
+</style>
+
+<div class="container">
+  <div class="header">
+    <h1>Resume Analysis Report</h1>
+    <p>Detailed breakdown of your resume's strengths and areas for improvement</p>
+  </div>
+
+  <!-- ATS Score Section -->
+  <div class="card">
+    <h2><i class="fas fa-chart-line"></i> Applicant Tracking System Score</h2>
+    <div class="score-container">
+      <div class="score-circle 
+        {% if parsed_data.ats_score >= 70 %}high-score
+        {% elif parsed_data.ats_score >= 40 %}medium-score
+        {% else %}low-score{% endif %}">
+        <span>{{ parsed_data.ats_score }}%</span>
+      </div>
+      <div class="score-details">
+        <p>This score indicates how well your resume matches common ATS (Applicant Tracking System) criteria. Higher scores mean better chances of passing automated screening.</p>
+        <div class="progress-container">
+          <div class="progress-label">
+            <span>ATS Optimization</span>
+            <span>{{ parsed_data.ats_score }}%</span>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: {{ parsed_data.ats_score }}%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Role Match Section -->
+  <div class="card">
+    <h2><i class="fas fa-briefcase"></i> Recommended Roles</h2>
+    <h3>Best Match: {{ parsed_data.role_match.best_match }}</h3>
+    <p>{{ parsed_data.role_match.description }}</p>
+    
+    <div class="progress-container">
+      <div class="progress-label">
+        <span>Match Confidence</span>
+        <span>{{ parsed_data.role_match.match_score }}%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill role-match"></div>
+      </div>
+    </div>
+    
+    <h4>Other Potential Matches:</h4>
+    {% for match in parsed_data.role_match.top_matches %}
+    <div class="match-item">
+      <span>{{ match.role }}</span>
+      <span class="match-score">{{ match.score }}%</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Skills Section -->
+  <div class="card">
+    <h2><i class="fas fa-code"></i> Identified Skills</h2>
+    <p>These are the key technical skills we found in your resume:</p>
+    <div class="skills-list">
+      {% for skill in parsed_data.skills %}
+      <div class="skill-chip">{{ skill }}</div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Experience Section -->
+  <div class="card">
+    <h2><i class="fas fa-user-tie"></i> Experience Summary</h2>
+    <div class="experience-item">
+      <h3>Years of Experience</h3>
+      <p>
+        {% if parsed_data.experience.years > 0 %}
+        {{ parsed_data.experience.years }} years
+        {% else %}
+        No explicit experience duration found
+        {% endif %}
+      </p>
+    </div>
+    
+    {% if parsed_data.experience.education %}
+    <div class="experience-item">
+      <h3>Education Highlights</h3>
+      {% for edu in parsed_data.experience.education %}
+      <p>{{ edu }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+
+  <!-- Suggestions Section -->
+  <div class="card">
+    <h2><i class="fas fa-lightbulb"></i> Improvement Suggestions</h2>
+    <p>Based on our analysis, here are recommendations to strengthen your resume:</p>
+    
+    {% for suggestion in parsed_data.suggestions %}
+    <div class="suggestion-item">
+      <i class="fas fa-exclamation-circle"></i>
+      <div class="suggestion-content">
+        <h4>{{ suggestion.category|replace('_', ' ')|title }}</h4>
+        <p>{{ suggestion.suggestion }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <a href="/" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Upload
+  </a>
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<script>
+  // Apply the score percentage to the progress bars
+  document.addEventListener('DOMContentLoaded', function() {
+    const roleMatchFill = document.querySelector('.role-match .progress-fill');
+    if (roleMatchFill) {
+      roleMatchFill.style.width = '{{ parsed_data.role_match.match_score }}%';
+    }
+  });
+</script>
+{% endblock %}

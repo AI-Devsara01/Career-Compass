@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AI Resume Analyzer</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.1/dist/tailwind.min.css" rel="stylesheet" />
+  <script>
+    // Theme toggle
+    function toggleTheme() {
+      const html = document.documentElement;
+      const newTheme = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = newTheme;
+      localStorage.setItem("theme", newTheme);
+    }
+
+    // Load saved theme
+    document.addEventListener("DOMContentLoaded", () => {
+      const saved = localStorage.getItem("theme") || "light";
+      document.documentElement.dataset.theme = saved;
+    });
+  </script>
+  <style>
+    [data-theme="dark"] {
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    [data-theme="light"] {
+      background-color: #ffffff;
+      color: #1e293b;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-start py-10 px-4">
+
+  <div class="w-full max-w-3xl bg-blue-50 dark:bg-slate-800 p-6 rounded-2xl shadow-md">
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-3xl font-bold text-blue-600 dark:text-blue-400">AI Resume Analyzer</h1>
+      <button onclick="toggleTheme()" class="px-3 py-1 bg-blue-600 text-white rounded-xl text-sm">
+        Toggle Theme
+      </button>
+    </div>
+
+    <form action="/" method="post" enctype="multipart/form-data" class="space-y-4">
+      <label class="block text-sm font-medium">Upload Resume (PDF or DOCX)</label>
+      <input type="file" name="resume_file" accept=".pdf,.docx" required
+             class="block w-full p-2 border border-gray-300 rounded-lg bg-white dark:bg-slate-700 dark:border-gray-600 text-sm" />
+      <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl mt-2 w-full">
+        Analyze Resume
+      </button>
+    </form>
+
+    {% if ats_score %}
+    <div class="mt-8">
+      <h2 class="text-xl font-semibold text-blue-700 dark:text-blue-300 mb-2">📊 ATS Score</h2>
+      <div class="text-4xl font-bold mb-4">{{ ats_score }}%</div>
+
+      <h2 class="text-xl font-semibold text-blue-700 dark:text-blue-300 mt-6 mb-2">🔝 Top Role Matches</h2>
+      {% for role, data in analysis[:3] %}
+        <div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow my-2">
+          <h3 class="text-lg font-bold text-blue-500">{{ role }}</h3>
+          <p class="text-sm">Match Score: <strong>{{ data.score }}%</strong></p>
+          <p class="text-sm">Key Skills: {{ data.matched_skills | join(', ') }}</p>
+        </div>
+      {% endfor %}
+
+      <h2 class="text-xl font-semibold text-blue-700 dark:text-blue-300 mt-6 mb-2">💡 Suggestions</h2>
+      <ul class="list-disc list-inside text-sm">
+        <li>Include more relevant skills for your target role</li>
+        <li>Use quantifiable achievements and action verbs</li>
+        <li>Tailor resume based on the top-matching role above</li>
+      </ul>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

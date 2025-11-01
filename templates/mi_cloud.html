@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cloud Engineer Mock Interview</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2777/2777154.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #1a73e8;
+      --dark-blue: #0d47a1;
+      --light-blue: #e8f0fe;
+      --accent-blue: #4285f4;
+      --white: #ffffff;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #5f6368;
+      --dark-bg: #121212;
+      --dark-surface: #1e1e1e;
+      --dark-text: #e0e0e0;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      --bg-color: var(--white);
+      --surface-color: var(--light-gray);
+      --card-color: var(--white);
+      --text-color: #333333;
+      --heading-color: var(--primary-blue);
+      --border-color: var(--medium-gray);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --hover-color: #f1f3f4;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-color: var(--dark-bg);
+      --surface-color: var(--dark-surface);
+      --card-color: #2d2d2d;
+      --text-color: var(--dark-text);
+      --heading-color: var(--accent-blue);
+      --border-color: #3c4043;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --hover-color: #3d3d3d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--hover-color);
+    }
+
+    .theme-toggle i {
+      font-size: 18px;
+      color: var(--heading-color);
+    }
+
+    .theme-text {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* Header */
+    .page-header {
+      text-align: center;
+      margin: 100px 0 50px;
+      padding: 0 20px;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      color: var(--heading-color);
+      margin-bottom: 20px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 800px;
+      margin: 0 auto;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Section Styling */
+    .section {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--box-shadow);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px var(--shadow-color);
+    }
+
+    .section h2 {
+      color: var(--heading-color);
+      margin-bottom: 25px;
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section h2 i {
+      font-size: 1.4rem;
+    }
+
+    /* Lists */
+    ul, ol {
+      margin: 20px 0 20px 30px;
+    }
+
+    ul li, ol li {
+      margin-bottom: 12px;
+      padding-left: 5px;
+      position: relative;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li::before {
+      content: "•";
+      color: var(--heading-color);
+      font-weight: bold;
+      position: absolute;
+      left: -1.2em;
+    }
+
+    ol {
+      counter-reset: item;
+      list-style-type: none;
+    }
+
+    ol li {
+      counter-increment: item;
+    }
+
+    ol li::before {
+      content: counter(item) ".";
+      color: var(--heading-color);
+      font-weight: bold;
+      position: absolute;
+      left: -1.5em;
+    }
+
+    /* Difficulty Tags */
+    .difficulty {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-left: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .easy {
+      background-color: #e6f4ea;
+      color: #0d652d;
+    }
+
+    [data-theme="dark"] .easy {
+      background-color: #1e3a2a;
+      color: #81c995;
+    }
+
+    .medium {
+      background-color: #e8f0fe;
+      color: #1a73e8;
+    }
+
+    [data-theme="dark"] .medium {
+      background-color: #1a2c4f;
+      color: #8ab4f8;
+    }
+
+    .difficult {
+      background-color: #fce8e6;
+      color: #c5221f;
+    }
+
+    [data-theme="dark"] .difficult {
+      background-color: #3c1a19;
+      color: #f28b82;
+    }
+
+    /* Video Cards */
+    .video-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .video-card {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    .video-thumbnail {
+      position: relative;
+      padding-top: 56.25%;
+      background-color: #000;
+    }
+
+    .video-thumbnail img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 48px;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+    }
+
+    .video-card:hover .play-icon {
+      opacity: 1;
+    }
+
+    .video-info {
+      padding: 18px;
+    }
+
+    .video-info h3 {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+
+    /* Company Cards */
+    .company-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .company-card {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      border: 1px solid var(--border-color);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .company-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px var(--shadow-color);
+    }
+
+    .company-card h3 {
+      color: var(--heading-color);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .company-card p {
+      font-size: 14px;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+      z-index: 10;
+      text-decoration: none;
+    }
+
+    .back-btn:hover {
+      background-color: var(--dark-blue);
+      transform: translateX(-50%) translateY(-2px);
+      box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+      text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .page-header {
+        margin: 80px 0 40px;
+      }
+      
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .section {
+        padding: 25px;
+      }
+      
+      .video-cards, .company-cards {
+        grid-template-columns: 1fr;
+      }
+      
+      .theme-toggle {
+        padding: 8px 12px;
+      }
+      
+      .theme-text {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+      
+      .section h2 {
+        font-size: 1.5rem;
+      }
+      
+      .back-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon" id="themeIcon"></i>
+    <span class="theme-text" id="themeText">Dark Mode</span>
+  </div>
+
+  <div class="page-header">
+    <h1><i class="fas fa-cloud"></i> Cloud Engineer Mock Interview</h1>
+    <p>Prepare for your next cloud engineering interview with these comprehensive resources, questions, and project ideas</p>
+  </div>
+
+  <div class="container">
+    <section class="section">
+      <h2><i class="fas fa-info-circle"></i> Role Introduction</h2>
+      <p>Cloud Engineers design, develop, and manage secure, scalable, and highly available cloud environments. They work with platforms like AWS, Azure, and Google Cloud to support cloud-based infrastructure and applications.</p>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-tools"></i> Key Skills Required</h2>
+      <ul>
+        <li><strong>Cloud Architecture:</strong> AWS, Azure, GCP</li>
+        <li><strong>DevOps & CI/CD:</strong> Jenkins, GitHub Actions, CircleCI</li>
+        <li><strong>Server Administration:</strong> Linux and Windows</li>
+        <li><strong>Infrastructure as Code:</strong> Terraform, CloudFormation</li>
+        <li><strong>Security & Networking:</strong> IAM, VPC, Security Groups</li>
+        <li><strong>Scripting:</strong> Python, Bash, PowerShell</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-video"></i> Preparation Videos</h2>
+      <div class="video-cards">
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=Zt6gP8VqgMI" target="_blank">
+            <div class="video-thumbnail">
+              <img src="https://img.youtube.com/vi/Zt6gP8VqgMI/maxresdefault.jpg" alt="Cloud Engineer Full Course">
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-info">
+              <h3>Cloud Engineer Full Course - Edureka</h3>
+            </div>
+          </a>
+        </div>
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=2LaAJq1lB1Q" target="_blank">
+            <div class="video-thumbnail">
+              <img src="https://img.youtube.com/vi/2LaAJq1lB1Q/maxresdefault.jpg" alt="AWS Cloud Engineer Interview Prep">
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-info">
+              <h3>AWS Cloud Engineer Interview Prep</h3>
+            </div>
+          </a>
+        </div>
+        <div class="video-card">
+          <a href="https://www.youtube.com/watch?v=OtbUQdYzvN0" target="_blank">
+            <div class="video-thumbnail">
+              <img src="https://img.youtube.com/vi/OtbUQdYzvN0/maxresdefault.jpg" alt="Azure Interview Questions">
+              <div class="play-icon"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-info">
+              <h3>Azure Interview Questions - Simplilearn</h3>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-question-circle"></i> Interview Questions</h2>
+      <ol>
+        <li>What is cloud computing? <span class="difficulty easy">Easy</span></li>
+        <li>What are the main service models in cloud? <span class="difficulty easy">Easy</span></li>
+        <li>Difference between public, private, and hybrid cloud? <span class="difficulty easy">Easy</span></li>
+        <li>What is the difference between scalability and elasticity? <span class="difficulty easy">Easy</span></li>
+        <li>Explain virtualization and its role in cloud computing. <span class="difficulty easy">Easy</span></li>
+        <li>How do IAM policies work in AWS? <span class="difficulty medium">Medium</span></li>
+        <li>What is the difference between S3, EBS, and EFS? <span class="difficulty medium">Medium</span></li>
+        <li>How do you implement high availability in the cloud? <span class="difficulty medium">Medium</span></li>
+        <li>What is a VPC and how do you configure it? <span class="difficulty medium">Medium</span></li>
+        <li>Explain the role of containers in cloud computing. <span class="difficulty medium">Medium</span></li>
+        <li>What are security best practices in AWS? <span class="difficulty medium">Medium</span></li>
+        <li>What is load balancing and how is it achieved in cloud platforms? <span class="difficulty medium">Medium</span></li>
+        <li>Describe a CI/CD pipeline in a cloud environment. <span class="difficulty medium">Medium</span></li>
+        <li>Explain the difference between Docker and Kubernetes. <span class="difficulty medium">Medium</span></li>
+        <li>How would you architect a multi-region failover system? <span class="difficulty difficult">Difficult</span></li>
+        <li>Design a secure and scalable infrastructure for a banking application. <span class="difficulty difficult">Difficult</span></li>
+        <li>How do you monitor cloud resources and alert on failures? <span class="difficulty difficult">Difficult</span></li>
+        <li>How would you handle data consistency across multiple regions? <span class="difficulty difficult">Difficult</span></li>
+        <li>How to migrate a monolithic app to a cloud-native architecture? <span class="difficulty difficult">Difficult</span></li>
+        <li>Explain disaster recovery and backup strategies in the cloud. <span class="difficulty difficult">Difficult</span></li>
+        <li>Describe cloud cost optimization techniques. <span class="difficulty difficult">Difficult</span></li>
+        <li>What are serverless services and when would you use them? <span class="difficulty difficult">Difficult</span></li>
+        <li>Design a real-time analytics system using cloud services. <span class="difficulty difficult">Difficult</span></li>
+        <li>How to implement zero-trust security in cloud systems? <span class="difficulty difficult">Difficult</span></li>
+        <li>Walk through your experience deploying Kubernetes in production. <span class="difficulty difficult">Difficult</span></li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-lightbulb"></i> Scenario-Based Questions</h2>
+      <ol>
+        <li>You're asked to migrate an on-premises application to AWS. How would you proceed?</li>
+        <li>A customer reports frequent downtime. How would you ensure high availability?</li>
+        <li>How would you secure sensitive data stored in the cloud?</li>
+        <li>Your cloud costs have unexpectedly spiked. How would you investigate and resolve?</li>
+        <li>Design a solution for a global e-commerce platform with low latency requirements.</li>
+      </ol>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-project-diagram"></i> Project Ideas</h2>
+      <ul>
+        <li><strong>Scalable Web Application:</strong> Deploy on AWS using EC2, Load Balancer, and RDS</li>
+        <li><strong>CI/CD Pipeline:</strong> Implement using Jenkins and Docker with automated testing</li>
+        <li><strong>Monitoring Dashboard:</strong> Create with CloudWatch and Prometheus</li>
+        <li><strong>Serverless API:</strong> Build using AWS Lambda and API Gateway</li>
+        <li><strong>Infrastructure as Code:</strong> Deploy a complete environment using Terraform</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-trophy"></i> Bonus Tips</h2>
+      <ul>
+        <li>Practice setting up end-to-end infrastructure in a free-tier cloud account</li>
+        <li>Always include redundancy and cost optimization in your architecture</li>
+        <li>Familiarize yourself with cloud compliance and regulatory practices</li>
+        <li>Get certified in at least one major cloud platform</li>
+        <li>Contribute to open-source cloud projects to demonstrate skills</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2><i class="fas fa-building"></i> Top Companies Hiring Cloud Engineers</h2>
+      <div class="company-cards">
+        <div class="company-card">
+          <h3><i class="fab fa-aws"></i> Amazon Web Services</h3>
+          <p>Deep understanding of AWS tools, DevOps, and cloud security</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-microsoft"></i> Microsoft Azure</h3>
+          <p>Azure certification, hybrid cloud experience, networking</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-google"></i> Google Cloud Platform</h3>
+          <p>Infrastructure design, automation, GCP tools</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fab fa-ibm"></i> IBM Cloud</h3>
+          <p>Enterprise cloud solutions, cloud-native app development</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-database"></i> Oracle Cloud</h3>
+          <p>SaaS, PaaS, IaaS understanding with DevOps skills</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-cloud"></i> Salesforce</h3>
+          <p>Cloud integration, CRM cloud services, APIs</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-server"></i> VMware</h3>
+          <p>Multi-cloud environments, virtualization technologies</p>
+        </div>
+        <div class="company-card">
+          <h3><i class="fas fa-globe"></i> Accenture</h3>
+          <p>Client-facing cloud transformation, Terraform, Docker</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <a href="/interview_prep" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Interview Prep
+  </a>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const currentTheme = localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    // Set initial icon and text
+    if (currentTheme === 'dark') {
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+      themeText.textContent = 'Light Mode';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Toggle icon and text
+      if (newTheme === 'dark') {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+        themeText.textContent = 'Light Mode';
+      } else {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+        themeText.textContent = 'Dark Mode';
+      }
+    });
+  </script>
+</body>
+</html>

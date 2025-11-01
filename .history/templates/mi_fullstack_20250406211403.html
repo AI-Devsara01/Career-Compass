@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Full Stack Developer Mock Interview</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+<body>
+  <div class="page-header">
+    <h1>Full Stack Developer - Mock Interview Guide</h1>
+    <p>Your complete guide to acing full stack developer interviews. Includes top questions, project ideas, and company requirements.</p>
+  </div>
+
+  <div class="module-container">
+    <div class="module-section">
+      <div class="content-section">
+        <h2>🔑 Role Introduction</h2>
+        <p>Full Stack Developers are skilled in both frontend and backend technologies. They design, build, and maintain entire web applications, ensuring both user experience and system performance.</p>
+
+        <h2>🧠 Key Skills</h2>
+        <ul>
+          <li>Frontend: HTML, CSS, JavaScript, React/Vue</li>
+          <li>Backend: Node.js, Express, Django, Flask</li>
+          <li>Databases: MongoDB, MySQL, PostgreSQL</li>
+          <li>Version Control: Git, GitHub</li>
+          <li>CI/CD, Docker, REST APIs, Authentication</li>
+        </ul>
+
+        <h2>🎥 Top 3 YouTube Resources</h2>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=nu_pCVPKzTk" target="_blank">Full Stack Developer Roadmap 2024</a></li>
+          <li><a href="https://www.youtube.com/watch?v=Ukg_U3CnJWI" target="_blank">How to Become a Full Stack Web Developer</a></li>
+          <li><a href="https://www.youtube.com/watch?v=ENrzD9HAZK4" target="_blank">System Design for Full Stack Developers</a></li>
+        </ul>
+
+        <h2>📝 25 Interview Questions (with Difficulty)</h2>
+        <ul>
+          <li><strong>[Easy]</strong> Explain the difference between HTML and HTML5.</li>
+          <li><strong>[Easy]</strong> What is the virtual DOM?</li>
+          <li><strong>[Easy]</strong> How does JavaScript event delegation work?</li>
+          <li><strong>[Easy]</strong> What is the difference between == and === in JavaScript?</li>
+          <li><strong>[Easy]</strong> Explain RESTful APIs.</li>
+          <li><strong>[Medium]</strong> What are hooks in React?</li>
+          <li><strong>[Medium]</strong> How does the event loop work in Node.js?</li>
+          <li><strong>[Medium]</strong> Difference between SQL and NoSQL databases?</li>
+          <li><strong>[Medium]</strong> How do you secure a REST API?</li>
+          <li><strong>[Medium]</strong> Describe the MVC architecture.</li>
+          <li><strong>[Medium]</strong> How do you handle CORS issues?</li>
+          <li><strong>[Medium]</strong> What are middlewares in Express.js?</li>
+          <li><strong>[Medium]</strong> How does Docker help in deployment?</li>
+          <li><strong>[Medium]</strong> Explain JWT authentication.</li>
+          <li><strong>[Difficult]</strong> How would you scale a full-stack application?</li>
+          <li><strong>[Difficult]</strong> Describe your approach to implementing SSR with React.</li>
+          <li><strong>[Difficult]</strong> Explain microservices architecture in full stack apps.</li>
+          <li><strong>[Difficult]</strong> How would you optimize performance in a large-scale React app?</li>
+          <li><strong>[Difficult]</strong> What are GraphQL advantages over REST?</li>
+          <li><strong>[Difficult]</strong> How do you manage state in large React applications?</li>
+          <li><strong>[Difficult]</strong> Describe the process of CI/CD with Docker and GitHub Actions.</li>
+          <li><strong>[Difficult]</strong> What is serverless architecture and its pros/cons?</li>
+          <li><strong>[Difficult]</strong> Discuss WebSockets and real-time data communication.</li>
+          <li><strong>[Difficult]</strong> How do you structure a full stack monorepo?</li>
+          <li><strong>[Difficult]</strong> Explain your approach to testing a full-stack app (unit, integration, E2E).</li>
+        </ul>
+
+        <h2>🎯 Scenario-Based Questions</h2>
+        <ul>
+          <li>Your client wants a secure e-commerce app. Walk through your tech stack and security approach.</li>
+          <li>You need to optimize a React app for mobile. What steps do you take?</li>
+          <li>A team member pushes broken backend code to main. How do you manage the rollback & deployment?</li>
+        </ul>
+
+        <h2>🚀 Project Ideas</h2>
+        <ul>
+          <li>Full-stack blog platform with user auth and markdown editor</li>
+          <li>Real-time chat application with socket.io</li>
+          <li>Dashboard with data visualization and role-based access</li>
+        </ul>
+
+        <h2>💡 Bonus Tips</h2>
+        <ul>
+          <li>Master version control and branching strategies</li>
+          <li>Build reusable components and optimize rendering</li>
+          <li>Always keep accessibility and responsive design in mind</li>
+        </ul>
+
+        <h2>🏢 Top 10 Companies & Their Requirements</h2>
+        <ul>
+          <li><strong>Google</strong>: React, TypeScript, scalable backend (Go/Node), system design</li>
+          <li><strong>Microsoft</strong>: Full-stack .NET & JS, cloud services (Azure), CI/CD</li>
+          <li><strong>Amazon</strong>: Microservices, AWS, security best practices</li>
+          <li><strong>Meta</strong>: React + GraphQL, scalable architecture, testing expertise</li>
+          <li><strong>Netflix</strong>: JavaScript performance, Node.js, micro frontends</li>
+          <li><strong>Airbnb</strong>: React, RESTful APIs, cross-functional collaboration</li>
+          <li><strong>Shopify</strong>: Full-stack Ruby/JS, accessibility, unit testing</li>
+          <li><strong>Uber</strong>: React + Redux, Node.js, real-time data systems</li>
+          <li><strong>LinkedIn</strong>: Web accessibility, scalable APIs, security</li>
+          <li><strong>Spotify</strong>: Frontend frameworks, backend services, performance optimization</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <a href="/mock_interview" class="back-btn">⬅ Back to All Roles</a>
+</body>
+</html>

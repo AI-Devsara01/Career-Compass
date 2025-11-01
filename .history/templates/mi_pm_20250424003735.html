@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Manager Mock Interview Guide</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-light: #f8fafc;
+      --text-light: #1e293b;
+      --bg-dark: #0f172a;
+      --text-dark: #f8fafc;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --accent-yellow: #f59e0b;
+      --accent-green: #10b981;
+      --accent-red: #ef4444;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: var(--transition);
+      line-height: 1.6;
+      padding-bottom: 80px;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 3rem;
+      position: relative;
+      padding: 4rem 0;
+      background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+      color: white;
+      border-radius: 0 0 var(--border-radius) var(--border-radius);
+      box-shadow: var(--box-shadow);
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+      z-index: 1;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .header h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+      margin: 0 0 1rem;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    /* Toggle Switch */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 8px 15px;
+      border-radius: 30px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .dark-mode .theme-toggle {
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--text-dark);
+    }
+
+    /* Section Styles */
+    .section {
+      background-color: var(--card-light);
+      border-radius: var(--border-radius);
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .dark-mode .section {
+      background-color: var(--card-dark);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .section:hover {
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dark-mode .section h2 {
+      color: var(--light-blue);
+    }
+
+    /* List Styles */
+    ul, ol {
+      margin-left: 1.5rem;
+      padding-left: 0;
+    }
+
+    ul li, ol li {
+      margin-bottom: 0.8rem;
+      padding-left: 0;
+      position: relative;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+
+    ul li::before {
+      content: "•";
+      color: var(--primary-blue);
+      font-weight: bold;
+      position: absolute;
+      left: -1.2em;
+    }
+
+    .dark-mode ul li::before {
+      color: var(--light-blue);
+    }
+
+    ol {
+      counter-reset: item;
+      list-style-type: none;
+    }
+
+    ol li {
+      counter-increment: item;
+    }
+
+    ol li::before {
+      content: counter(item) ".";
+      color: var(--primary-blue);
+      font-weight: bold;
+      position: absolute;
+      left: -1.5em;
+    }
+
+    .dark-mode ol li::before {
+      color: var(--light-blue);
+    }
+
+    /* Difficulty Indicators */
+    .difficulty-tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+
+    .easy {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: var(--accent-green);
+    }
+
+    .medium {
+      background-color: rgba(245, 158, 11, 0.1);
+      color: var(--accent-yellow);
+    }
+
+    .difficult {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: var(--accent-red);
+    }
+
+    /* Link Styles */
+    a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 500;
+      transition: var(--transition);
+      border-bottom: 1px dashed transparent;
+    }
+
+    a:hover {
+      color: var(--dark-blue);
+      border-bottom: 1px dashed var(--primary-blue);
+    }
+
+    .dark-mode a {
+      color: var(--light-blue);
+    }
+
+    .dark-mode a:hover {
+      color: #bfdbfe;
+      border-bottom: 1px dashed var(--light-blue);
+    }
+
+    /* Video Resources */
+    .video-resources {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .video-card {
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      background-color: var(--card-light);
+    }
+
+    .dark-mode .video-card {
+      background-color: var(--card-dark);
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-card iframe {
+      width: 100%;
+      height: 180px;
+      border: none;
+    }
+
+    .video-info {
+      padding: 15px;
+    }
+
+    .video-info h3 {
+      font-size: 1.1rem;
+      margin-bottom: 5px;
+      color: var(--text-light);
+    }
+
+    .dark-mode .video-info h3 {
+      color: var(--text-dark);
+    }
+
+    /* Company Grid */
+    .company-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .company-card {
+      background-color: var(--card-light);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .dark-mode .company-card {
+      background-color: var(--card-dark);
+    }
+
+    .company-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .company-card h3 {
+      color: var(--primary-blue);
+      margin-bottom: 10px;
+    }
+
+    .dark-mode .company-card h3 {
+      color: var(--light-blue);
+    }
+
+    .company-card p {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      opacity: 0.9;
+    }
+
+    .dark-mode .company-card p {
+      color: var(--text-dark);
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 12px 30px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      z-index: 10;
+    }
+
+    .back-btn:hover {
+      background-color: var(--dark-blue);
+      transform: translateX(-50%) scale(1.03);
+      text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .header p {
+        font-size: 1rem;
+      }
+      
+      .section {
+        padding: 1.5rem;
+      }
+      
+      .section h2 {
+        font-size: 1.5rem;
+      }
+
+      .video-resources {
+        grid-template-columns: 1fr;
+      }
+
+      .company-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        padding: 3rem 1rem;
+      }
+      
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .container {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+    <span>Dark Mode</span>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <h1><i class="fas fa-chart-line"></i> Product Manager Interview Guide</h1>
+        <p>Prepare for your Product Manager interviews with essential questions, scenario practice, skills, projects, and top companies hiring in 2025.</p>
+      </div>
+    </div>
+
+    <!-- Key Skills -->
+    <div class="section">
+      <h2><i class="fas fa-key"></i> Key Skills</h2>
+      <ul>
+        <li><strong>Product lifecycle management</strong> - From ideation to launch and iteration</li>
+        <li><strong>Market research & competitor analysis</strong> - Understanding user needs and competitive landscape</li>
+        <li><strong>Agile/Scrum methodologies</strong> - Leading cross-functional teams effectively</li>
+        <li><strong>Wireframing & prototyping</strong> - Tools like Figma, Balsamiq, Sketch</li>
+        <li><strong>Data-driven decision making</strong> - Using metrics to guide product decisions</li>
+        <li><strong>Cross-functional collaboration</strong> - Working with engineering, design, marketing</li>
+        <li><strong>User stories & backlog management</strong> - Prioritizing features and requirements</li>
+      </ul>
+    </div>
+
+    <!-- Video Resources -->
+    <div class="section">
+      <h2><i class="fas fa-video"></i> Top Learning Resources</h2>
+      <div class="video-resources">
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/V7Y0zAzoggY" allowfullscreen></iframe>
+          <div class="video-info">
+            <h3>How to Prepare for PM Interviews (Ex-Google PM)</h3>
+          </div>
+        </div>
+        
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/1wh5cLdx2aA" allowfullscreen></iframe>
+          <div class="video-info">
+            <h3>PM Interview: Product Design Questions Explained</h3>
+          </div>
+        </div>
+        
+        <div class="video-card">
+          <iframe src="https://www.youtube.com/embed/eTBZRbRr8-w" allowfullscreen></iframe>
+          <div class="video-info">
+            <h3>Metrics & Analytical Questions for PMs</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Questions -->
+    <div class="section">
+      <h2><i class="fas fa-question-circle"></i> 25 Interview Questions</h2>
+      <ol>
+        <li>What does a Product Manager do? <span class="difficulty-tag easy">Easy</span></li>
+        <li>How do you prioritize features? <span class="difficulty-tag easy">Easy</span></li>
+        <li>What's the difference between a PM and a Project Manager? <span class="difficulty-tag easy">Easy</span></li>
+        <li>Explain MVP (Minimum Viable Product) <span class="difficulty-tag easy">Easy</span></li>
+        <li>What's your favorite product and why? <span class="difficulty-tag easy">Easy</span></li>
+        <li>Walk me through your product lifecycle approach <span class="difficulty-tag medium">Medium</span></li>
+        <li>How would you handle conflicting priorities between stakeholders? <span class="difficulty-tag medium">Medium</span></li>
+        <li>Define a metric for product success <span class="difficulty-tag medium">Medium</span></li>
+        <li>How would you relaunch a failing feature? <span class="difficulty-tag medium">Medium</span></li>
+        <li>How do you work with engineering teams? <span class="difficulty-tag medium">Medium</span></li>
+        <li>How do you manage technical debt as a PM? <span class="difficulty-tag medium">Medium</span></li>
+        <li>Create a product roadmap for a new app <span class="difficulty-tag medium">Medium</span></li>
+        <li>Define north star metrics for an e-commerce app <span class="difficulty-tag medium">Medium</span></li>
+        <li>Design a product for visually impaired users <span class="difficulty-tag difficult">Difficult</span></li>
+        <li>What would you do if users love a feature but it's unprofitable? <span class="difficulty-tag difficult">Difficult</span></li>
+        <li>How do you measure user engagement on a new feature? <span class="difficulty-tag difficult">Difficult</span></li>
+        <li>How do you align business and user goals? <span class="difficulty-tag difficult">Difficult</span></li>
+        <li>Define a go-to-market strategy for a mobile banking app <span class="difficulty-tag difficult">Difficult</span></li>
+        <li>Prioritize between improving retention vs. acquiring new users <span class="difficulty-tag difficult">Difficult</span></li>
+        <li>Solve: Revenue decreased 20% in the last quarter—what now? <span class="difficulty-tag difficult">Difficult</span></li>
+      </ol>
+    </div>
+
+    <!-- Scenario-Based Questions -->
+    <div class="section">
+      <h2><i class="fas fa-lightbulb"></i> Scenario-Based Questions</h2>
+      <ol>
+        <li>A competitor launched a similar feature before your release—how do you respond?</li>
+        <li>Your dev team missed the sprint goal. How do you address it?</li>
+        <li>You need to sunset a feature users love—how do you communicate it?</li>
+        <li>Stakeholders disagree on the product direction. What do you do?</li>
+        <li>Your product metrics are flatlining—what's your investigation approach?</li>
+      </ol>
+    </div>
+
+    <!-- Project Ideas -->
+    <div class="section">
+      <h2><i class="fas fa-rocket"></i> Project Ideas</h2>
+      <ul>
+        <li><strong>Build a product roadmap</strong> for a personal finance app with clear milestones</li>
+        <li><strong>Launch a beta feedback system</strong> to gather and analyze user testing data</li>
+        <li><strong>Create a pitch deck</strong> for a healthcare app MVP targeting seniors</li>
+        <li><strong>Develop a product spec</strong> for an AI-based travel planner with user flows</li>
+        <li><strong>Conduct competitive analysis</strong> of 3 productivity apps with SWOT breakdown</li>
+      </ul>
+    </div>
+
+    <!-- Bonus Tips -->
+    <div class="section">
+      <h2><i class="fas fa-star"></i> Pro Tips</h2>
+      <ul>
+        <li>Always tie answers to <strong>metrics & impact</strong> (e.g., "Improved retention by X% by...")</li>
+        <li>Practice <strong>structured communication</strong>: Problem → Approach → Result</li>
+        <li>Know the company's <strong>business model</strong> and how their products generate revenue</li>
+        <li>Prepare <strong>STAR stories</strong> (Situation, Task, Action, Result) for behavioral questions</li>
+        <li>Research the company's <strong>recent product launches</strong> and challenges</li>
+      </ul>
+    </div>
+
+    <!-- Top Employers -->
+    <div class="section">
+      <h2><i class="fas fa-building"></i> Top Employers (2025)</h2>
+      <div class="company-grid">
+        <div class="company-card">
+          <h3>Google</h3>
+          <p>Focus: Roadmapping, UX excellence, data-driven decisions</p>
+        </div>
+        <div class="company-card">
+          <h3>Meta</h3>
+          <p>Focus: Social products, growth mindset, A/B testing</p>
+        </div>
+        <div class="company-card">
+          <h3>Amazon</h3>
+          <p>Focus: Customer obsession, ownership, metrics</p>
+        </div>
+        <div class="company-card">
+          <h3>Apple</h3>
+          <p>Focus: Product vision, seamless user experience</p>
+        </div>
+        <div class="company-card">
+          <h3>Microsoft</h3>
+          <p>Focus: Enterprise strategy, technical collaboration</p>
+        </div>
+        <div class="company-card">
+          <h3>Uber</h3>
+          <p>Focus: Operational efficiency, logistics products</p>
+        </div>
+      </div>
+    </div>
+
+    <a href="/mock_interview.html" class="back-btn">
+      <i class="fas fa-arrow-left"></i> Back to Roles
+    </a>
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const themeText = themeToggle.querySelector('span');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Check for saved theme preference or use system preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+      icon.className = 'fas fa-sun';
+      themeText.textContent = 'Light Mode';
+    }
+
+    // Toggle theme
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        icon.className = 'fas fa-sun';
+        themeText.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.className = 'fas fa-moon';
+        themeText.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>

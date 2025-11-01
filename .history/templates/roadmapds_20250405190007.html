@@ -1,0 +1,247 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  /* 🌟 Global Reset & Body Styles */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  a {
+  text-decoration: none; 
+}
+
+/* Ensure no underline on hover */
+a:hover {
+  text-decoration: none;
+}
+
+/* Target the specific roadmap links and remove underline */
+.page-header a, .content-section a, .back-btn {
+  text-decoration: none;
+}
+
+/* Ensure they remain clean on hover */
+.page-header a:hover, .content-section a:hover, .back-btn:hover {
+  text-decoration: none;
+}
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #fff;
+    padding-bottom: 60px;
+  }
+
+  .page-header {
+    text-align: center;
+    margin: 60px 0 30px;
+  }
+  .page-header h1 {
+    font-size: 50px;
+    color: #facc15;
+    text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .page-header p {
+    font-size: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #e2e8f0;
+  }
+
+  .module-container {
+    width: 90%;
+    max-width: 1400px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .module-section {
+    background: rgba(255, 255, 255, 0.07);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .module-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  }
+
+  .video-container {
+    flex: 1;
+    min-width: 400px;
+    max-width: 500px;
+    background: #000;
+    position: relative;
+  }
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    transition: transform 0.3s;
+  }
+  .video-container iframe:hover {
+    transform: scale(1.03);
+  }
+  .no-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 22px;
+    background: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .content-section {
+    flex: 2;
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .content-section h2 {
+    font-size: 36px;
+    color: #38bdf8;
+    margin-bottom: 10px;
+  }
+  .content-section p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #e2e8f0;
+  }
+  .content-section strong {
+    color: #fff;
+  }
+
+  ul {
+    margin: 10px 0 0 20px;
+    list-style: disc;
+  }
+  ul li {
+    margin-bottom: 8px;
+    font-size: 18px;
+    color: #cbd5e1;
+  }
+
+  .back-btn {
+    display: block;
+    margin: 50px auto;
+    text-align: center;
+    background: #1e90ff;
+    color: #fff;
+    padding: 16px 36px;
+    font-size: 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    width: fit-content;
+  }
+  .back-btn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  @media (max-width: 768px) {
+    .page-header h1 {
+      font-size: 40px;
+    }
+    .video-container {
+      min-width: 100%;
+      max-width: 100%;
+      margin-bottom: 20px;
+    }
+    .content-section {
+      padding: 20px;
+    }
+    .content-section h2 {
+      font-size: 28px;
+    }
+    .content-section p, ul li {
+      font-size: 16px;
+    }
+  }
+</style>
+
+<!-- 🌟 Page Header -->
+<div class="page-header">
+  <h1>{{ role | replace('_', ' ') | title }} Roadmap</h1>
+  <p>
+    Welcome to the comprehensive roadmap for <strong>{{ role | replace('_', ' ') | title }}</strong>. 
+    Below you'll find key modules, recommended projects, and interview questions to guide you 
+    from beginner to advanced concepts. Dive in to accelerate your learning and career growth!
+  </p>
+</div>
+
+<!-- 🌟 Module Container -->
+<div class="module-container">
+  {% for row in dataset %}
+  <div class="module-section">
+
+    <!-- 🎯 Video Section -->
+    <div class="video-container">
+      {% if row['Video Links'] %}
+        {% for link in row['Video Links'] %}
+          <iframe 
+            src="https://www.youtube.com/embed/{{ link.split('=')[-1] }}" 
+            allowfullscreen>
+          </iframe>
+        {% endfor %}
+      {% else %}
+        <div class="no-video">No Video Available</div>
+      {% endif %}
+    </div>
+
+    <!-- 🎯 Text Content Section -->
+    <div class="content-section">
+      {% if row['Module'] %}
+        <h2>{{ row['Module'] }}</h2>
+      {% endif %}
+
+      {% if row['Subtopics'] %}
+        <p><strong>Subtopic:</strong> {{ row['Subtopics'] }}</p>
+      {% endif %}
+
+      {% if row['Description'] %}
+        <p><strong>Description:</strong> {{ row['Description'] }}</p>
+      {% endif %}
+
+      {% if row['Project'] %}
+        <p><strong>Project:</strong></p>
+        <ul>
+          {% for prj in row['Project'] %}
+            <li>{{ prj }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if row['Interview Questions'] %}
+        <p><strong>Interview Questions:</strong></p>
+        <ul>
+          {% for q in row['Interview Questions'] %}
+            <li>{{ q }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- 🌟 Back to Home Button -->
+<a href="{{ url_for('home') }}" class="back-btn">Back to Home</a>
+
+{% endblock %}

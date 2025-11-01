@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Software Engineer Internships</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2563eb;
+            --dark-blue: #1e40af;
+            --light-blue: #93c5fd;
+            --accent-blue: #3b82f6;
+            --white: #ffffff;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #5f6368;
+            --dark-bg: #121212;
+            --dark-surface: #1e1e1e;
+            --dark-text: #e0e0e0;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Light Theme */
+        [data-theme="light"] {
+            --bg-color: var(--white);
+            --surface-color: var(--light-gray);
+            --card-color: var(--white);
+            --text-color: #333333;
+            --heading-color: var(--primary-blue);
+            --border-color: var(--medium-gray);
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --hover-color: #f1f3f4;
+        }
+
+        /* Dark Theme */
+        [data-theme="dark"] {
+            --bg-color: var(--dark-bg);
+            --surface-color: var(--dark-surface);
+            --card-color: #2d2d2d;
+            --text-color: var(--dark-text);
+            --heading-color: var(--accent-blue);
+            --border-color: #3c4043;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --hover-color: #3d3d3d;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        /* Header Styles */
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            position: relative;
+        }
+
+        .page-header {
+            margin-bottom: 30px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--heading-color);
+            margin-bottom: 10px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .page-header h2 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin: 20px 0 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 15px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--hover-color);
+        }
+
+        .theme-toggle i {
+            font-size: 18px;
+            color: var(--heading-color);
+        }
+
+        .theme-text {
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Main Content Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Internship Cards */
+        .internship-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .internship-card {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .internship-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        .internship-header {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .company-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--heading-color);
+            margin-bottom: 5px;
+        }
+
+        .internship-role {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .internship-description {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .internship-details {
+            margin: 20px 0;
+            list-style-type: none;
+        }
+
+        .internship-details li {
+            margin-bottom: 10px;
+            display: flex;
+        }
+
+        .internship-details strong {
+            min-width: 100px;
+            display: inline-block;
+            color: var(--heading-color);
+        }
+
+        .apply-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .apply-btn:hover {
+            background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Portal Cards */
+        .portal {
+            background-color: var(--card-color);
+            border-radius: var(--border-radius);
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: var(--box-shadow);
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .portal:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+
+        .portal-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--heading-color);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .portal-desc {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .visit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #10b981, #34d399);
+            color: white;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 600;
+            transition: var(--transition);
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .visit-btn:hover {
+            background: linear-gradient(to right, #059669, #10b981);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            height: 1px;
+            background-color: var(--border-color);
+            margin: 50px 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 30px 15px;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .internship-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .theme-toggle {
+                padding: 8px 12px;
+            }
+            
+            .theme-text {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-header h2 {
+                font-size: 1.3rem;
+            }
+            
+            .internship-card, .portal {
+                padding: 20px;
+            }
+            
+            .company-name {
+                font-size: 1.2rem;
+            }
+            
+            .internship-details li {
+                flex-direction: column;
+            }
+            
+            .internship-details strong {
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon" id="themeIcon"></i>
+        <span class="theme-text" id="themeText">Dark Mode</span>
+    </div>
+
+    <div class="container">
+        <div class="page-header">
+            <h1><i class="fas fa-laptop-code"></i> Software Engineer Internships</h1>
+            <h2><i class="fas fa-globe"></i> Top Internship Portals</h2>
+        </div>
+
+        <div class="internship-list">
+            <!-- Sample Internship Card 1 -->
+            <div class="internship-card">
+                <div class="internship-header">
+                    <h3 class="company-name">Google</h3>
+                    <p class="internship-role">Software Engineering Intern</p>
+                </div>
+                <p class="internship-description">
+                    Join Google's engineering team to work on cutting-edge projects while learning from industry experts.
+                    Open to students pursuing BS, MS or PhD in Computer Science or related fields.
+                </p>
+                <ul class="internship-details">
+                    <li><strong>Location:</strong> Mountain View, CA (Remote possible)</li>
+                    <li><strong>Start Date:</strong> May/June 2024</li>
+                    <li><strong>End Date:</strong> August/September 2024</li>
+                    <li><strong>Duration:</strong> 12-14 weeks</li>
+                    <li><strong>Requirements:</strong> Strong coding skills in one or more languages, knowledge of data structures/algorithms</li>
+                </ul>
+                <a class="apply-btn" href="#" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Apply Now
+                </a>
+            </div>
+
+            <!-- Sample Internship Card 2 -->
+            <div class="internship-card">
+                <div class="internship-header">
+                    <h3 class="company-name">Microsoft</h3>
+                    <p class="internship-role">Explore Intern</p>
+                </div>
+                <p class="internship-description">
+                    Microsoft's Explore program is a 12-week summer internship specifically designed for first and second year college students.
+                </p>
+                <ul class="internship-details">
+                    <li><strong>Location:</strong> Redmond, WA</li>
+                    <li><strong>Start Date:</strong> June 2024</li>
+                    <li><strong>End Date:</strong> August 2024</li>
+                    <li><strong>Duration:</strong> 12 weeks</li>
+                    <li><strong>Requirements:</strong> Currently enrolled in a bachelor's program, some programming experience</li>
+                </ul>
+                <a class="apply-btn" href="#" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Apply Now
+                </a>
+            </div>
+
+            <!-- Sample Internship Card 3 -->
+            <div class="internship-card">
+                <div class="internship-header">
+                    <h3 class="company-name">Amazon</h3>
+                    <p class="internship-role">SDE Intern</p>
+                </div>
+                <p class="internship-description">
+                    Amazon's Software Development Engineer internship offers hands-on experience working on real projects that impact millions of customers.
+                </p>
+                <ul class="internship-details">
+                    <li><strong>Location:</strong> Seattle, Austin, Arlington, etc.</li>
+                    <li><strong>Start Date:</strong> May/June 2024</li>
+                    <li><strong>End Date:</strong> August 2024</li>
+                    <li><strong>Duration:</strong> 12 weeks</li>
+                    <li><strong>Requirements:</strong> Enrolled in CS/CE program, knowledge of CS fundamentals</li>
+                </ul>
+                <a class="apply-btn" href="#" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> Apply Now
+                </a>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="page-header">
+            <h2><i class="fas fa-search"></i> Internship Search Portals</h2>
+        </div>
+
+        <!-- Sample Portal 1 -->
+        <div class="portal">
+            <div class="portal-name"><i class="fas fa-briefcase"></i> LinkedIn Jobs</div>
+            <p class="portal-desc">
+                The world's largest professional network with thousands of internship listings across all industries and locations.
+            </p>
+            <a class="visit-btn" href="https://www.linkedin.com" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Visit Portal
+            </a>
+        </div>
+
+        <!-- Sample Portal 2 -->
+        <div class="portal">
+            <div class="portal-name"><i class="fas fa-building"></i> Indeed</div>
+            <p class="portal-desc">
+                One of the largest job search platforms with filters specifically for internships and entry-level positions.
+            </p>
+            <a class="visit-btn" href="https://www.indeed.com" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Visit Portal
+            </a>
+        </div>
+
+        <!-- Sample Portal 3 -->
+        <div class="portal">
+            <div class="portal-name"><i class="fas fa-graduation-cap"></i> Handshake</div>
+            <p class="portal-desc">
+                Platform specifically designed for students and recent graduates to find internships and jobs.
+            </p>
+            <a class="visit-btn" href="https://www.joinhandshake.com" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Visit Portal
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const themeText = document.getElementById('themeText');
+        
+        // Check for saved theme preference or use preferred color scheme
+        const currentTheme = localStorage.getItem('theme') || 
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        
+        // Set initial icon and text
+        if (currentTheme === 'dark') {
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+            themeText.textContent = 'Light Mode';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Toggle icon and text
+            if (newTheme === 'dark') {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                themeText.textContent = 'Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>

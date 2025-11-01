@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  /* [your CSS remains unchanged here] */
+</style>
+
+<!-- 🌟 Page Header & Intro -->
+<div class="page-header">
+  <h1>{{ role | replace('_', ' ') | title }} Roadmap</h1>
+  <p>
+    Welcome to the comprehensive roadmap for <strong>{{ role | replace('_', ' ') | title }}</strong>. 
+    Below you'll find key modules, recommended projects, and interview questions to guide you 
+    from beginner to advanced concepts. Dive in to accelerate your learning and career growth!
+  </p>
+</div>
+
+<!-- 🌟 Module Container -->
+<div class="module-container">
+  {% for row in dataset %}  {# Use just 'dataset' or rename your variable to 'roadmap_data' consistently #}
+  <div class="module-section">
+    
+    <!-- 🎥 Video Section -->
+    <div class="video-container">
+      {% if row['Video Link'] %}
+        <iframe 
+          src="https://www.youtube.com/embed/{{ row['Video Link'].split('=')[-1] }}" 
+          allowfullscreen>
+        </iframe>
+      {% else %}
+        <div class="no-video">No Video Available</div>
+      {% endif %}
+    </div>
+
+    <!-- 📘 Content Section -->
+    <div class="content-section">
+      <h2>{{ row['Module'] }} — {{ row['Topic'] }}</h2>
+
+      {% if row['Subtopics'] %}
+        <p><strong>Subtopics:</strong></p>
+        <ul>
+          {% for sub in row['Subtopics'].split(',') %}
+            <li>{{ sub.strip() }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if row['Description'] %}
+        <p><strong>Description:</strong> {{ row['Description'] }}</p>
+      {% endif %}
+
+      {% if row['Projects'] %}
+        <p><strong>Project:</strong></p>
+        <ul>
+          {% for project in row['Projects'].split(';') %}
+            <li>{{ project.strip() }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if row['Interview Questions'] %}
+        <p><strong>Interview Questions:</strong></p>
+        <ul>
+          {% for question in row['Interview Questions'].split(';') %}
+            <li>{{ question.strip() }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- 🌟 Back to Home Button -->
+<a href="{{ url_for('home') }}" class="back-btn">Back to Home</a>
+{% endblock %}

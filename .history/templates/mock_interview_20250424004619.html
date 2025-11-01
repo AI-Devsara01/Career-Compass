@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Interview Preparation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --accent-blue: #3b82f6;
+      --white: #ffffff;
+      --light-gray: #f5f5f5;
+      --medium-gray: #e0e0e0;
+      --dark-gray: #5f6368;
+      --dark-bg: #121212;
+      --dark-surface: #1e1e1e;
+      --dark-text: #e0e0e0;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    /* Light Theme */
+    [data-theme="light"] {
+      --bg-color: var(--white);
+      --surface-color: var(--light-gray);
+      --card-color: var(--white);
+      --text-color: #333333;
+      --heading-color: var(--primary-blue);
+      --border-color: var(--medium-gray);
+      --shadow-color: rgba(0, 0, 0, 0.1);
+      --hover-color: #f1f3f4;
+    }
+
+    /* Dark Theme */
+    [data-theme="dark"] {
+      --bg-color: var(--dark-bg);
+      --surface-color: var(--dark-surface);
+      --card-color: #2d2d2d;
+      --text-color: var(--dark-text);
+      --heading-color: var(--accent-blue);
+      --border-color: #3c4043;
+      --shadow-color: rgba(0, 0, 0, 0.3);
+      --hover-color: #3d3d3d;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 100px;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Header Container */
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+      position: relative;
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      background: var(--card-color);
+      border: 1px solid var(--border-color);
+      border-radius: 50px;
+      padding: 10px 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background-color: var(--hover-color);
+    }
+
+    .theme-toggle i {
+      font-size: 18px;
+      color: var(--heading-color);
+    }
+
+    .theme-text {
+      font-weight: 500;
+      font-size: 14px;
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin: 80px 0 60px;
+      padding: 0 20px;
+    }
+
+    .page-header h1 {
+      font-size: 2.8rem;
+      color: var(--heading-color);
+      margin-bottom: 20px;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary-blue), var(--accent-blue));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    /* Interview Grid */
+    .interview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Interview Card */
+    .interview-card {
+      background-color: var(--card-color);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      box-shadow: var(--box-shadow);
+      border: 1px solid var(--border-color);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .interview-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px var(--shadow-color);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--primary-blue), var(--accent-blue));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 20px;
+      color: white;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .card-description {
+      color: var(--text-color);
+      margin-bottom: 25px;
+      opacity: 0.9;
+      flex-grow: 1;
+      line-height: 1.6;
+    }
+
+    .card-footer {
+      margin-top: auto;
+    }
+
+    .start-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(to right, var(--primary-blue), var(--accent-blue));
+      color: white;
+      padding: 12px 24px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      width: 100%;
+      transition: var(--transition);
+      gap: 8px;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.4);
+      background: linear-gradient(to right, var(--dark-blue), var(--primary-blue));
+    }
+
+    /* Back Button */
+    .back-btn {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-blue);
+      color: white;
+      padding: 14px 32px;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      box-shadow: 0 4px 20px rgba(37, 99, 235, 0.3);
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .back-btn:hover {
+      background-color: var(--dark-blue);
+      transform: translateX(-50%) translateY(-3px);
+      box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 2.2rem;
+      }
+      
+      .interview-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        padding: 8px 12px;
+      }
+      
+      .theme-text {
+        display: none;
+      }
+      
+      .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+      
+      .interview-card {
+        padding: 20px;
+      }
+      
+      .back-btn {
+        padding: 12px 24px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon" id="themeIcon"></i>
+    <span class="theme-text" id="themeText">Dark Mode</span>
+  </div>
+
+  <div class="header-container">
+    <div class="page-header">
+      <h1><i class="fas fa-comments"></i> Mock Interview Preparation</h1>
+      <p>Practice with realistic interview scenarios tailored to your dream role. Select a track below to begin your preparation journey.</p>
+    </div>
+  </div>
+
+  <div class="interview-grid">
+    <div class="interview-card">
+      <div class="card-header">
+        <div class="card-icon"><i class="fas fa-robot"></i></div>
+        <h3 class="card-title">AI/ML Engineer</h3>
+      </div>
+      <p class="card-description">Practice algorithms, model optimization, and ML system design questions for technical interviews at top tech companies.</p>
+      <div class="card-footer">
+        <a href="/mock_interview/ai_engineer" class="start-btn">
+          <i class="fas fa-play"></i> Start Practice
+        </a>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="card-header">
+        <div class="card-icon"><i class="fas fa-chart-line"></i></div>
+        <h3 class="card-title">Data Scientist</h3>
+      </div>
+      <p class="card-description">Master statistics, SQL, and case studies for data science interviews at FAANG and startups.</p>
+      <div class="card-footer">
+        <a href="/mock_interview/data_scientist" class="start-btn">
+          <i class="fas fa-play"></i> Start Practice
+        </a>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="card-header">
+        <div class="card-icon"><i class="fas fa-cloud"></i></div>
+        <h3 class="card-title">Cloud Engineer</h3>
+      </div>
+      <p class="card-description">Prepare for AWS, GCP, and Azure architecture questions with real-world scenarios.</p>
+      <div class="card-footer">
+        <a href="/mock_interview/cloud_engineer" class="start-btn">
+          <i class="fas fa-play"></i> Start Practice
+        </a>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="card-header">
+        <div class="card-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3 class="card-title">Cybersecurity Analyst</h3>
+      </div>
+      <p class="card-description">Practice threat analysis, security protocols, and penetration testing scenarios.</p>
+      <div class="card-footer">
+        <a href="/mock_interview/cybersecurity_analyst" class="start-btn">
+          <i class="fas fa-play"></i> Start Practice
+        </a>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="card-header">
+        <div class="card-icon"><i class="fas fa-code"></i></div>
+        <h3 class="card-title">Full Stack Developer</h3>
+      </div>
+      <p class="card-description">Master frontend and backend development concepts with system design challenges.</p>
+      <div class="card-footer">
+        <a href="/mock_interview/full_stack" class="start-btn">
+          <i class="fas fa-play"></i> Start Practice
+        </a>
+      </div>
+    </div>
+
+    <div class="interview-card">
+      <div class="card-header">
+        <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+        <h3 class="card-title">Mobile Developer</h3>
+      </div>
+      <p class="card-description">Prepare for iOS and Android development interviews with platform-specific questions.</p>
+      <div class="card-footer">
+        <a href="/mock_interview/mobile_developer" class="start-btn">
+          <i class="fas fa-play"></i> Start Practice
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <a href="/" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Dashboard
+  </a>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const themeText = document.getElementById('themeText');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const currentTheme = localStorage.getItem('theme') || 
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    
+    // Set initial icon and text
+    if (currentTheme === 'dark') {
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+      themeText.textContent = 'Light Mode';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      
+      // Toggle icon and text
+      if (newTheme === 'dark') {
+        themeIcon.classList.replace('fa-moon', 'fa-sun');
+        themeText.textContent = 'Light Mode';
+      } else {
+        themeIcon.classList.replace('fa-sun', 'fa-moon');
+        themeText.textContent = 'Dark Mode';
+      }
+    });
+  </script>
+</body>
+</html>

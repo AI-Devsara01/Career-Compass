@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resume Analyzer</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f6fa;
+      color: #222;
+      margin: 0;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .upload-area {
+      border: 2px dashed #aaa;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .upload-area:hover {
+      background: #eef;
+      border-color: #3f83f8;
+    }
+    .btn {
+      background: #3f83f8;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .btn:hover {
+      background: #2965cc;
+    }
+    .result {
+      margin-top: 2rem;
+      background: #f0f4ff;
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    .progress-container {
+      margin: 1rem 0;
+      background: #eee;
+      border-radius: 8px;
+      overflow: hidden;
+      height: 15px;
+    }
+    .progress-bar {
+      height: 100%;
+      background: #3f83f8;
+      transition: width 1s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Resume Analyzer</h1>
+    <form method="POST" enctype="multipart/form-data">
+      <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        <p>Click or drag your resume here to upload</p>
+        <input type="file" name="resume" id="fileInput" style="display:none" required />
+      </div>
+      <br>
+      <button class="btn" type="submit">Analyze</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+      <h3>Analysis Result for: <span style="color:#3f83f8;">{{ result.name }}</span></h3>
+
+      <p><b>ATS Score:</b> {{ result.ats_score }}%</p>
+      <div class="progress-container">
+        <div class="progress-bar" style="width: {{ result.ats_score|default(0) }}%;"></div>
+      </div>
+
+      <p><b>Matched Skills:</b> {{ result.matched_skills | join(', ') }}</p>
+      <p><b>Missing Skills:</b> {{ result.missing_skills | join(', ') }}</p>
+      <p><b>Recommendation:</b> {{ result.recommendation }}</p>
+    </div>
+    {% endif %}
+  </div>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Skills Quizzes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --accent-color: #FF5722;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --border-radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: #e2e8f0;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      color: white;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0 0 1rem;
+      font-size: 2.2rem;
+    }
+
+    header p {
+      margin: 0;
+      opacity: 0.9;
+    }
+
+    .quiz-section {
+      background-color: var(--card-light);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-color);
+    }
+
+    body.dark-mode .quiz-section {
+      background-color: var(--card-dark);
+      border-left: 4px solid var(--primary-light);
+    }
+
+    h3 {
+      color: var(--primary-color);
+      margin-top: 0;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h4 {
+      color: var(--text-dark);
+      font-size: 1.1rem;
+      margin: 1.5rem 0 0.8rem;
+    }
+
+    body.dark-mode h4 {
+      color: #e2e8f0;
+    }
+
+    .options {
+      list-style-type: none;
+      padding: 0;
+      margin: 0.5rem 0 1.5rem;
+    }
+
+    .options li {
+      margin: 0.8rem 0;
+      padding: 0.8rem;
+      background-color: rgba(37, 99, 235, 0.05);
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    body.dark-mode .options li {
+      background-color: rgba(37, 99, 235, 0.1);
+    }
+
+    .options li:hover {
+      background-color: rgba(37, 99, 235, 0.1);
+    }
+
+    body.dark-mode .options li:hover {
+      background-color: rgba(37, 99, 235, 0.2);
+    }
+
+    .options input[type="radio"] {
+      margin-right: 10px;
+      accent-color: var(--primary-color);
+    }
+
+    .submit-btn {
+      display: block;
+      background: var(--primary-color);
+      padding: 1rem;
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      width: 100%;
+      margin: 2rem 0 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .submit-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    #result {
+      display: none;
+      text-align: center;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background-color: rgba(37, 99, 235, 0.1);
+      border-radius: var(--border-radius);
+    }
+
+    body.dark-mode #result {
+      background-color: rgba(37, 99, 235, 0.2);
+    }
+
+    #result h3 {
+      margin-top: 0;
+      color: var(--primary-color);
+    }
+
+    #score {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    .quiz-nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .quiz-nav-btn {
+      padding: 0.8rem 1.5rem;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 600;
+    }
+
+    .quiz-nav-btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header {
+        padding: 1.5rem;
+      }
+
+      header h1 {
+        font-size: 1.8rem;
+      }
+
+      .quiz-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">
+  <i class="fas fa-moon"></i>
+</button>
+
+<main class="container">
+  
+  <!-- Quiz Navigation -->
+  <div class="quiz-nav">
+    <button class="quiz-nav-btn" onclick="showQuiz('communication')">Communication</button>
+    <button class="quiz-nav-btn" onclick="showQuiz('time-management')">Time Management</button>
+    <button class="quiz-nav-btn" onclick="showQuiz('problem-solving')">Problem Solving</button>
+    <button class="quiz-nav-btn" onclick="showQuiz('leadership')">Leadership</button>
+  </div>
+
+  <!-- Communication Skills Quiz -->
+  <div id="communication-quiz">
+    <header>
+      <h1><i class="fas fa-comments"></i> Communication Skills Quiz</h1>
+      <p>Test your knowledge on effective communication techniques!</p>
+    </header>
+
+    <div class="quiz-section">
+      <h3><i class="fas fa-bullhorn"></i> Communication Skills</h3>
+      
+      <h4>1. What is the key to active listening?</h4>
+      <ul class="options">
+        <li><input type="radio" name="q1" value="a"> Giving feedback immediately after the speaker finishes.</li>
+        <li><input type="radio" name="q1" value="b"> Interrupting the speaker to express your opinion.</li>
+        <li><input type="radio" name="q1" value="c"> Focusing on the speaker and understanding the message fully.</li>
+        <li><input type="radio" name="q1" value="d"> Ignoring the speaker until you have something important to say.</li>
+      </ul>
+      
+      <h4>2. Which of the following is a barrier to effective communication?</h4>
+      <ul class="options">
+        <li><input type="radio" name="q2" value="a"> Active listening.</li>
+        <li><input type="radio" name="q2" value="b"> Distractions and noise.</li>
+        <li><input type="radio" name="q2" value="c"> Clear articulation.</li>
+        <li><input type="radio" name="q2" value="d"> Empathy and understanding.</li>
+      </ul>
+      
+      <h4>3. What is the best way to improve non-verbal communication?</h4>
+      <ul class="options">
+        <li><input type="radio" name="q3" value="a"> Speak more loudly.</li>
+        <li><input type="radio" name="q3" value="b"> Maintain good eye contact and use appropriate body language.</li>
+        <li><input type="radio" name="q3" value="c"> Use complex vocabulary to sound more professional.</li>
+        <li><input type="radio" name="q3" value="d"> Avoid making any gestures while speaking.</li>
+      </ul>
+      
+      <h4>4. Which of the following is the most effective way to deal with a communication breakdown?</h4>
+      <ul class="options">
+        <li><input type="radio" name="q4" value="a"> Ignore it and continue the conversation.</li>
+        <li><input type="radio" name="q4" value="b"> Ask for clarification and repeat the message.</li>
+        <li><input type="radio" name="q4" value="c"> Blame the other person for the misunderstanding.</li>
+        <li><input type="radio" name="q4" value="d"> Change the topic to avoid confusion.</li>
+      </ul>
+
+      <h4>5. What is the role of feedback in effective communication?</h4>
+      <ul class="options">
+        <li><input type="radio" name="q5" value="a"> To criticize the speaker's performance.</li>
+        <li><input type="radio" name="q5" value="b"> To make the speaker feel bad.</li>
+        <li><input type="radio" name="q5" value="c"> To clarify understanding and improve future interactions.</li>
+        <li><input type="radio" name="q5" value="d"> To confuse the listener and change the direction of the conversation.</li>
+      </ul>
+      
+      <button class="submit-btn" onclick="calculateScore('communication')">Submit Quiz</button>
+      
+      <div id="communication-result">
+        <h3>Your Score: <span id="communication-score"></span> / 5</h3>
+        <p>Well done! Review your answers and continue improving your communication skills.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Time Management Quiz -->
+  <div id="time-management-quiz" class="hidden">
+    <header>
+      <h1><i class="fas fa-clock"></i> Time Management Quiz</h1>
+      <p>Test your understanding of effective time management strategies!</p>
+    </header>
+
+    <div class="quiz-section">
+      <h3><i class="fas fa-hourglass-half"></i> Time Management Skills</h3>
+
+      <h4>1. What is the Pomodoro Technique?</h4>
+      <ul class="options">
+        <li><input type="radio" name="tm-q1" value="a"> Working continuously for 2-3 hours without breaks.</li>
+        <li><input type="radio" name="tm-q1" value="b"> Dividing work into 25-minute focused intervals with 5-minute breaks.</li>
+        <li><input type="radio" name="tm-q1" value="c"> Scheduling work for later in the day without taking breaks.</li>
+        <li><input type="radio" name="tm-q1" value="d"> Completing tasks all at once and taking a long break after.</li>
+      </ul>
+
+      <h4>2. How do you prioritize tasks effectively?</h4>
+      <ul class="options">
+        <li><input type="radio" name="tm-q2" value="a"> Focus on tasks that are easy and enjoyable.</li>
+        <li><input type="radio" name="tm-q2" value="b"> Complete the most urgent and important tasks first.</li>
+        <li><input type="radio" name="tm-q2" value="c"> Work on tasks that are not critical, to avoid stress.</li>
+        <li><input type="radio" name="tm-q2" value="d"> Ignore tasks that require much effort and focus on simple ones.</li>
+      </ul>
+
+      <h4>3. What does the term "time blocking" refer to?</h4>
+      <ul class="options">
+        <li><input type="radio" name="tm-q3" value="a"> Allocating a specific time slot for focused work or tasks.</li>
+        <li><input type="radio" name="tm-q3" value="b"> Blocking all time for non-work activities.</li>
+        <li><input type="radio" name="tm-q3" value="c"> Spending time in meetings or discussions.</li>
+        <li><input type="radio" name="tm-q3" value="d"> Multitasking across various tasks in the same time slot.</li>
+      </ul>
+
+      <h4>4. How can you avoid procrastination?</h4>
+      <ul class="options">
+        <li><input type="radio" name="tm-q4" value="a"> Set small, manageable goals and take breaks.</li>
+        <li><input type="radio" name="tm-q4" value="b"> Delay tasks until the last minute to feel pressured.</li>
+        <li><input type="radio" name="tm-q4" value="c"> Keep delaying tasks until they pile up.</li>
+        <li><input type="radio" name="tm-q4" value="d"> Focus only on tasks that are most enjoyable.</li>
+      </ul>
+
+      <h4>5. What is the most effective strategy for managing distractions?</h4>
+      <ul class="options">
+        <li><input type="radio" name="tm-q5" value="a"> Turn off all notifications on your phone and computer.</li>
+        <li><input type="radio" name="tm-q5" value="b"> Continue working while multitasking to get more done.</li>
+        <li><input type="radio" name="tm-q5" value="c"> Let distractions occur, as they will eventually stop.</li>
+        <li><input type="radio" name="tm-q5" value="d"> Take breaks every few minutes to manage distractions.</li>
+      </ul>
+
+      <button class="submit-btn" onclick="calculateScore('time-management')">Submit Quiz</button>
+      
+      <div id="time-management-result">
+        <h3>Your Score: <span id="time-management-score"></span> / 5</h3>
+        <p>Great job! Consider how you can apply these time management techniques in your daily routine.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Problem Solving Quiz -->
+  <div id="problem-solving-quiz" class="hidden">
+    <header>
+      <h1><i class="fas fa-puzzle-piece"></i> Problem Solving Quiz</h1>
+      <p>Test your ability to approach and solve problems logically and effectively!</p>
+    </header>
+
+    <div class="quiz-section">
+      <h3><i class="fas fa-brain"></i> Problem-Solving & Critical Thinking</h3>
+
+      <h4>1. What is the first step in solving a complex problem?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ps-q1" value="0"> Jump right into solving it without planning.</li>
+        <li><input type="radio" name="ps-q1" value="1"> Analyze and break the problem into smaller, manageable parts.</li>
+        <li><input type="radio" name="ps-q1" value="0"> Avoid discussing the problem with anyone.</li>
+        <li><input type="radio" name="ps-q1" value="0"> Wait for others to come up with a solution.</li>
+      </ul>
+      
+      <h4>2. When faced with a difficult problem, which approach is best?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ps-q2" value="0"> Ignore it and hope it resolves itself.</li>
+        <li><input type="radio" name="ps-q2" value="1"> Gather as much information as possible before making a decision.</li>
+        <li><input type="radio" name="ps-q2" value="0"> Follow the first solution that comes to mind.</li>
+        <li><input type="radio" name="ps-q2" value="0"> Rely solely on your intuition without considering facts.</li>
+      </ul>
+
+      <h4>3. What is a key characteristic of a successful problem-solver?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ps-q3" value="0"> Ability to avoid difficult situations.</li>
+        <li><input type="radio" name="ps-q3" value="1"> Persistence and willingness to learn from mistakes.</li>
+        <li><input type="radio" name="ps-q3" value="0"> Taking shortcuts whenever possible.</li>
+        <li><input type="radio" name="ps-q3" value="0"> Ignoring other people's opinions.</li>
+      </ul>
+
+      <h4>4. Which problem-solving technique involves analyzing the cause and effect of various solutions?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ps-q4" value="0"> Brainstorming.</li>
+        <li><input type="radio" name="ps-q4" value="1"> Root cause analysis.</li>
+        <li><input type="radio" name="ps-q4" value="0"> Trial and error.</li>
+        <li><input type="radio" name="ps-q4" value="0"> Random selection of solutions.</li>
+      </ul>
+
+      <h4>5. What is the importance of collaboration in problem-solving?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ps-q5" value="0"> It slows down the process and creates confusion.</li>
+        <li><input type="radio" name="ps-q5" value="1"> It brings diverse perspectives and solutions to the table.</li>
+        <li><input type="radio" name="ps-q5" value="0"> It is unnecessary for solving simple problems.</li>
+        <li><input type="radio" name="ps-q5" value="0"> It is only useful when working on large projects.</li>
+      </ul>
+
+      <button class="submit-btn" onclick="calculateScore('problem-solving')">Submit Quiz</button>
+      
+      <div id="problem-solving-result">
+        <h3>Your Score: <span id="problem-solving-score"></span> / 5</h3>
+        <p>Excellent work! Problem-solving is a valuable skill that improves with practice.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leadership Quiz -->
+  <div id="leadership-quiz" class="hidden">
+    <header>
+      <h1><i class="fas fa-users"></i> Leadership Quiz</h1>
+      <p>Test your knowledge of leadership and emotional intelligence principles!</p>
+    </header>
+
+    <div class="quiz-section">
+      <h3><i class="fas fa-user-tie"></i> Leadership & Emotional Intelligence</h3>
+
+      <h4>1. What is a key characteristic of a good leader?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ld-q1" value="1"> Confidence</li>
+        <li><input type="radio" name="ld-q1" value="0"> Ignorance</li>
+        <li><input type="radio" name="ld-q1" value="0"> Pessimism</li>
+      </ul>
+      
+      <h4>2. Which of the following is essential in leadership?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ld-q2" value="1"> Clear communication</li>
+        <li><input type="radio" name="ld-q2" value="0"> Arrogance</li>
+        <li><input type="radio" name="ld-q2" value="0"> Timidity</li>
+      </ul>
+
+      <h4>3. A leader should always be...</h4>
+      <ul class="options">
+        <li><input type="radio" name="ld-q3" value="1"> Approachable</li>
+        <li><input type="radio" name="ld-q3" value="0"> Unavailable</li>
+        <li><input type="radio" name="ld-q3" value="0"> Uninterested</li>
+      </ul>
+
+      <h4>4. How do effective leaders motivate their teams?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ld-q4" value="1"> By setting clear goals</li>
+        <li><input type="radio" name="ld-q4" value="0"> By criticizing failure</li>
+        <li><input type="radio" name="ld-q4" value="0"> By ignoring feedback</li>
+      </ul>
+
+      <h4>5. What does emotional intelligence mainly involve?</h4>
+      <ul class="options">
+        <li><input type="radio" name="ld-q5" value="1"> Understanding and managing emotions</li>
+        <li><input type="radio" name="ld-q5" value="0"> Ignoring emotions</li>
+        <li><input type="radio" name="ld-q5" value="0"> Minimizing emotions</li>
+      </ul>
+
+      <button class="submit-btn" onclick="calculateScore('leadership')">Submit Quiz</button>
+      
+      <div id="leadership-result">
+        <h3>Your Score: <span id="leadership-score"></span> / 5</h3>
+        <p>Great job! Strong leadership combines skills with emotional intelligence.</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('themeToggle');
+  const icon = themeToggle.querySelector('i');
+  
+  // Check for saved theme preference or use preferred color scheme
+  const savedTheme = localStorage.getItem('theme') || 
+                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  
+  // Apply the saved theme
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    icon.classList.replace('fa-moon', 'fa-sun');
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.replace('fa-moon', 'fa-sun');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.replace('fa-sun', 'fa-moon');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+
+  // Quiz navigation
+  function showQuiz(quizName) {
+    // Hide all quizzes
+    document.querySelectorAll('[id$="-quiz"]').forEach(quiz => {
+      quiz.classList.add('hidden');
+    });
+    
+    // Show selected quiz
+    document.getElementById(`${quizName}-quiz`).classList.remove('hidden');
+  }
+
+  // Initialize with first quiz visible
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('communication-quiz').classList.remove('hidden');
+  });
+
+  // Score calculation functions
+  function calculateScore(quizType) {
+    let score = 0;
+    const totalQuestions = 5;
+    const correctAnswers = {
+      'communication': {
+        'q1': 'c', 'q2': 'b', 'q3': 'b', 'q4': 'b', 'q5': 'c'
+      },
+      'time-management': {
+        'tm-q1': 'b', 'tm-q2': 'b', 'tm-q3': 'a', 'tm-q4': 'a', 'tm-q5': 'a'
+      },
+      'problem-solving': {
+        'ps-q1': '1', 'ps-q2': '1', 'ps-q3': '1', 'ps-q4': '1', 'ps-q5': '1'
+      },
+      'leadership': {
+        'ld-q1': '1', 'ld-q2': '1', 'ld-q3': '1', 'ld-q4': '1', 'ld-q5': '1'
+      }
+    };
+
+    // Check each question
+    for (let i = 1; i <= totalQuestions; i++) {
+      const questionName = quizType === 'communication' ? `q${i}` : 
+                         quizType === 'time-management' ? `tm-q${i}` :
+                         quizType === 'problem-solving' ? `ps-q${i}` : `ld-q${i}`;
+      
+      const selectedOption = document.querySelector(`input[name="${questionName}"]:checked`);
+      
+      if (selectedOption && selectedOption.value === correctAnswers[quizType][questionName]) {
+        score++;
+      }
+    }
+
+    // Display result
+    document.getElementById(`${quizType}-score`).textContent = score;
+    document.getElementById(`${quizType}-result`).style.display = 'block';
+    
+    // Scroll to result
+    document.getElementById(`${quizType}-result`).scrollIntoView({ behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>

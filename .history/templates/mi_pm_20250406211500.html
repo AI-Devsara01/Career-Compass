@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mock Interview - Product Manager</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <style>
+    /* Use shared style defined earlier for consistent look */
+  </style>
+</head>
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+  <body>
+    <div class="page-header">
+      <h1>Product Manager - Mock Interview Guide</h1>
+      <p>Prepare for your Product Manager interviews with essential questions, scenario practice, skills, projects, and top companies hiring in 2025.</p>
+    </div>
+  
+    <div class="module-container">
+      <section class="module-section">
+        <div class="content-section">
+          <h2>🔑 Key Skills</h2>
+          <ul>
+            <li>Product lifecycle management</li>
+            <li>Market research & competitor analysis</li>
+            <li>Agile/Scrum methodologies</li>
+            <li>Wireframing & prototyping (e.g., Figma, Balsamiq)</li>
+            <li>Data-driven decision making</li>
+            <li>Cross-functional collaboration</li>
+            <li>User stories & backlog management</li>
+          </ul>
+  
+          <h2>🎥 Top 3 YouTube Videos</h2>
+          <ul>
+            <li><a href="https://www.youtube.com/watch?v=V7Y0zAzoggY" target="_blank">How to Prepare for PM Interviews (Ex-Google PM)</a></li>
+            <li><a href="https://www.youtube.com/watch?v=1wh5cLdx2aA" target="_blank">PM Interview: Product Design Questions Explained</a></li>
+            <li><a href="https://www.youtube.com/watch?v=eTBZRbRr8-w" target="_blank">Metrics & Analytical Questions for PMs</a></li>
+          </ul>
+  
+          <h2>🧠 25 Interview Questions with Difficulty</h2>
+          <ul>
+            <li><strong>Easy:</strong> What does a Product Manager do?</li>
+            <li><strong>Easy:</strong> How do you prioritize features?</li>
+            <li><strong>Easy:</strong> What’s the difference between a PM and a Project Manager?</li>
+            <li><strong>Easy:</strong> Explain MVP (Minimum Viable Product)</li>
+            <li><strong>Easy:</strong> What’s your favorite product and why?</li>
+  
+            <li><strong>Medium:</strong> Walk me through your product lifecycle approach.</li>
+            <li><strong>Medium:</strong> How would you handle conflicting priorities between stakeholders?</li>
+            <li><strong>Medium:</strong> Define a metric for product success.</li>
+            <li><strong>Medium:</strong> How would you relaunch a failing feature?</li>
+            <li><strong>Medium:</strong> How do you work with engineering teams?</li>
+  
+            <li><strong>Medium:</strong> How do you manage technical debt as a PM?</li>
+            <li><strong>Medium:</strong> Create a product roadmap for a new app.</li>
+            <li><strong>Medium:</strong> Define north star metrics for an e-commerce app.</li>
+  
+            <li><strong>Difficult:</strong> Design a product for visually impaired users.</li>
+            <li><strong>Difficult:</strong> What would you do if users love a feature but it’s unprofitable?</li>
+            <li><strong>Difficult:</strong> How do you measure user engagement on a new feature?</li>
+            <li><strong>Difficult:</strong> How do you align business and user goals?</li>
+            <li><strong>Difficult:</strong> Define a go-to-market strategy for a mobile banking app.</li>
+            <li><strong>Difficult:</strong> Prioritize between improving retention vs. acquiring new users.</li>
+            <li><strong>Difficult:</strong> Solve: Revenue decreased 20% in the last quarter—what now?</li>
+          </ul>
+  
+          <h2>📦 Scenario-Based Questions</h2>
+          <ul>
+            <li>A competitor launched a similar feature before your release—how do you respond?</li>
+            <li>Your dev team missed the sprint goal. How do you address it?</li>
+            <li>You need to sunset a feature users love—how do you communicate it?</li>
+            <li>Stakeholders disagree on the product direction. What do you do?</li>
+          </ul>
+  
+          <h2>🚀 Project Ideas</h2>
+          <ul>
+            <li>Build a product roadmap for a personal finance app</li>
+            <li>Launch a beta feedback system for user testing</li>
+            <li>Create a pitch deck for a healthcare app MVP</li>
+            <li>Develop a product spec for an AI-based travel planner</li>
+          </ul>
+  
+          <h2>🎯 Bonus Tips</h2>
+          <ul>
+            <li>Always tie your answers to metrics & impact</li>
+            <li>Practice structured communication: Problem → Approach → Result</li>
+            <li>Know the business model of the company</li>
+          </ul>
+  
+          <h2>🏢 Top 10 Companies Hiring PMs (2025)</h2>
+          <ul>
+            <li><strong>Google:</strong> Roadmapping, UX, data analysis</li>
+            <li><strong>Meta:</strong> Social products, growth mindset, A/B testing</li>
+            <li><strong>Amazon:</strong> Customer obsession, ownership, metrics</li>
+            <li><strong>Apple:</strong> Product vision, user experience, hardware/software sync</li>
+            <li><strong>Microsoft:</strong> Product strategy, technical collaboration</li>
+            <li><strong>Salesforce:</strong> CRM understanding, agile delivery</li>
+            <li><strong>Uber:</strong> Operational efficiency, logistics products</li>
+            <li><strong>Spotify:</strong> User retention, product growth</li>
+            <li><strong>Adobe:</strong> Creative suite innovations, SaaS metrics</li>
+            <li><strong>Stripe:</strong> Fintech awareness, global scaling</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+  
+    <a class="back-btn" href="/mock_interview.html">⬅ Back to Roles</a>
+  </body>
+  </html>
+  

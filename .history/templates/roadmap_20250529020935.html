@@ -1,0 +1,412 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+  :root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4cc9f0;
+    --text-color: #2b2d42;
+    --bg-color: #f8f9fa;
+    --card-bg: #ffffff;
+    --header-bg: #ffffff;
+    --footer-bg: #2b2d42;
+    --footer-text: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    --module-bg: rgba(255, 255, 255, 0.9);
+    --border-color: rgba(0, 0, 0, 0.1);
+    --title-color: #3a0ca3;
+    --subtitle-color: #4361ee;
+  }
+
+  .dark-mode {
+    --primary-color: #4cc9f0;
+    --secondary-color: #4361ee;
+    --accent-color: #f72585;
+    --text-color: #f8f9fa;
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --header-bg: #1a1a1a;
+    --footer-bg: #0d0d0d;
+    --footer-text: #e9ecef;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --module-bg: rgba(30, 30, 30, 0.9);
+    --border-color: rgba(255, 255, 255, 0.1);
+    --title-color: #4cc9f0;
+    --subtitle-color: #4895ef;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: var(--transition);
+  }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--primary-color);
+  }
+
+  a:hover {
+    color: var(--accent-color);
+  }
+
+  /* 🌟 Page Header */
+  .page-header {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    margin-bottom: 3rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1470&auto=format&fit=crop') no-repeat center center;
+    background-size: cover;
+    opacity: 0.1;
+    z-index: 0;
+  }
+
+  .page-header-content {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+
+  .page-header p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .page-header strong {
+    color: white;
+    font-weight: 600;
+  }
+
+  /* 🌟 Module Container */
+  .module-container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto 5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* 🌟 Module Section */
+  .module-section {
+    background: var(--module-bg);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid var(--border-color);
+  }
+
+  .module-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  }
+
+  /* 🌟 Video Container */
+  .video-container {
+    flex: 1;
+    min-width: 300px;
+    min-height: 300px;
+    background: #000;
+    position: relative;
+  }
+
+  .video-container iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+    border: none;
+  }
+
+  .no-video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1.2rem;
+    background: #333;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+  }
+
+  /* 🌟 Content Section */
+  .content-section {
+    flex: 1;
+    min-width: 300px;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .content-section h2 {
+    font-size: 1.8rem;
+    color: var(--title-color);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .content-section p {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--text-color);
+  }
+
+  .content-section strong {
+    color: var(--subtitle-color);
+    font-weight: 500;
+  }
+
+  /* 🌟 Lists */
+  ul {
+    margin: 0.5rem 0 0 1.5rem;
+    list-style-type: none;
+  }
+
+  ul li {
+    margin-bottom: 0.8rem;
+    font-size: 1.05rem;
+    color: var(--text-color);
+    position: relative;
+    padding-left: 1.5rem;
+  }
+
+  ul li:before {
+    content: '•';
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    position: absolute;
+    left: 0;
+    top: -0.3rem;
+  }
+
+  /* 🌟 Back Button */
+  .back-btn-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+  }
+
+  .back-btn {
+    background: var(--primary-color);
+    color: white;
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .back-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  /* 🌟 Theme Toggle */
+  .theme-toggle-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+  }
+
+  .theme-toggle {
+    background: var(--card-bg);
+    border: none;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    color: var(--text-color);
+  }
+
+  /* 🌟 Responsive Adjustments */
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 3rem 1.5rem;
+    }
+    
+    .page-header h1 {
+      font-size: 2.2rem;
+    }
+    
+    .page-header p {
+      font-size: 1.1rem;
+    }
+    
+    .content-section {
+      padding: 1.5rem;
+    }
+    
+    .content-section h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .module-section {
+      flex-direction: column;
+    }
+    
+    .video-container, .content-section {
+      min-width: 100%;
+    }
+    
+    .back-btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<!-- 🌟 Theme Toggle Button -->
+<div class="theme-toggle-container">
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+</div>
+
+<!-- 🌟 Page Header -->
+<div class="page-header">
+  <div class="page-header-content">
+    <h1>{{ role.replace('_', ' ').title() }} Roadmap</h1>
+    <p>
+      Welcome to the comprehensive roadmap for <strong>{{ role.replace('_', ' ').title() }}</strong>. 
+      Below you'll find key modules, recommended projects, and interview questions to guide you 
+      from beginner to advanced concepts.
+    </p>
+  </div>
+</div>
+<div class="module-container">
+  {% if not dataset %}
+    <div class="no-data-message">
+      <h3>No roadmap data available yet for {{ role }}</h3>
+      <p>Please check back later or contact support.</p>
+    </div>
+  {% else %}
+    {% for row in dataset %}
+    <div class="module-section">
+      <!-- Video Section -->
+      <div class="video-container">
+        {% if row['Video Links'] and row['Video Links'] != 'None' %}
+          {% if 'youtube.com' in row['Video Links'] or 'youtu.be' in row['Video Links'] %}
+            {% set video_id = row['Video Links'].split('v=')[1].split('&')[0] if 'v=' in row['Video Links'] else row['Video Links'].split('/')[-1] %}
+            <iframe 
+              src="https://www.youtube.com/embed/{{ video_id }}" 
+              frameborder="0" 
+              allowfullscreen>
+            </iframe>
+          {% else %}
+            <div class="no-video">🔗 External Video Link Available</div>
+          {% endif %}
+        {% else %}
+          <div class="no-video">🎥 Video Coming Soon</div>
+        {% endif %}
+      </div>
+
+      <!-- Content Section -->
+      <div class="content-section">
+        <h2>{{ row['Module'] or "Key Concepts" }}</h2>
+
+        {% if row['Subtopic'] and row['Subtopic'] != 'None' %}
+          <p><strong>Focus Areas:</strong> {{ row['Subtopic'] }}</p>
+        {% endif %}
+
+        {% if row['Description'] and row['Description'] != 'None' %}
+          <p>{{ row['Description'] }}</p>
+        {% endif %}
+
+        {% if row['Project'] and row['Project'] != 'None' %}
+          <p><strong>Hands-on Projects:</strong></p>
+          <ul>
+            {% if row['Project'] is string %}
+              <li>{{ row['Project'] }}</li>
+            {% else %}
+              {% for prj in row['Project'].split(';') %}
+                <li>{{ prj }}</li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        {% endif %}
+        
+        {% if row['Interview Questions'] and row['Interview Questions'] != 'None' %}
+          <p><strong>Interview Preparation:</strong></p>
+          <ul>
+            {% if row['Interview Questions'] is string %}
+              {% for q in row['Interview Questions'].split('? ') %}
+                {% if q.strip() %}
+                  <li>{{ q.strip() }}{% if not q.endswith('?') %}?{% endif %}</li>
+                {% endif %}
+              {% endfor %}
+            {% else %}
+              {% for q in row['Interview Questions'] %}
+                <li>{{ q }}</li>
+              {% endfor %}
+            {% endif %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  {% endif %}
+</div>
+
+<!-- Back Button -->
+<div class="back-btn-container">
+  <a href="{{ url_for('home') }}" class="back-btn">
+    <i class="fas fa-arrow-left"></i> Back to Home
+  </a>
+</div>
+
+<script>
+  // [Keep your existing JavaScript code]
+</script>
+{% endblock %}
+3. Key Fixes and I

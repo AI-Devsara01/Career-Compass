@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Career Bot</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f4f4f9;
+            padding: 20px;
+            color: #333;
+        }
+        #chat-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 300px;
+            overflow-y: scroll;
+            background: #fff;
+        }
+        .message {
+            margin: 10px 0;
+        }
+        .user {
+            color: blue;
+        }
+        .bot {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Ask CareerBot Anything</h2>
+    <div id="chat-box"></div>
+    <input type="text" id="userInput" placeholder="Type your question here..." />
+    <button onclick="sendMessage()">Send</button>
+<!-- ✅ Real Chatbot UI -->
+<div style="max-width: 600px; margin: 50px auto; padding: 20px; border: 2px solid #ccc; border-radius: 10px;">
+    <h2 style="text-align: center;">Ask EduGuide Chatbot</h2>
+    <div id="chatbox" style="height: 300px; overflow-y: auto; border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; background-color: #f9f9f9;"></div>
+    <input type="text" id="userInput" placeholder="Type your question..." style="width: 80%; padding: 10px;" />
+    <button onclick="sendMessage()" style="padding: 10px;">Send</button>
+  </div>
+  <script>
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="IpVQF6-ZegJg2V7nGyKeN";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    </script>
+</body>
+</html>

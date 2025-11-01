@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+<h1>Mock Interview: Cloud Engineer</h1>
+
+<h2>Role Introduction</h2>
+<p>Cloud Engineers are responsible for designing, developing, and managing secure, scalable, and highly available cloud environments. They work with cloud platforms like AWS, Azure, and Google Cloud to support cloud-based infrastructure and applications.</p>
+
+<h2>Key Skills Required</h2>
+<ul>
+    <li>Cloud Architecture (AWS, Azure, GCP)</li>
+    <li>DevOps & CI/CD pipelines</li>
+    <li>Linux and Windows server administration</li>
+    <li>Infrastructure as Code (Terraform, CloudFormation)</li>
+    <li>Security & Networking in the cloud</li>
+    <li>Scripting (Python, Bash)</li>
+</ul>
+
+<h2>Top 3 YouTube Videos for Preparation</h2>
+<ul>
+    <li><a href="https://www.youtube.com/watch?v=Zt6gP8VqgMI" target="_blank">Cloud Engineer Full Course - Edureka</a></li>
+    <li><a href="https://www.youtube.com/watch?v=2LaAJq1lB1Q" target="_blank">AWS Cloud Engineer Interview Prep</a></li>
+    <li><a href="https://www.youtube.com/watch?v=OtbUQdYzvN0" target="_blank">Azure Interview Questions - Simplilearn</a></li>
+</ul>
+
+<h2>25 Interview Questions</h2>
+<ol>
+    <li><strong>(Easy)</strong> What is cloud computing?</li>
+    <li><strong>(Easy)</strong> What are the main service models in cloud?</li>
+    <li><strong>(Easy)</strong> Difference between public, private, and hybrid cloud?</li>
+    <li><strong>(Easy)</strong> What is the difference between scalability and elasticity?</li>
+    <li><strong>(Easy)</strong> Explain virtualization and its role in cloud computing.</li>
+    <li><strong>(Medium)</strong> How do IAM policies work in AWS?</li>
+    <li><strong>(Medium)</strong> What is the difference between S3, EBS, and EFS?</li>
+    <li><strong>(Medium)</strong> How do you implement high availability in the cloud?</li>
+    <li><strong>(Medium)</strong> What is a VPC and how do you configure it?</li>
+    <li><strong>(Medium)</strong> Explain the role of containers in cloud computing.</li>
+    <li><strong>(Medium)</strong> What are security best practices in AWS?</li>
+    <li><strong>(Medium)</strong> What is load balancing and how is it achieved in cloud platforms?</li>
+    <li><strong>(Medium)</strong> Describe a CI/CD pipeline in a cloud environment.</li>
+    <li><strong>(Medium)</strong> Explain the difference between Docker and Kubernetes.</li>
+    <li><strong>(Difficult)</strong> How would you architect a multi-region failover system?</li>
+    <li><strong>(Difficult)</strong> Design a secure and scalable infrastructure for a banking application.</li>
+    <li><strong>(Difficult)</strong> How do you monitor cloud resources and alert on failures?</li>
+    <li><strong>(Difficult)</strong> How would you handle data consistency across multiple regions?</li>
+    <li><strong>(Difficult)</strong> How to migrate a monolithic app to a cloud-native architecture?</li>
+    <li><strong>(Difficult)</strong> Explain disaster recovery and backup strategies in the cloud.</li>
+    <li><strong>(Difficult)</strong> Describe cloud cost optimization techniques.</li>
+    <li><strong>(Difficult)</strong> What are serverless services and when would you use them?</li>
+    <li><strong>(Difficult)</strong> Design a real-time analytics system using cloud services.</li>
+    <li><strong>(Difficult)</strong> How to implement zero-trust security in cloud systems?</li>
+    <li><strong>(Difficult)</strong> Walk through your experience deploying Kubernetes in production.</li>
+</ol>
+
+<h2>Scenario-Based Questions</h2>
+<ol>
+    <li>You're asked to migrate an on-premises application to AWS. How would you proceed?</li>
+    <li>A customer reports frequent downtime. How would you ensure high availability?</li>
+    <li>How would you secure sensitive data stored in the cloud?</li>
+</ol>
+
+<h2>Project Ideas</h2>
+<ul>
+    <li>Deploy a scalable web application on AWS using EC2, Load Balancer, and RDS</li>
+    <li>Implement CI/CD using Jenkins and Docker</li>
+    <li>Create a monitoring dashboard with CloudWatch and Prometheus</li>
+</ul>
+
+<h2>Bonus Tips</h2>
+<ul>
+    <li>Practice setting up end-to-end infrastructure in a free-tier cloud account</li>
+    <li>Always include redundancy and cost optimization in your architecture</li>
+    <li>Familiarize yourself with cloud compliance and regulatory practices</li>
+</ul>
+
+<h2>Top 10 Companies Hiring Cloud Engineers (With Job Descriptions & Requirements)</h2>
+<ul>
+    <li><strong>Amazon Web Services (AWS)</strong> - Deep understanding of AWS tools, DevOps, and cloud security</li>
+    <li><strong>Microsoft Azure</strong> - Azure certification, hybrid cloud experience, networking</li>
+    <li><strong>Google Cloud Platform (GCP)</strong> - Infrastructure design, automation, GCP tools</li>
+    <li><strong>IBM</strong> - Enterprise cloud solutions, cloud-native app development</li>
+    <li><strong>Oracle Cloud</strong> - SaaS, PaaS, IaaS understanding with DevOps skills</li>
+    <li><strong>Salesforce</strong> - Cloud integration, CRM cloud services, APIs</li>
+    <li><strong>VMware</strong> - Multi-cloud environments, virtualization technologies</li>
+    <li><strong>Accenture</strong> - Client-facing cloud transformation, Terraform, Docker</li>
+    <li><strong>Infosys</strong> - Cloud migrations, Kubernetes, scripting knowledge</li>
+    <li><strong>Capgemini</strong> - Azure DevOps, automation, hybrid cloud platforms</li>
+</ul>
+{% endblock %}

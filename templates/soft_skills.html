@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Skills Development</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4cc9f0;
+            --text-color: #2b2d42;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --header-bg: #ffffff;
+            --hero-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            --border-color: rgba(0, 0, 0, 0.1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --module-overlay: rgba(255, 255, 255, 0.9);
+            --btn-text: white;
+            --progress-bg: #e9ecef;
+            --testimonial-bg: #f1f3f5;
+        }
+
+        .dark-mode {
+            --primary-color: #4cc9f0;
+            --secondary-color: #4361ee;
+            --accent-color: #f72585;
+            --text-color: #f8f9fa;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: #1a1a1a;
+            --hero-bg: linear-gradient(135deg, #0f172a, #1e293b);
+            --border-color: rgba(255, 255, 255, 0.1);
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            --module-overlay: rgba(30, 30, 30, 0.9);
+            --btn-text: #121212;
+            --progress-bg: #2d3748;
+            --testimonial-bg: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--card-bg);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            color: var(--text-color);
+        }
+
+        .hero {
+            background: var(--hero-bg);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1470&auto=format&fit=crop') no-repeat center center;
+            background-size: cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .container {
+            padding: 40px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .module-card, .quiz-card, .progress-card, .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--border-color);
+        }
+
+        .module-card:hover, .quiz-card:hover, .progress-card:hover, .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .module-icon, .quiz-icon, .progress-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .card-content {
+            padding: 30px;
+        }
+
+        .module-card h3, .quiz-card h3, .progress-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .module-card p, .quiz-card p, .progress-card p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            background: var(--primary-color);
+            color: var(--btn-text);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .quiz-card {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Progress Tracker Styles */
+        .progress-tracker {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: var(--progress-bg);
+            border-radius: 5px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-color);
+            border-radius: 5px;
+            transition: width 1s ease-in-out;
+        }
+
+        .progress-text {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+
+        /* Testimonials Styles */
+        .testimonials-section {
+            background: var(--testimonial-bg);
+            padding: 60px 0;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-content {
+            padding: 25px;
+        }
+
+        .testimonial-content p {
+            font-style: italic;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .testimonial-content p::before {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent-color);
+            opacity: 0.3;
+            position: absolute;
+            top: -20px;
+            left: -10px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .testimonial-author h4 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-author span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .modules-grid, .progress-tracker, .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .card-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content">
+            <h1>🚀 Master Soft Skills & Transform Your Career!</h1>
+            <p>Develop essential soft skills to stand out in the industry. Improve communication, leadership, and problem-solving!</p>
+        </div>
+    </div>
+
+    <!-- Modules Section -->
+    <div class="container">
+        <h2 class="section-title">💡 Explore Our Modules</h2>
+        
+        <div class="modules-grid">
+            <div class="module-card">
+                <div class="card-content">
+                    <div class="module-icon">📢</div>
+                    <h3>Communication Skills</h3>
+                    <p>Learn the art of professional speaking, active listening, and writing with clarity. Communicate confidently in any setting!</p>
+                    <a href="{{ url_for('modules', module='communication') }}" class="btn">Start Learning</a>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="card-content">
+                    <div class="module-icon">🤔</div>
+                    <h3>Problem-Solving & Critical Thinking</h3>
+                    <p>Master logical reasoning, analytical skills, and creative problem-solving to tackle challenges effectively in the workplace.</p>
+                    <a href="{{ url_for('modules', module='problem-solving') }}" class="btn">Start Learning</a>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="card-content">
+                    <div class="module-icon">💡</div>
+                    <h3>Leadership & Teamwork</h3>
+                    <p>Enhance leadership qualities, teamwork, and conflict resolution. Lead with confidence and collaborate efficiently.</p>
+                    <a href="{{ url_for('modules', module='leadership') }}" class="btn">Start Learning</a>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="card-content">
+                    <div class="module-icon">⏳</div>
+                    <h3>Time Management & Productivity</h3>
+                    <p>Learn to prioritize tasks, avoid distractions, and boost efficiency with smart time management strategies.</p>
+                    <a href="{{ url_for('modules', module='time-management') }}" class="btn">Start Learning</a>
+                </div>
+            </div>
+
+            <div class="module-card">
+                <div class="card-content">
+                    <div class="module-icon">🎯</div>
+                    <h3>Emotional Intelligence & Stress Management</h3>
+                    <p>Understand emotions, develop self-awareness, and manage stress in high-pressure work environments.</p>
+                    <a href="{{ url_for('modules', module='emotional-intelligence') }}" class="btn">Start Learning</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quiz Section -->
+        <h2 class="section-title">📝 Test Your Knowledge</h2>
+        
+        <div class="quiz-card">
+            <div class="card-content">
+                <div class="quiz-icon">📊</div>
+                <h3>Take a Quiz</h3>
+                <p>Evaluate your skills with engaging, interactive quizzes for each module.</p>
+                <a href="/quiz" class="btn">Start Quiz</a>
+            </div>
+        </div>
+
+        <!-- Progress Tracker Section -->
+        <h2 class="section-title">📈 Your Learning Progress</h2>
+        <div class="progress-tracker">
+            <div class="progress-card">
+                <div class="card-content">
+                    <div class="progress-icon">📚</div>
+                    <h3>Modules Completed</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 25%;"></div>
+                    </div>
+                    <span class="progress-text">1 of 4 modules</span>
+                </div>
+            </div>
+            
+            <div class="progress-card">
+                <div class="card-content">
+                    <div class="progress-icon">🏆</div>
+                    <h3>Skills Mastered</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%;"></div>
+                    </div>
+                    <span class="progress-text">5 of 10 skills</span>
+                </div>
+            </div>
+            
+            <div class="progress-card">
+                <div class="card-content">
+                    <div class="progress-icon">🧠</div>
+                    <h3>Knowledge Retention</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                    <span class="progress-text">75% average score</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonials Section -->
+    <div class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">💬 What Our Learners Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"This soft skills program transformed how I communicate at work. I got promoted within 3 months!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J.">
+                            <div>
+                                <h4>Sarah J.</h4>
+                                <span>Marketing Manager</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The leadership modules helped me build confidence to lead my first team successfully."</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="David K.">
+                            <div>
+                                <h4>David K.</h4>
+                                <span>Project Lead</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <p>"The time management techniques saved me 10+ hours per week. Game changer!"</p>
+                        <div class="testimonial-author">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya M.">
+                            <div>
+                                <h4>Priya M.</h4>
+                                <span>Software Developer</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const icon = themeToggle.querySelector('i');
+        
+        // Check for saved theme preference or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+            document.body.classList.add('dark-mode');
+            icon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+
+        // Animate progress bars on scroll
+        document.addEventListener('DOMContentLoaded', () => {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            
+            const animateProgressBars = () => {
+                progressBars.forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            };
+
+            // Simple scroll detection (for demo)
+            setTimeout(animateProgressBars, 500);
+        });
+    </script>
+</body>
+</html>

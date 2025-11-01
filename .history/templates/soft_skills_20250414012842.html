@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Skills Development</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #fff;
+            background: url('https://img.freepik.com/premium-vector/minimal-geometric-gradient-blue-stripe-shape-background_699934-148.jpg') no-repeat center center/cover;
+        }
+
+        .hero {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 60px 20px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .container {
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .module-card, .quiz-card {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 20px;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-left: 5px solid #005eff;
+            color: white;
+        }
+
+        .module-card:hover, .quiz-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .btn {
+            background: #0055ff;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            background: #004de6;
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .quiz-btn {
+            background: #4079ff;
+        }
+
+        .quiz-btn:hover {
+            background: #005ce6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>🚀 Master Soft Skills & Transform Your Career!</h1>
+        <p>Develop essential soft skills to stand out in the industry. Improve communication, leadership, and problem-solving!</p>
+    </div>
+
+    <div class="container">
+        <h2>💡 Explore Our Modules</h2>
+
+        <div class="module-card">
+            <h3>📢 Communication Skills</h3>
+            <p>Learn the art of professional speaking, active listening, and writing with clarity. Communicate confidently in any setting!</p>
+            <a href="{{ url_for('modules', module='communication') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>🤔 Problem-Solving & Critical Thinking</h3>
+            <p>Master logical reasoning, analytical skills, and creative problem-solving to tackle challenges effectively in the workplace.</p>
+            <a href="{{ url_for('modules', module='problem-solving') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>💡 Leadership & Teamwork</h3>
+            <p>Enhance leadership qualities, teamwork, and conflict resolution. Lead with confidence and collaborate efficiently.</p>
+            <a href="{{ url_for('modules', module='leadership') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>⏳ Time Management & Productivity</h3>
+            <p>Learn to prioritize tasks, avoid distractions, and boost efficiency with smart time management strategies.</p>
+            <a href="{{ url_for('modules', module='time-management') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>🎯 Emotional Intelligence & Stress Management</h3>
+            <p>Understand emotions, develop self-awareness, and manage stress in high-pressure work environments.</p>
+            <a href="{{ url_for('modules', module='emotional-intelligence') }}" class="btn">Start Learning</a>
+        </div>
+
+        <h2>📝 Test Your Knowledge</h2>
+
+        <div class="quiz-card">
+            <h3>📊 Take a Quiz</h3>
+            <p>Evaluate your skills with engaging, interactive quizzes for each module.</p>
+            <a href="/quiz" class="btn quiz-btn">Start Quiz</a>
+
+        </div>
+    </div>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Leadership & Emotional Intelligence Quiz</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }
+            .quiz-container {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 8px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            h1 {
+                text-align: center;
+            }
+            .question {
+                margin-bottom: 20px;
+            }
+            .question h3 {
+                font-size: 1.2em;
+            }
+            .options {
+                list-style-type: none;
+                padding: 0;
+            }
+            .options li {
+                margin: 10px 0;
+            }
+            .btn {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            .btn:hover {
+                background-color: #45a049;
+            }
+            .result {
+                display: none;
+                margin-top: 20px;
+            }
+            .result p {
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+    
+        <div class="quiz-container">
+            <h1>Leadership & Emotional Intelligence Quiz</h1>
+            
+            <form id="quizForm">
+                <!-- Leadership Questions -->
+                <div class="question">
+                    <h3>1. What is a key characteristic of a good leader?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q1" value="a"> Confidence</li>
+                        <li><input type="radio" name="q1" value="b"> Ignorance</li>
+                        <li><input type="radio" name="q1" value="c"> Pessimism</li>
+                    </ul>
+                </div>
+                
+                <div class="question">
+                    <h3>2. Which of the following is essential in leadership?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q2" value="a"> Clear communication</li>
+                        <li><input type="radio" name="q2" value="b"> Arrogance</li>
+                        <li><input type="radio" name="q2" value="c"> Timidity</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>3. A leader should always be...</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q3" value="a"> Approachable</li>
+                        <li><input type="radio" name="q3" value="b"> Unavailable</li>
+                        <li><input type="radio" name="q3" value="c"> Uninterested</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>4. How do effective leaders motivate their teams?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q4" value="a"> By setting clear goals</li>
+                        <li><input type="radio" name="q4" value="b"> By criticizing failure</li>
+                        <li><input type="radio" name="q4" value="c"> By ignoring feedback</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>5. Which of these is a crucial skill for leaders?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q5" value="a"> Decision-making</li>
+                        <li><input type="radio" name="q5" value="b"> Indifference</li>
+                        <li><input type="radio" name="q5" value="c"> Disorganization</li>
+                    </ul>
+                </div>
+    
+                <!-- Emotional Intelligence Questions -->
+                <div class="question">
+                    <h3>6. What does emotional intelligence mainly involve?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q6" value="a"> Understanding and managing emotions</li>
+                        <li><input type="radio" name="q6" value="b"> Ignoring emotions</li>
+                        <li><input type="radio" name="q6" value="c"> Minimizing emotions</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>7. Which of these is a component of emotional intelligence?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q7" value="a"> Self-awareness</li>
+                        <li><input type="radio" name="q7" value="b"> Self-deception</li>
+                        <li><input type="radio" name="q7" value="c"> Isolation</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>8. How can emotional intelligence help in conflict resolution?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q8" value="a"> By understanding others' emotions</li>
+                        <li><input type="radio" name="q8" value="b"> By avoiding the problem</li>
+                        <li><input type="radio" name="q8" value="c"> By being aggressive</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>9. Which of the following is an example of emotional intelligence?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q9" value="a"> Empathy</li>
+                        <li><input type="radio" name="q9" value="b"> Indifference</li>
+                        <li><input type="radio" name="q9" value="c"> Anger</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>10. Emotional intelligence can improve...</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q10" value="a"> Communication and relationships</li>
+                        <li><input type="radio" name="q10" value="b"> Avoidance of problems</li>
+                        <li><input type="radio" name="q10" value="c"> Isolation</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>11. How can a leader show emotional intelligence?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q11" value="a"> By listening actively</li>
+                        <li><input type="radio" name="q11" value="b"> By ignoring feedback</li>
+                        <li><input type="radio" name="q11" value="c"> By avoiding confrontation</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>12. Which of the following demonstrates empathy?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q12" value="a"> Understanding another person's perspective</li>
+                        <li><input type="radio" name="q12" value="b"> Ignoring someone's feelings</li>
+                        <li><input type="radio" name="q12" value="c"> Dominating a conversation</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>13. Why is emotional intelligence important in leadership?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q13" value="a"> It helps leaders understand and manage their emotions and those of others</li>
+                        <li><input type="radio" name="q13" value="b"> It allows leaders to avoid dealing with emotions</li>
+                        <li><input type="radio" name="q13" value="c"> It makes leaders more forceful</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>14. Which is an example of self-regulation in emotional intelligence?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q14" value="a"> Staying calm under pressure</li>
+                        <li><input type="radio" name="q14" value="b"> Reacting impulsively</li>
+                        <li><input type="radio" name="q14" value="c"> Ignoring emotions</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>15. What role does motivation play in emotional intelligence?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q15" value="a"> It helps individuals stay focused on goals</li>
+                        <li><input type="radio" name="q15" value="b"> It leads to aggression</li>
+                        <li><input type="radio" name="q15" value="c"> It leads to complacency</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>16. How can leaders show empathy to their team members?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q16" value="a"> By understanding their emotions and supporting them</li>
+                        <li><input type="radio" name="q16" value="b"> By avoiding emotional discussions</li>
+                        <li><input type="radio" name="q16" value="c"> By ignoring team concerns</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>17. What does self-awareness help a leader do?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q17" value="a"> Understand their emotions and how they affect others</li>
+                        <li><input type="radio" name="q17" value="b"> Ignore their emotions</li>
+                        <li><input type="radio" name="q17" value="c"> Avoid any feedback</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>18. How does emotional intelligence help in decision-making?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q18" value="a"> It helps leaders consider emotions along with logic</li>
+                        <li><input type="radio" name="q18" value="b"> It makes decisions based only on logic</li>
+                        <li><input type="radio" name="q18" value="c"> It avoids making decisions</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>19. Which of the following is a trait of an emotionally intelligent leader?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q19" value="a"> Ability to manage stress</li>
+                        <li><input type="radio" name="q19" value="b"> Inability to handle challenges</li>
+                        <li><input type="radio" name="q19" value="c"> Disinterest in team development</li>
+                    </ul>
+                </div>
+    
+                <div class="question">
+                    <h3>20. How can emotional intelligence enhance teamwork?</h3>
+                    <ul class="options">
+                        <li><input type="radio" name="q20" value="a"> By fostering understanding and collaboration</li>
+                        <li><input type="radio" name="q20" value="b"> By encouraging competition</li>
+                        <li><input type="radio" name="q20" value="c"> By reducing communication</li>
+                    </ul>
+                </div>
+    
+                <div>
+                    <button type="button" class="btn" onclick="calculateResults()">Submit Quiz</button>
+                </div>
+            </form>
+    
+            <div class="result">
+                <p id="resultText"></p>
+            </div>
+        </div>
+    
+        <script>
+            function calculateResults() {
+                let score = 0;
+                const totalQuestions = 20;
+                
+                // Collect answers and calculate score
+                const answers = {
+                    q1: 'a', q2: 'a', q3: 'a', q4: 'a', q5: 'a',
+                    q6: 'a', q7: 'a', q8: 'a', q9: 'a', q10: 'a',
+                    q11: 'a', q12: 'a', q13: 'a', q14: 'a', q15: 'a',
+                    q16: 'a', q17: 'a', q18: 'a', q19: 'a', q20: 'a'
+                };
+    
+                // Loop through questions and check for correct answers
+                for (let i = 1; i <= totalQuestions; i++) {
+                    const answer = document.querySelector(`input[name="q${i}"]:checked`);
+                    if (answer && answer.value === answers[`q${i}`]) {
+                        score++;
+                    }
+                }
+    
+                // Show result
+                const resultText = document.getElementById('resultText');
+                resultText.textContent = `You scored ${score} out of ${totalQuestions}.`;
+                document.querySelector('.result').style.display = 'block';
+            }
+        </script>
+    </body>
+    </html>
+    
+</body>
+</html>

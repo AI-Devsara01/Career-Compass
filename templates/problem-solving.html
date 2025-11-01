@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Problem Solving Skills</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2563eb;
+      --primary-light: #3b82f6;
+      --primary-dark: #1d4ed8;
+      --text-dark: #1e293b;
+      --text-light: #64748b;
+      --bg-light: #f8fafc;
+      --bg-dark: #0f172a;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --border-radius: 12px;
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-dark);
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: #e2e8f0;
+    }
+
+    .container {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      color: white;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      margin-bottom: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    header h1 {
+      margin: 0 0 1rem;
+      font-size: 2.5rem;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .subtopic {
+      background-color: var(--card-light);
+      margin: 2rem 0;
+      padding: 2rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    body.dark-mode .subtopic {
+      background-color: var(--card-dark);
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-top: 0;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h3 {
+      color: var(--primary-color);
+      font-size: 1.4rem;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin: 1.5rem 0;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: var(--border-radius);
+    }
+
+    .question-list {
+      padding-left: 1.5rem;
+    }
+
+    .question-list li {
+      margin-bottom: 0.8rem;
+      position: relative;
+    }
+
+    .question-list li::before {
+      content: "•";
+      color: var(--primary-color);
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-left: -1em;
+      position: absolute;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary-color);
+      padding: 0.8rem 1.5rem;
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: var(--border-radius);
+      margin-top: 1rem;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 100;
+      transition: var(--transition);
+    }
+
+    .theme-toggle:hover {
+      background: var(--primary-dark);
+      transform: scale(1.1);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      header {
+        padding: 1.5rem;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      .subtopic {
+        padding: 1.5rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    /* Premium styling enhancements */
+    .subtopic {
+      border-left: 4px solid var(--primary-color);
+    }
+
+    body.dark-mode .subtopic {
+      border-left: 4px solid var(--primary-light);
+    }
+
+    p {
+      color: var(--text-light);
+    }
+
+    body.dark-mode p {
+      color: #cbd5e1;
+    }
+
+    .accent {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    body.dark-mode .accent {
+      color: var(--primary-light);
+    }
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">
+  <i class="fas fa-moon"></i>
+</button>
+
+<main class="container">
+  <header>
+    <h1><i class="fas fa-puzzle-piece"></i> Problem Solving Skills</h1>
+    <p>Master the techniques of problem identification, analysis, and solution generation to overcome challenges in professional environments.</p>
+  </header>
+
+  <!-- Reusable Subtopics Section -->
+  <section class="subtopic">
+    <h2><i class="fas fa-search"></i> Identifying the Problem</h2>
+    <p>Effective problem solving begins with recognizing and accurately defining the problem at hand.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/oIwzQ3Bx7XA?si=H1lAC-tZAS4yNDYs" allowfullscreen></iframe>
+    </div>
+    <h3><span class="accent">Top 5 Interview Questions:</span></h3>
+    <ul class="question-list">
+      <li>How do you identify the root cause of a problem?</li>
+      <li>What steps do you take to break down a complex issue into manageable parts?</li>
+      <li>Can you give an example where you successfully identified a problem others overlooked?</li>
+      <li>What tools or methods do you use to help clarify ambiguous problems?</li>
+      <li>How do you prioritize problems when facing multiple issues at once?</li>
+    </ul>
+    <h3><span class="accent">Scenario-Based Questions:</span></h3>
+    <ul class="question-list">
+      <li>Describe a situation where you had to identify a hidden problem that was affecting team performance.</li>
+      <li>How would you handle a situation where there's a problem, but no one seems to know what's wrong?</li>
+    </ul>
+  </section>
+
+  <section class="subtopic">
+    <h2><i class="fas fa-chart-line"></i> Analyzing the Problem</h2>
+    <p>Once a problem is identified, analyzing it carefully helps to understand its causes and the implications it has on the situation.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/Cm5ukdquISE?si=2ifayz8FsjRErOUQ" allowfullscreen></iframe>
+    </div>
+    <h3><span class="accent">Top 5 Interview Questions:</span></h3>
+    <ul class="question-list">
+      <li>How do you analyze a problem to understand its scope and impact?</li>
+      <li>What frameworks or approaches do you use to assess complex problems?</li>
+      <li>How do you gather information when analyzing a problem?</li>
+      <li>What is your approach when a problem has multiple potential causes?</li>
+      <li>Can you describe a time when your problem analysis led to a new solution?</li>
+    </ul>
+    <h3><span class="accent">Scenario-Based Questions:</span></h3>
+    <ul class="question-list">
+      <li>Tell me about a time when you had to analyze a challenging problem. How did you approach it?</li>
+      <li>How would you tackle a situation where the problem is unclear and requires deep analysis?</li>
+    </ul>
+  </section>
+
+  <section class="subtopic">
+    <h2><i class="fas fa-lightbulb"></i> Generating Solutions</h2>
+    <p>Effective problem solving involves brainstorming and evaluating potential solutions that address the root cause of the problem.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/V7pf3oT2_dE?si=ek2XQMR2TtEUrDwy" allowfullscreen></iframe>
+    </div>
+    <h3><span class="accent">Top 5 Interview Questions:</span></h3>
+    <ul class="question-list">
+      <li>How do you generate multiple solutions for a problem?</li>
+      <li>What steps do you follow when evaluating potential solutions?</li>
+      <li>Can you provide an example of when your creative solution solved a problem effectively?</li>
+      <li>How do you decide between several viable solutions to a problem?</li>
+      <li>What role does collaboration play in generating solutions?</li>
+    </ul>
+    <h3><span class="accent">Scenario-Based Questions:</span></h3>
+    <ul class="question-list">
+      <li>Tell me about a time when you had to generate a creative solution to a complex problem.</li>
+      <li>How would you approach a situation where your team disagrees on the best solution to a problem?</li>
+    </ul>
+  </section>
+
+  <section class="subtopic">
+    <h2><i class="fas fa-tools"></i> Implementing the Solution</h2>
+    <p>Once a solution is chosen, the next step is putting the plan into action, ensuring that it is executed effectively.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/t4gQ4HRqJ0c?si=p5FwsU0WuClkkQZ0" allowfullscreen></iframe>
+    </div>
+    <h3><span class="accent">Top 5 Interview Questions:</span></h3>
+    <ul class="question-list">
+      <li>How do you ensure the effective implementation of a solution?</li>
+      <li>What steps do you take to monitor the solution's effectiveness during execution?</li>
+      <li>Can you provide an example of a solution that was successfully implemented under your guidance?</li>
+      <li>How do you handle unforeseen challenges during the implementation phase?</li>
+      <li>How do you communicate and align the team during the solution implementation?</li>
+    </ul>
+    <h3><span class="accent">Scenario-Based Questions:</span></h3>
+    <ul class="question-list">
+      <li>Describe a time when you had to implement a solution despite facing challenges. How did you overcome them?</li>
+      <li>How would you ensure that all team members are on board with the solution's implementation?</li>
+    </ul>
+  </section>
+
+  <section class="subtopic">
+    <h2><i class="fas fa-chart-bar"></i> Evaluating the Solution</h2>
+    <p>After implementation, evaluating the solution's effectiveness helps to understand its impact and identify areas for improvement.</p>
+    <div class="video-container">
+      <iframe src="https://www.youtube.com/embed/cTIUiN6inIQ?si=DuL01w3yfc4Wt_pk" allowfullscreen></iframe>
+    </div>
+    <h3><span class="accent">Top 5 Interview Questions:</span></h3>
+    <ul class="question-list">
+      <li>How do you evaluate the success of a problem-solving solution?</li>
+      <li>What metrics or indicators do you use to measure the effectiveness of a solution?</li>
+      <li>How do you gather feedback after implementing a solution?</li>
+      <li>Can you describe a time when a solution didn't work as expected? What did you learn from it?</li>
+      <li>How do you make improvements based on the evaluation of a solution?</li>
+    </ul>
+    <h3><span class="accent">Scenario-Based Questions:</span></h3>
+    <ul class="question-list">
+      <li>Tell me about a time when you had to evaluate the success of a solution and make adjustments accordingly.</li>
+      <li>How would you evaluate a solution if the feedback was mixed?</li>
+    </ul>
+    <a href="#" class="btn">Take Assessment Quiz</a>
+  </section>
+
+</main>
+
+<script>
+  // Theme toggle functionality
+  const themeToggle = document.getElementById('themeToggle');
+  const icon = themeToggle.querySelector('i');
+  
+  // Check for saved theme preference or use preferred color scheme
+  const savedTheme = localStorage.getItem('theme') || 
+                    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  
+  // Apply the saved theme
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark-mode');
+    icon.classList.replace('fa-moon', 'fa-sun');
+  }
+  
+  themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+    
+    if (document.body.classList.contains('dark-mode')) {
+      icon.classList.replace('fa-moon', 'fa-sun');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      icon.classList.replace('fa-sun', 'fa-moon');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+  
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelector(this.getAttribute('href')).scrollIntoView({
+        behavior: 'smooth'
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

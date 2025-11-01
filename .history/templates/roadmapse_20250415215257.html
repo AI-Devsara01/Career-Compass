@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  /* [your CSS remains unchanged here] */
+</style>
+
+<!-- 🌟 Page Header & Intro -->
+<div class="page-header">
+  <h1>{{ role | replace('_', ' ') | title }} Roadmap</h1>
+  <p>
+    Welcome to the comprehensive roadmap for <strong>{{ role | replace('_', ' ') | title }}</strong>. 
+    Below you'll find key modules, recommended projects, and interview questions to guide you 
+    from beginner to advanced concepts. Dive in to accelerate your learning and career growth!
+  </p>
+</div>
+
+<!-- 🌟 Module Container -->
+<div class="module-container">
+  {% for row in dataset %}  {# Use just 'dataset' or rename your variable to 'roadmap_data' consistently #}
+  <div class="module-section">
+    
+    <!-- 🎥 Video Section -->
+    <div class="video-container">
+      {% if row['Video Link'] %}
+        <iframe 
+          src="https://www.youtube.com/embed/{{ row['Video Link'].split('=')[-1] }}" 
+          allowfullscreen>
+        </iframe>
+      {% else %}
+        <div class="no-video">No Video Available</div>
+      {% endif %}
+    </div>
+    
+
+    <!-- 🎯 Text Content Section -->
+    <div class="content-section">
+      <h2>{{ row['Module'] or "Untitled Module" }}</h2>
+
+      {% if row['Subtopic'] %}
+        <p><strong>Subtopic:</strong> {{ row['Subtopic'] }}</p>
+      {% endif %}
+
+      {% if row['Description'] %}
+        <p><strong>Description:</strong> {{ row['Description'] }}</p>
+      {% endif %}
+
+      {% if row['Project'] and row['Project'] | length > 0 %}
+        <p><strong>Projects:</strong></p>
+        <ul>
+          {% for prj in row['Project'] %}
+            <li>{{ prj }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+
+      {% if row['Interview Questions'] and row['Interview Questions'] | length > 0 %}
+        <p><strong>Interview Questions:</strong></p>
+        <ul>
+          {% for q in row['Interview Questions'] %}
+            <li>{{ q }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<!-- 🌟 Back to Home Button -->
+<div class="back-btn-container">
+  <a href="{{ url_for('home') }}" class="back-btn">⬅️ Back to Home</a>
+</div>
+
+{% endblock %}

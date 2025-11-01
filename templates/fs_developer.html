@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Engineer Roadmap</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>{{ role | replace('_', ' ') }} Roadmap</h1>
+    <a href="{{ url_for('home') }}">Back to Home</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Project Type</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Video Links</th>
+                <th>Technologies Used</th>
+                <th>Interview Questions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in dataset %}
+            <tr>
+                <td>{{ row['Project Type'] }}</td>
+                <td>{{ row['Project Title'] }}</td>
+                <td>{{ row['Description'] }}</td>
+                <td>
+                    {% for link in row['Video Links'].split(';') %}
+                        <a href="{{ link.strip() }}" target="_blank">{{ link.strip() }}</a><br>
+                    {% endfor %}
+                </td>
+                <td>{{ row['Technologies Used'] }}</td>
+                <td>{{ row['Interview Questions'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Time Management Skills</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-blue: #2563eb;
+      --dark-blue: #1e40af;
+      --light-blue: #93c5fd;
+      --bg-light: #f8fafc;
+      --text-light: #1e293b;
+      --bg-dark: #0f172a;
+      --text-dark: #f8fafc;
+      --card-light: #ffffff;
+      --card-dark: #1e293b;
+      --accent-yellow: #f59e0b;
+      --border-radius: 12px;
+      --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-light);
+      color: var(--text-light);
+      transition: var(--transition);
+      line-height: 1.6;
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: var(--card-light);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .dark-mode .container {
+      background-color: var(--card-dark);
+    }
+
+    /* Header Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary-blue), var(--dark-blue));
+      padding: 40px;
+      border-radius: var(--border-radius);
+      margin-bottom: 30px;
+      text-align: center;
+      color: white;
+      box-shadow: var(--box-shadow);
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin: 0 0 10px;
+    }
+
+    .header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Subtopic Styles */
+    .subtopic {
+      background-color: var(--bg-light);
+      border-radius: var(--border-radius);
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      border-left: 4px solid var(--primary-blue);
+    }
+
+    .dark-mode .subtopic {
+      background-color: var(--bg-dark);
+    }
+
+    .subtopic:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode .subtopic:hover {
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .subtopic h2 {
+      font-size: 1.8rem;
+      color: var(--primary-blue);
+      margin-top: 0;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .dark-mode .subtopic h2 {
+      color: var(--light-blue);
+    }
+
+    .subtopic p {
+      margin-bottom: 20px;
+      color: var(--text-light);
+    }
+
+    .dark-mode .subtopic p {
+      color: var(--text-dark);
+    }
+
+    /* Video Container */
+    .video-container {
+      margin: 25px 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* Question Lists */
+    .question-list {
+      padding-left: 20px;
+    }
+
+    .question-list li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .question-list li::before {
+      content: '•';
+      color: var(--primary-blue);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    .dark-mode .question-list li::before {
+      color: var(--light-blue);
+    }
+
+    h3 {
+      color: var(--primary-blue);
+      font-size: 1.3rem;
+      margin: 25px 0 15px;
+    }
+
+    .dark-mode h3 {
+      color: var(--light-blue);
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-block;
+      padding: 12px 24px;
+      background-color: var(--primary-blue);
+      color: white;
+      border-radius: var(--border-radius);
+      font-weight: 600;
+      text-decoration: none;
+      transition: var(--transition);
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background-color: var(--dark-blue);
+      transform: translateY(-2px);
+    }
+
+    /* Theme Toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px 15px;
+      border-radius: 30px;
+      box-shadow: var(--box-shadow);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .dark-mode .theme-toggle {
+      background: rgba(30, 41, 59, 0.9);
+      color: var(--text-dark);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+        margin: 20px;
+      }
+      
+      .header {
+        padding: 30px 20px;
+      }
+      
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .subtopic {
+        padding: 20px;
+      }
+      
+      .subtopic h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+      
+      .header p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+    <span>Dark Mode</span>
+  </div>
+
+  <div class="container">
+    <div class="header">
+      <h1><i class="fas fa-clock"></i> Time Management Skills</h1>
+      <p>Mastering time management can drastically improve your productivity and help you achieve your goals efficiently.</p>
+    </div>
+
+    <!-- Setting Priorities -->
+    <div class="subtopic">
+      <h2><i class="fas fa-bullseye"></i> Setting Priorities</h2>
+      <p>Setting priorities is essential for effective time management. Focus on tasks that align with your goals and contribute to your success.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/uO__4Lf-KuI" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you determine which tasks are most important?</li>
+        <li>Can you give an example of a time when you had to prioritize tasks under tight deadlines?</li>
+        <li>What tools do you use to manage your priorities?</li>
+        <li>How do you handle competing priorities in a fast-paced environment?</li>
+        <li>How do you ensure that your priorities align with organizational goals?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a time when you had multiple tasks with the same deadline. How did you prioritize them?</li>
+        <li>How would you handle a situation where your priorities conflict with those of your team members?</li>
+      </ul>
+    </div>
+
+    <!-- Time Blocking -->
+    <div class="subtopic">
+      <h2><i class="fas fa-calendar-alt"></i> Time Blocking</h2>
+      <p>Time blocking involves dividing your day into specific blocks for focused work. This helps reduce distractions and improves efficiency.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/T4dser6ssp0" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you structure your workday to stay productive?</li>
+        <li>Have you ever used time blocking? If so, how did it impact your productivity?</li>
+        <li>How do you balance scheduled time with unexpected tasks or emergencies?</li>
+        <li>How do you ensure you are using your time effectively when working on multiple projects?</li>
+        <li>What do you do when a time block gets disrupted?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Tell me about a time when you had to reorganize your time blocks due to an urgent task. How did you handle it?</li>
+        <li>How would you manage multiple competing deadlines while keeping your time blocks intact?</li>
+      </ul>
+    </div>
+
+    <!-- Avoiding Distractions -->
+    <div class="subtopic">
+      <h2><i class="fas fa-ban"></i> Avoiding Distractions</h2>
+      <p>Distractions can derail your productivity. Learn strategies to minimize interruptions and stay focused on your tasks.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/f7V76Ky-_v8" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>What are some of the common distractions you face in the workplace?</li>
+        <li>How do you minimize distractions while working on important tasks?</li>
+        <li>Can you give an example of how you stayed focused despite a high level of distractions?</li>
+        <li>What tools or techniques do you use to help manage distractions?</li>
+        <li>How do you handle situations where colleagues interrupt you while you're focused on a task?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Tell me about a time when you struggled to stay focused at work. What did you do to overcome it?</li>
+        <li>How would you manage your time if you constantly faced distractions from coworkers or clients?</li>
+      </ul>
+    </div>
+
+    <!-- Setting Goals -->
+    <div class="subtopic">
+      <h2><i class="fas fa-flag-checkered"></i> Setting Goals</h2>
+      <p>Setting clear, measurable goals is crucial for staying on track and ensuring that you're using your time effectively.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/L4N1q4RNi9I" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you set short-term and long-term goals?</li>
+        <li>What is your process for tracking your progress toward your goals?</li>
+        <li>Can you share an example of how you successfully achieved a goal in the past?</li>
+        <li>How do you adjust your goals if things aren't going as planned?</li>
+        <li>What strategies do you use to stay motivated and focused on your goals?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a time when you had to adjust your goals due to unforeseen challenges. How did you handle it?</li>
+        <li>How would you approach a situation where you are not making progress toward your goal?</li>
+      </ul>
+    </div>
+
+    <!-- Delegation -->
+    <div class="subtopic">
+      <h2><i class="fas fa-users"></i> Delegation</h2>
+      <p>Delegating tasks is an essential part of effective time management, allowing you to focus on high-priority work while empowering others.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/X_IXJUVFtLk" allowfullscreen></iframe>
+      </div>
+      <h3><i class="fas fa-question-circle"></i> Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you decide which tasks to delegate to others?</li>
+        <li>Can you describe a time when you successfully delegated a task? What was the outcome?</li>
+        <li>What challenges have you faced when delegating tasks, and how did you overcome them?</li>
+        <li>How do you ensure the person you're delegating to has the right skills and resources?</li>
+        <li>How do you handle it when someone you delegated to does not complete a task as expected?</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Tell me about a time when you had to delegate an important task under tight deadlines. How did you manage it?</li>
+        <li>How would you manage a situation where a team member is struggling to complete a task you delegated to them?</li>
+      </ul>
+      <a href="#" class="btn">Take Time Management Quiz</a>
+    </div>
+  </div>
+
+  <script>
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const themeText = themeToggle.querySelector('span');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+    // Check for saved theme preference or use system preference
+    const currentTheme = localStorage.getItem('theme');
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+      icon.className = 'fas fa-sun';
+      themeText.textContent = 'Light Mode';
+    }
+
+    // Toggle theme
+    themeToggle.addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        icon.className = 'fas fa-sun';
+        themeText.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.className = 'fas fa-moon';
+        themeText.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>

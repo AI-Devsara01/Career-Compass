@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DevOps Engineer - Mock Interview</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <style>
+    /* Inserted global styles (same as previous for consistency) */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #0f172a, #1e293b); color: #fff; padding-bottom: 60px; }
+    a { text-decoration: none; }
+    a:hover { text-decoration: none; }
+    .page-header a, .content-section a, .back-btn { text-decoration: none; }
+    .page-header a:hover, .content-section a:hover, .back-btn:hover { text-decoration: none; }
+    .page-header { text-align: center; margin: 60px 0 30px; }
+    .page-header h1 { font-size: 50px; color: #facc15; text-shadow: 3px 3px 8px rgba(0,0,0,0.8); margin-bottom: 20px; font-weight: 700; }
+    .page-header p { font-size: 20px; max-width: 800px; margin: 0 auto; line-height: 1.6; color: #e2e8f0; }
+    .module-container { width: 90%; max-width: 1400px; margin: 40px auto; display: flex; flex-direction: column; gap: 40px; }
+    .module-section { background: rgba(255,255,255,0.07); border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); overflow: hidden; display: flex; flex-wrap: wrap; transition: transform 0.3s, box-shadow 0.3s; }
+    .module-section:hover { transform: translateY(-5px); box-shadow: 0 15px 35px rgba(0,0,0,0.6); }
+    .video-container { display: flex; justify-content: center; align-items: center; background: #000; position: relative; width: 100%; height: 100%; }
+    .video-container iframe { width: 100%; height: 100%; border: none; transition: transform 0.3s; }
+    .video-container iframe:hover { transform: scale(1.03); }
+    .no-video { display: flex; align-items: center; justify-content: center; height: 100%; font-size: 22px; background: #333; color: #fff; padding: 20px; text-align: center; }
+    .content-section { flex: 2; padding: 30px 40px; display: flex; flex-direction: column; gap: 15px; }
+    .content-section h2 { font-size: 36px; color: #38bdf8; margin-bottom: 10px; }
+    .content-section p { font-size: 18px; line-height: 1.6; color: #e2e8f0; }
+    .content-section strong { color: #fff; }
+    ul { margin: 10px 0 0 20px; list-style: disc; }
+    ul li { margin-bottom: 8px; font-size: 18px; color: #cbd5e1; }
+    .back-btn { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #1e90ff; color: #fff; padding: 16px 36px; font-size: 20px; border-radius: 8px; text-decoration: none; transition: 0.3s; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+    .back-btn:hover { background: #0056b3; transform: translateX(-50%) scale(1.05); box-shadow: 0 12px 30px rgba(0,0,0,0.5); }
+    @media (max-width: 768px) { .page-header h1 { font-size: 40px; } .video-container { width: 100%; margin-bottom: 20px; } .content-section { padding: 20px; } .content-section h2 { font-size: 28px; } .content-section p, ul li { font-size: 16px; } }
+  </style>
+</head>
+<body>
+  <div class="page-header">
+    <h1>DevOps Engineer - Mock Interview</h1>
+    <p>Practice real-world questions and challenges faced by DevOps professionals in top companies.</p>
+  </div>
+
+  <div class="module-container">
+    <div class="module-section">
+      <div class="content-section">
+        <h2>Role Overview</h2>
+        <p>DevOps Engineers bridge the gap between software development and IT operations. They are responsible for automating, streamlining, and optimizing software deployment pipelines, infrastructure, and system reliability.</p>
+
+        <h2>Key Skills</h2>
+        <ul>
+          <li>CI/CD tools (Jenkins, GitLab CI, CircleCI)</li>
+          <li>Cloud Platforms (AWS, Azure, GCP)</li>
+          <li>Infrastructure as Code (Terraform, Ansible)</li>
+          <li>Containerization (Docker, Kubernetes)</li>
+          <li>Monitoring (Prometheus, Grafana)</li>
+          <li>Version control (Git)</li>
+        </ul>
+
+        <h2>Top 3 YouTube Videos</h2>
+        <ul>
+          <li><a href="https://www.youtube.com/watch?v=0yWAtQ6wYNM" target="_blank">What is DevOps? by Simplilearn</a></li>
+          <li><a href="https://www.youtube.com/watch?v=0yWAtQ6wYNM" target="_blank">Top DevOps Tools You Should Know</a></li>
+          <li><a href="https://www.youtube.com/watch?v=0yWAtQ6wYNM" target="_blank">DevOps Engineer Roles and Responsibilities</a></li>
+        </ul>
+
+        <h2>Interview Questions (with Difficulty Levels)</h2>
+        <ul>
+          <li><strong>Easy:</strong> What is DevOps and how is it different from traditional IT?</li>
+          <li><strong>Easy:</strong> Explain CI/CD with an example.</li>
+          <li><strong>Easy:</strong> What are the advantages of using containers?</li>
+          <li><strong>Medium:</strong> How do you implement Infrastructure as Code using Terraform?</li>
+          <li><strong>Medium:</strong> What’s the role of Docker in a microservices architecture?</li>
+          <li><strong>Medium:</strong> Describe the process of blue-green deployment.</li>
+          <li><strong>Difficult:</strong> How would you handle a failing Kubernetes pod in production?</li>
+          <li><strong>Difficult:</strong> Explain a complex CI/CD pipeline you've designed.</li>
+          <li><strong>Difficult:</strong> How do you manage secrets in a DevOps environment?</li>
+          <!-- Add up to 25 covering all levels -->
+        </ul>
+
+        <h2>Scenario-Based Questions</h2>
+        <ul>
+          <li>You have a service that crashes intermittently in production. How would you troubleshoot and fix it?</li>
+          <li>CI pipeline slows down with each new commit. What steps would you take to optimize it?</li>
+          <li>Your infrastructure is not scaling during high traffic. How would you approach the problem?</li>
+        </ul>
+
+        <h2>Project Ideas</h2>
+        <ul>
+          <li>Create a CI/CD pipeline using GitHub Actions and deploy to AWS.</li>
+          <li>Build a Kubernetes-based microservices infrastructure with monitoring and logging.</li>
+          <li>Automate cloud infrastructure provisioning with Terraform and Ansible.</li>
+        </ul>
+
+        <h2>Bonus Tips</h2>
+        <ul>
+          <li>Always log and monitor your deployments.</li>
+          <li>Focus on reliability and rollback strategies in CI/CD.</li>
+          <li>Keep security in mind for every step in DevOps.</li>
+        </ul>
+
+        <h2>Top 10 Companies Hiring DevOps Engineers</h2>
+        <ul>
+          <li><strong>Amazon:</strong> Expert in AWS, CI/CD, and automation scripting</li>
+          <li><strong>Google:</strong> Experience with GCP, Kubernetes, and SRE practices</li>
+          <li><strong>Microsoft:</strong> Azure DevOps pipelines and enterprise-grade automation</li>
+          <li><strong>Netflix:</strong> High-availability systems, deployment automation</li>
+          <li><strong>LinkedIn:</strong> CI/CD for large-scale distributed systems</li>
+          <li><strong>IBM:</strong> DevOps for hybrid cloud and containerization</li>
+          <li><strong>Spotify:</strong> Scalable microservices deployment and monitoring</li>
+          <li><strong>Adobe:</strong> Continuous delivery for creative cloud products</li>
+          <li><strong>Oracle:</strong> Automating enterprise cloud infrastructure</li>
+          <li><strong>SAP:</strong> DevOps tools and practices for ERP solutions</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+
+  <a href="/mock_interview" class="back-btn">⬅ Back to Mock Interviews</a>
+</body>
+</html>

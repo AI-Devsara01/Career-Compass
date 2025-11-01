@@ -1,0 +1,280 @@
+<!-- templates/mi_aiml.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    /* 🌟 Global Reset & Body Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e293b);
+      color: #fff;
+      padding-bottom: 60px;
+    }
+    /* Remove underline from all links */
+  a {
+    text-decoration: none; 
+  }
+  
+  /* Ensure no underline on hover */
+  a:hover {
+    text-decoration: none;
+  }
+  
+  /* Target the specific roadmap links and remove underline */
+  .page-header a, .content-section a, .back-btn {
+    text-decoration: none;
+  }
+  
+  /* Ensure they remain clean on hover */
+  .page-header a:hover, .content-section a:hover, .back-btn:hover {
+    text-decoration: none;
+  }
+  
+  
+    /* 🌟 Page Title & Intro */
+    .page-header {
+      text-align: center;
+      margin: 60px 0 30px;
+    }
+    .page-header h1 {
+      font-size: 50px;
+      color: #facc15;
+      text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.8);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+    .page-header p {
+      font-size: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+  
+    /* 🌟 Module Container */
+    .module-container {
+      width: 90%;
+      max-width: 1400px;
+      margin: 40px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+  
+    /* 🌟 Module Section */
+    .module-section {
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .module-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+  
+    /* 🌟 Video Container */
+    .video-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #000;
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+  
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      transition: transform 0.3s;
+    }
+    .video-container iframe:hover {
+      transform: scale(1.03);
+    }
+    .no-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      font-size: 22px;
+      background: #333;
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+    }
+  
+    /* 🌟 Content Section */
+    .content-section {
+      flex: 2;
+      padding: 30px 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .content-section h2 {
+      font-size: 36px;
+      color: #38bdf8;
+      margin-bottom: 10px;
+    }
+    .content-section p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .content-section strong {
+      color: #fff;
+    }
+  
+    /* 🌟 Lists (Interview Questions, Projects, etc.) */
+    ul {
+      margin: 10px 0 0 20px;
+      list-style: disc;
+    }
+    ul li {
+      margin-bottom: 8px;
+      font-size: 18px;
+      color: #cbd5e1;
+    }
+  
+    /* 🌟 Back Button */
+      .back-btn {
+          position: fixed;
+          bottom: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background: #1e90ff;
+          color: #fff;
+          padding: 16px 36px;
+          font-size: 20px;
+          border-radius: 8px;
+          text-decoration: none;
+          transition: 0.3s;
+          box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      .back-btn:hover {
+          background: #0056b3;
+          transform: translateX(-50%) scale(1.05);
+          box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+  
+    /* 🌟 Responsive Adjustments */
+    @media (max-width: 768px) {
+      .page-header h1 {
+        font-size: 40px;
+      }
+      .video-container {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .content-section {
+        padding: 20px;
+      }
+      .content-section h2 {
+        font-size: 28px;
+      }
+      .content-section p, ul li {
+        font-size: 16px;
+      }
+    }
+  </style>
+<div class="container">
+    <h1>AI/ML Engineer - Mock Interview Preparation</h1>
+
+    <h2>🧠 Role Introduction</h2>
+    <p>AI/ML Engineers build intelligent systems that learn and adapt from data. They work on algorithms, model training, data pipelines, and deploying scalable AI solutions across industries.</p>
+
+    <h2>🛠️ Key Skills</h2>
+    <ul>
+        <li>Python, R, SQL</li>
+        <li>TensorFlow, PyTorch, Scikit-learn</li>
+        <li>Data preprocessing, feature engineering</li>
+        <li>Deep Learning (CNNs, RNNs, Transformers)</li>
+        <li>Model deployment (Docker, Kubernetes, Flask APIs)</li>
+        <li>MLOps, CI/CD pipelines</li>
+    </ul>
+
+    <h2>🎥 Top YouTube Videos</h2>
+    <ul>
+        <li><a href="https://www.youtube.com/watch?v=aircAruvnKk" target="_blank">Neural Networks from Scratch</a></li>
+        <li><a href="https://www.youtube.com/watch?v=GwIo3gDZCVQ" target="_blank">Deep Learning with PyTorch</a></li>
+        <li><a href="https://www.youtube.com/watch?v=7eh4d6sabA0" target="_blank">Machine Learning in 10 Minutes</a></li>
+    </ul>
+
+    <h2>🧪 25 Interview Questions (With Difficulty Levels)</h2>
+    <ol>
+        <li>[Easy] What is overfitting and how can it be avoided?</li>
+        <li>[Easy] Explain the difference between supervised and unsupervised learning.</li>
+        <li>[Easy] What is the bias-variance trade-off?</li>
+        <li>[Easy] What is a confusion matrix?</li>
+        <li>[Easy] Define precision and recall.</li>
+        <li>[Medium] How does a random forest work?</li>
+        <li>[Medium] Explain how gradient descent works.</li>
+        <li>[Medium] What is dropout in neural networks?</li>
+        <li>[Medium] What is the vanishing gradient problem?</li>
+        <li>[Medium] How do you select features in a dataset?</li>
+        <li>[Medium] Explain the role of activation functions.</li>
+        <li>[Medium] What is PCA and when do you use it?</li>
+        <li>[Medium] Describe the architecture of a CNN.</li>
+        <li>[Medium] What are the differences between bagging and boosting?</li>
+        <li>[Difficult] How do transformers work in NLP?</li>
+        <li>[Difficult] How would you scale a model to millions of users?</li>
+        <li>[Difficult] Explain reinforcement learning with an example.</li>
+        <li>[Difficult] What are LLMs and how are they trained?</li>
+        <li>[Difficult] Describe how attention mechanism works.</li>
+        <li>[Difficult] How do you evaluate model drift in production?</li>
+        <li>[Difficult] How would you design a real-time fraud detection system?</li>
+        <li>[Difficult] Explain the difference between batch and online learning.</li>
+        <li>[Difficult] How do you handle imbalanced datasets in real projects?</li>
+        <li>[Difficult] Design an ML system for YouTube recommendations.</li>
+        <li>[Difficult] How do you monitor and retrain models in production?</li>
+    </ol>
+
+    <h2>📌 Scenario-Based Questions</h2>
+    <ul>
+        <li>You are given a high-variance model with 90% training accuracy and 60% testing accuracy. What steps will you take?</li>
+        <li>A client’s model accuracy drops sharply in production. What would you investigate?</li>
+        <li>How would you choose between different ML algorithms for a classification problem?</li>
+    </ul>
+
+    <h2>🚀 Project Ideas</h2>
+    <ul>
+        <li>Fake news detection using NLP</li>
+        <li>AI-based Resume Screener</li>
+        <li>Stock price prediction using LSTM</li>
+        <li>ML-powered Personal Finance Assistant</li>
+    </ul>
+
+    <h2>🎯 Bonus Tips</h2>
+    <ul>
+        <li>Explain concepts with real-world use cases.</li>
+        <li>Know your past projects thoroughly—deep dive into one of them.</li>
+        <li>Be ready to whiteboard or pseudo-code solutions during interviews.</li>
+        <li>Stay updated with recent AI/ML breakthroughs like ChatGPT, Gemini, etc.</li>
+    </ul>
+
+    <h2>🏢 Top 10 Companies & Job Requirements</h2>
+    <ol>
+        <li><strong>Google:</strong> TensorFlow, LLMs, JAX, distributed training, PhD preferred.</li>
+        <li><strong>Microsoft:</strong> Azure ML, model optimization, PyTorch, AI ethics understanding.</li>
+        <li><strong>Amazon:</strong> AWS SageMaker, NLP, recommender systems, scalable inference.</li>
+        <li><strong>Meta:</strong> PyTorch, large-scale ML, AR/VR-based AI research.</li>
+        <li><strong>OpenAI:</strong> LLMs, GPT training, reinforcement learning, safety research.</li>
+        <li><strong>NVIDIA:</strong> CUDA, deep learning frameworks, computer vision models.</li>
+        <li><strong>Apple:</strong> CoreML, on-device ML optimization, privacy-preserving ML.</li>
+        <li><strong>Netflix:</strong> ML in personalization & recommendations, scalable ML pipelines.</li>
+        <li><strong>Adobe:</strong> Generative AI, computer vision, user-centric ML tools.</li>
+        <li><strong>Salesforce:</strong> Einstein AI, NLP, CRM data models, ML APIs.</li>
+    </ol>
+</div>
+{% endblock %}

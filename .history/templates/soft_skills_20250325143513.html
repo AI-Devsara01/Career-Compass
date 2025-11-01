@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soft Skills Development</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #fff;
+            background: url('https://img.freepik.com/premium-vector/minimal-geometric-gradient-blue-stripe-shape-background_699934-148.jpg') no-repeat center center/cover;
+        }
+
+        .hero {
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 60px 20px;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .container {
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .module-card, .quiz-card {
+            background: rgba(255, 255, 255, 0.15);
+            margin: 20px;
+            padding: 25px;
+            border-radius: 15px;
+            max-width: 600px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            border-left: 5px solid #005eff;
+            color: white;
+        }
+
+        .module-card:hover, .quiz-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 8px 16px rgba(0,0,0,0.4);
+        }
+
+        .btn {
+            background: #0055ff;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn:hover {
+            background: #004de6;
+            box-shadow: 0px 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .quiz-btn {
+            background: #4079ff;
+        }
+
+        .quiz-btn:hover {
+            background: #005ce6;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <h1>🚀 Master Soft Skills & Transform Your Career!</h1>
+        <p>Develop essential soft skills to stand out in the industry. Improve communication, leadership, and problem-solving!</p>
+    </div>
+
+    <div class="container">
+        <h2>💡 Explore Our Modules</h2>
+
+        <div class="module-card">
+            <h3>📢 Communication Skills</h3>
+            <p>Learn the art of professional speaking, active listening, and writing with clarity. Communicate confidently in any setting!</p>
+            <a href="{{ url_for('modules', module='communication') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>🤔 Problem-Solving & Critical Thinking</h3>
+            <p>Master logical reasoning, analytical skills, and creative problem-solving to tackle challenges effectively in the workplace.</p>
+            <a href="{{ url_for('modules', module='problem-solving') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>💡 Leadership & Teamwork</h3>
+            <p>Enhance leadership qualities, teamwork, and conflict resolution. Lead with confidence and collaborate efficiently.</p>
+            <a href="{{ url_for('modules', module='leadership') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>⏳ Time Management & Productivity</h3>
+            <p>Learn to prioritize tasks, avoid distractions, and boost efficiency with smart time management strategies.</p>
+            <a href="{{ url_for('modules', module='time-management') }}" class="btn">Start Learning</a>
+        </div>
+
+        <div class="module-card">
+            <h3>🎯 Emotional Intelligence & Stress Management</h3>
+            <p>Understand emotions, develop self-awareness, and manage stress in high-pressure work environments.</p>
+            <a href="{{ url_for('modules', module='emotional-intelligence') }}" class="btn">Start Learning</a>
+        </div>
+
+        <h2>📝 Test Your Knowledge</h2>
+
+        <div class="quiz-card">
+            <h3>📊 Take a Quiz</h3>
+            <p>Evaluate your skills with engaging, interactive quizzes for each module.</p>
+            <a href="pages/quiz.html" class="btn quiz-btn">Start Quiz</a>
+
+        </div>
+    </div>
+
+</body>
+</html>

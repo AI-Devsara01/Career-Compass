@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="text-center mb-5">
+            <h1>Resume Analysis Results</h1>
+            {% if results.error %}
+                <div class="alert alert-danger">{{ results.error }}</div>
+                <a href="/" class="btn btn-primary">Try Again</a>
+            {% else %}
+                <p class="lead">Analysis for: <strong>{{ results.filename }}</strong></p>
+            {% endif %}
+        </div>
+        
+        {% if not results.error %}
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">ATS Compatibility Score</h3>
+            </div>
+            <div class="card-body">
+                <div class="progress mb-3">
+                    <div class="progress-bar" role="progressbar" style="width: {{ results.ats_score }}%" 
+                         aria-valuenow="{{ results.ats_score }}" aria-valuemin="0" aria-valuemax="100">
+                        {{ results.ats_score }}%
+                    </div>
+                </div>
+                <p class="mb-0">
+                    This score indicates how well your resume will perform in Applicant Tracking Systems (ATS).
+                </p>
+            </div>
+        </div>
+        
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Top Recommended Roles</h3>
+            </div>
+            <div class="card-body">
+                {% for role, data in results.analysis[:3] %}
+                <div class="mb-4">
+                    <h4>{{ role }} <span class="badge bg-primary">{{ data.score }}% Match</span></h4>
+                    <div class="progress mb-2" style="height: 10px;">
+                        <div class="progress-bar" role="progressbar" style="width: {{ data.score }}%" 
+                             aria-valuenow="{{ data.score }}" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <h5>Matched Skills:</h5>
+                    <div class="d-flex flex-wrap gap-2 mb-3">
+                        {% for skill in data.matched_skills[:8] %}
+                        <span class="badge bg-secondary">{{ skill }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h3 class="mb-0">Improvement Suggestions</h3>
+            </div>
+            <div class="card-body">
+                {% set top_role = results.analysis[0][0] %}
+                {% set top_data = results.analysis[0][1] %}
+                <h5>For {{ top_role }}:</h5>
+                <ul class="mb-4">
+                    <li>Highlight these skills: <strong>{{ top_data.matched_skills[:3]|join(', ') }}</strong></li>
+                    <li>Add quantifiable achievements and metrics</li>
+                    <li>Consider adding missing skills from the role requirements</li>
+                </ul>
+                
+                <h5>Resume Sample:</h5>
+                <div class="p-3 bg-light rounded">
+                    <p>{{ results.sample_text }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary">Analyze Another Resume</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

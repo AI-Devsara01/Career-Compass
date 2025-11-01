@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Engineer Internships</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background: #f7f7f7; }
+        h1 { font-size: 2em; color: #333; margin-bottom: 10px; }
+        .internship, .portal {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .company, .portal-name { font-size: 1.4em; font-weight: bold; }
+        .desc { margin: 8px 0; color: #555; }
+        .apply, .visit {
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .top-bar button {
+            padding: 8px 14px;
+            border: none;
+            border-radius: 6px;
+            background: #28a745;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        hr { border: 1px solid #ddd; margin: 40px 0; }
+    </style>
+</head>
+<body>
+    <h1>Cloud Engineer Internships</h1>
+    <h2>🌐 Top Internship Portals</h2>
+    <div class="internship-list">
+        {% for internship in internships %}
+        <div class="internship-card">
+            <div class="internship-header">
+                <h3 class="company-name">{{ internship.company }}</h3>
+                <p class="internship-role">{{ internship.role }}</p>
+            </div>
+    
+            <p class="internship-description">{{ internship.description }}</p>
+    
+            <ul class="internship-details">
+                <li><strong>Location:</strong> {{ internship.location }}</li>
+                <li><strong>Start Date:</strong> {{ internship.start_date }}</li>
+                <li><strong>End Date:</strong> {{ internship.end_date }}</li>
+                <li><strong>Duration:</strong> {{ internship.duration }}</li>
+                <li><strong>Requirements:</strong> {{ internship.requirements }}</li>
+            </ul>
+    
+            <div class="internship-footer">
+                <a class="apply-btn" href="{{ internship.apply_link }}" target="_blank">Apply Now</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+
+    <hr>
+
+   
+    {% for portal in portals %}
+    <div class="portal">
+        <div class="portal-name">{{ portal.name }}</div>
+        <div class="desc">{{ portal.desc }}</div>
+        <a class="visit" href="{{ portal.link }}" target="_blank">Visit Portal</a>
+    </div>
+    {% endfor %}
+
+</body>
+</html>

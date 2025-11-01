@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="resume-analysis-container">
+    <!-- Header Section -->
+    <div class="analysis-header">
+        <h1><i class="fas fa-file-alt"></i> Resume Analysis Report</h1>
+        <div class="score-summary">
+            <div class="overall-score">
+                <div class="score-circle" data-score="{{ analysis.ats_score }}">
+                    <span>{{ analysis.ats_score }}</span>
+                </div>
+                <h3>Overall Score</h3>
+                <p>How well your resume performs in ATS systems</p>
+            </div>
+            
+            <div class="score-breakdown">
+                <div class="breakdown-item">
+                    <h4>Keywords <span>{{ analysis.score_components.keywords|round(1) }}%</span></h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ analysis.score_components.keywords }}%"></div>
+                    </div>
+                </div>
+                
+                <div class="breakdown-item">
+                    <h4>Quantifiable <span>{{ analysis.score_components.quantifiable|round(1) }}%</span></h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: %"></div>
+                    </div>
+                </div>
+                
+                <!-- Add other breakdown items -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <div class="analysis-grid">
+        <!-- Section 1: Resume Strengths -->
+        <div class="analysis-card strengths">
+            <h2><i class="fas fa-check-circle"></i> Strengths</h2>
+            <ul>
+                <li>
+                    <i class="fas fa-check"></i>
+                    <strong>Relevant Experience:</strong> 
+                    {{ analysis.experience.total_years }} years detected
+                </li>
+                <!-- Add other strengths dynamically -->
+            </ul>
+        </div>
+
+        <!-- Section 2: Improvement Areas -->
+        <div class="analysis-card improvements">
+            <h2><i class="fas fa-exclamation-triangle"></i> Areas for Improvement</h2>
+            <div class="suggestions-list">
+                {% for suggestion in analysis.suggestions %}
+                <div class="suggestion-item priority-{{ suggestion.priority }}">
+                    <div class="suggestion-icon">
+                        {% if suggestion.priority == 'high' %}
+                        <i class="fas fa-exclamation-circle"></i>
+                        {% else %}
+                        <i class="fas fa-info-circle"></i>
+                        {% endif %}
+                    </div>
+                    <div class="suggestion-content">
+                        <h3>{{ suggestion.title }}</h3>
+                        <p>{{ suggestion.description }}</p>
+                        {% if suggestion.examples %}
+                        <div class="examples">
+                            <strong>Examples:</strong>
+                            <ul>
+                                {% for example in suggestion.examples %}
+                                <li>{{ example }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Section 3: Experience Timeline -->
+        <div class="analysis-card experience">
+            <h2><i class="fas fa-briefcase"></i> Experience Timeline</h2>
+            <div class="timeline">
+                {% if analysis.experience.positions %}
+                    {% for position in analysis.experience.positions %}
+                    <div class="timeline-item">
+                        <div class="timeline-marker"></div>
+                        <div class="timeline-content">
+                            <p>{{ position }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="no-data">No clear position dates found</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Section 4: Education -->
+        <div class="analysis-card education">
+            <h2><i class="fas fa-graduation-cap"></i> Education</h2>
+            {% if analysis.experience.education %}
+            <ul class="education-list">
+                {% for edu in analysis.experience.education %}
+                <li>{{ edu }}</li>
+                {% endfor %}
+            </ul>
+            {% else %}
+            <p class="no-data">No education information detected</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons">
+        <button class="btn-download">
+            <i class="fas fa-file-pdf"></i> Download Full Report
+        </button>
+        <button class="btn-optimize">
+            <i class="fas fa-magic"></i> Auto-Optimize Resume
+        </button>
+    </div>
+</div>
+
+<style>
+    /* Comprehensive CSS styling */
+    .resume-analysis-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    .analysis-header {
+        background: linear-gradient(135deg, #1a73e8, #0d47a1);
+        color: white;
+        padding: 2rem;
+        border-radius: 10px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    .score-circle {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0 auto;
+        position: relative;
+        background: conic-gradient(#34a853, #f9ab00, #ea4335);
+        color: white;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Add more CSS styles as needed */
+    /* [Additional CSS styles...] */
+</style>
+
+<script>
+    // Interactive elements
+    document.addEventListener('DOMContentLoaded', function() {
+        // Animate score circles
+        const scoreCircle = document.querySelector('.score-circle');
+        const score = parseFloat(scoreCircle.dataset.score);
+        
+        // Set color based on score
+        if (score >= 70) {
+            scoreCircle.style.color = '#34a853';
+        } else if (score >= 40) {
+            scoreCircle.style.color = '#f9ab00';
+        } else {
+            scoreCircle.style.color = '#ea4335';
+        }
+        
+        // Add interactive tooltips
+        tippy('[data-tippy-content]', {
+            placement: 'top',
+            animation: 'shift-away',
+            theme: 'light'
+        });
+    });
+</script>
+
+<!-- Include CSS/JS libraries -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css">
+<script src="https://unpkg.com/tippy.js@6/dist/tippy-bundle.umd.js"></script>
+{% endblock %}

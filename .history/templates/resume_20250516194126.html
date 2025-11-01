@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume Analysis Results</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .score-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .score-value {
+            font-size: 48px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .score-label {
+            text-align: center;
+            font-size: 18px;
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background: #ecf0f1;
+            border-radius: 5px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #3498db;
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .breakdown-item {
+            margin-bottom: 15px;
+        }
+
+        .breakdown-item h4 {
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            font-size: 16px;
+        }
+
+        .suggestions {
+            margin-top: 30px;
+        }
+
+        .suggestion-card {
+            background: white;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .suggestion-priority {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .high {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .medium {
+            background: #f39c12;
+            color: white;
+        }
+
+        .low {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .section-title {
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-top: 30px;
+            color: #2c3e50;
+        }
+
+        .experience-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .text-sample {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            background: #fadbd8;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Resume Analysis Report</h1>
+        <p>Generated on {{ current_date }}</p>
+    </div>
+
+    {% if not analysis.success %}
+        <div class="error-message">
+            <h3>Error Processing Resume</h3>
+            <p>{{ analysis.error }}</p>
+        </div>
+    {% else %}
+        <div class="score-card">
+            <div class="score-value">{{ analysis.ats_score }}%</div>
+            <div class="score-label">ATS Compatibility Score</div>
+
+            <h3 class="section-title">Score Breakdown</h3>
+            <div class="breakdown-item">
+                <h4>Keywords <span>{{ analysis.score_components.keywords|round(1) }}%</span></h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ analysis.score_components.keywords }}%"></div>
+                </div>
+            </div>
+
+            <div class="breakdown-item">
+                <h4>Quantifiable Metrics <span>{{ analysis.score_components.quantifiable|round(1) }}%</span></h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ analysis.score_components.quantifiable }}%"></div>
+                </div>
+            </div>
+"files.associations": {
+    "*.html": "jinja-html"
+}
+
+            <div class="breakdown-item">
+                <h4>Length <span>{{ analysis.score_components.length|round(1) }}%</span></h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ analysis.score_components.length }}%"></div>
+                </div>
+            </div>
+
+            <div class="breakdown-item">
+                <h4>Sections <span>{{ analysis.score_components.sections|round(1) }}%</span></h4>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ analysis.score_components.sections }}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="suggestions">
+            <h3 class="section-title">Improvement Suggestions</h3>
+            {% for key, suggestion in analysis.suggestions.items() %}
+                <div class="suggestion-card">
+                    <span class="suggestion-priority {{ suggestion.priority }}">{{ suggestion.priority }}</span>
+                    <strong>{{ suggestion.title }}</strong>
+                    <p>{{ suggestion.description }}</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class="experience-section">
+            <h3 class="section-title">Experience Summary</h3>
+            <p><strong>Total Years Experience:</strong> {{ analysis.experience.total_years }} years</p>
+
+            {% if analysis.experience.positions %}
+                <h4>Position Timelines:</h4>
+                <ul>
+                    {% for position in analysis.experience.positions %}
+                        <li>{{ position }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            {% if analysis.experience.education %}
+                <h4>Education:</h4>
+                <ul>
+                    {% for edu in analysis.experience.education %}
+                        <li>{{ edu }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+
+        <div class="text-samples">
+            <h3 class="section-title">Extracted Content</h3>
+
+            <div class="text-sample">
+                <h4>Summary</h4>
+                <p>{{ analysis.text_samples.summary or "No summary detected" }}</p>
+            </div>
+
+            <div class="text-sample">
+                <h4>Key Achievements</h4>
+                {% if analysis.text_samples.achievements %}
+                    <ul>
+                        {% for achievement in analysis.text_samples.achievements %}
+                            <li>{{ achievement }}</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No quantified achievements detected</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="stats">
+            <h3 class="section-title">Statistics</h3>
+            <p><strong>Word Count:</strong> {{ analysis.word_count }}</p>
+        </div>
+    {% endif %}
+</body>
+</html>

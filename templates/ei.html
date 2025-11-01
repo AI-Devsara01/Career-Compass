@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Emotional Intelligence Skills</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --text-color: #2b2d42;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --header-bg: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      --border-color: rgba(0, 0, 0, 0.1);
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --title-color: #3a0ca3;
+      --highlight-color: #FFD700;
+    }
+
+    .dark-mode {
+      --primary-color: #4cc9f0;
+      --secondary-color: #4361ee;
+      --accent-color: #f72585;
+      --text-color: #f8f9fa;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --header-bg: linear-gradient(135deg, #0f172a, #1e293b);
+      --border-color: rgba(255, 255, 255, 0.1);
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      --title-color: #4cc9f0;
+      --highlight-color: #ffc800;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: var(--card-bg);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      z-index: 1000;
+      color: var(--text-color);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .header {
+      background: var(--header-bg);
+      color: white;
+      padding: 40px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1494172961521-33799ddd43a5?q=80&w=1471&auto=format&fit=crop') no-repeat center center;
+      background-size: cover;
+      opacity: 0.1;
+      z-index: 0;
+    }
+
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--title-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      margin: 20px 0 10px;
+      color: var(--highlight-color);
+    }
+
+    .subtopic {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-color);
+    }
+
+    .subtopic:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: var(--text-color);
+      opacity: 0.9;
+    }
+
+    .video-container {
+      margin: 25px 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      border-radius: 12px;
+    }
+
+    .question-list {
+      list-style: none;
+      margin: 15px 0;
+    }
+
+    .question-list li {
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      background: rgba(76, 201, 240, 0.1);
+      border-left: 4px solid var(--accent-color);
+      border-radius: 4px;
+      position: relative;
+      padding-left: 25px;
+    }
+
+    .question-list li::before {
+      content: '•';
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      position: absolute;
+      left: 5px;
+      top: 0;
+    }
+
+    .quiz-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--highlight-color);
+      color: #000;
+      padding: 12px 25px;
+      border-radius: 50px;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .quiz-btn:hover {
+      background: #ffc800;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 30px 20px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.5rem;
+      }
+      
+      .subtopic {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle Button -->
+  <button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+  </button>
+
+  <div class="container">
+    <div class="header">
+      <div class="header-content">
+        <h1>🧠 Emotional Intelligence (EI) Skills</h1>
+        <p>Developing emotional intelligence can improve your ability to communicate, empathize, and build stronger relationships.</p>
+      </div>
+    </div>
+
+    <!-- Self-Awareness -->
+    <div class="subtopic">
+      <h2><i class="fas fa-eye"></i> Self-Awareness</h2>
+      <p>Self-awareness is the ability to recognize and understand your own emotions. It's a foundation for emotional intelligence.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/tGdsOXZpyWE" title="Self-Awareness Video" allowfullscreen></iframe>
+      </div>
+      <h3>💼 Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you manage your emotions when you're under stress?</li>
+        <li>Can you provide an example of a time when your emotional awareness helped you in a professional situation?</li>
+        <li>How do you stay self-aware and keep track of your emotions throughout the day?</li>
+        <li>What methods do you use to assess your emotional state during challenging times?</li>
+        <li>What role does self-reflection play in improving emotional intelligence?</li>
+      </ul>
+      <h3>📌 Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Tell me about a time when your emotional reaction influenced a decision at work. How did you handle it?</li>
+        <li>How would you handle a situation where your emotions were clouding your judgment on a key task?</li>
+      </ul>
+    </div>
+
+    <!-- Self-Regulation -->
+    <div class="subtopic">
+      <h2><i class="fas fa-balance-scale"></i> Self-Regulation</h2>
+      <p>Self-regulation is about managing and controlling your emotions in healthy ways, especially in challenging situations.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/tTb3d5cjSFI" title="Self-Regulation Video" allowfullscreen></iframe>
+      </div>
+      <h3>💼 Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you keep calm when faced with a stressful situation?</li>
+        <li>Can you give an example of how you've managed to stay composed when dealing with a difficult person?</li>
+        <li>How do you deal with sudden setbacks in your work or project?</li>
+        <li>What strategies do you use to avoid overreacting in emotionally charged situations?</li>
+        <li>How do you handle frustration in high-pressure environments?</li>
+      </ul>
+      <h3>📌 Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Tell me about a time when you had to regulate your emotions while managing a difficult task or team member. How did you handle it?</li>
+        <li>How would you approach a situation where a colleague's negative emotions are affecting the team dynamic?</li>
+      </ul>
+    </div>
+
+    <!-- Empathy -->
+    <div class="subtopic">
+      <h2><i class="fas fa-heart"></i> Empathy</h2>
+      <p>Empathy involves understanding the emotions of others and responding to them appropriately. It strengthens relationships and promotes understanding.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/qjxdU6nvsc4" title="Empathy Video" allowfullscreen></iframe>
+      </div>
+      <h3>💼 Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>Can you describe a situation where you had to empathize with a colleague or customer?</li>
+        <li>How do you handle situations where you disagree with someone's emotions or reactions?</li>
+        <li>How do you show empathy to your team or clients in your day-to-day work?</li>
+        <li>Have you ever been in a situation where showing empathy helped resolve a conflict?</li>
+        <li>How do you ensure that you're understanding the emotions of others before reacting?</li>
+      </ul>
+      <h3>📌 Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a time when you demonstrated empathy to help resolve a conflict at work. What was the outcome?</li>
+        <li>How would you approach a situation where a team member is upset, but you don't fully understand their emotions?</li>
+      </ul>
+    </div>
+
+    <!-- Social Skills -->
+    <div class="subtopic">
+      <h2><i class="fas fa-users"></i> Social Skills</h2>
+      <p>Strong social skills help you build relationships, communicate effectively, and navigate social complexities in the workplace.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/lvgM39UgHbA" title="Social Skills Video" allowfullscreen></iframe>
+      </div>
+      <h3>💼 Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>How do you build rapport with people quickly in a professional setting?</li>
+        <li>Can you provide an example of a time when your social skills helped you get results?</li>
+        <li>How do you handle situations where there is a communication breakdown in your team?</li>
+        <li>How do you ensure that all team members feel heard and included during meetings?</li>
+        <li>How do you balance being assertive and empathetic when leading a team?</li>
+      </ul>
+      <h3>📌 Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Tell me about a time when you used your social skills to diffuse a tense situation at work.</li>
+        <li>How would you manage a situation where you need to motivate a disengaged team member?</li>
+      </ul>
+    </div>
+
+    <!-- Motivation -->
+    <div class="subtopic">
+      <h2><i class="fas fa-rocket"></i> Motivation</h2>
+      <p>Motivation is the drive to accomplish goals and tasks. It's a key component of emotional intelligence and plays a big role in personal and professional success.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/Tuw8hxrFBH8" title="Motivation Video" allowfullscreen></iframe>
+      </div>
+      <h3>💼 Top 5 Interview Questions:</h3>
+      <ul class="question-list">
+        <li>What motivates you to do your best work every day?</li>
+        <li>Can you share an example of a time when you stayed motivated despite facing setbacks?</li>
+        <li>How do you inspire motivation in others during challenging projects?</li>
+        <li>How do you stay motivated during tasks that you find repetitive or mundane?</li>
+        <li>What strategies do you use to keep yourself and others motivated during team projects?</li>
+      </ul>
+      <h3>📌 Scenario-Based Questions:</h3>
+      <ul class="question-list">
+        <li>Describe a time when you had to motivate yourself to meet a tough deadline. How did you stay focused?</li>
+        <li>How would you approach a situation where a team member is lacking motivation on a critical project?</li>
+      </ul>
+      <a href="#" class="quiz-btn">
+        <i class="fas fa-question-circle"></i> Take EI Assessment Quiz
+      </a>
+    </div>
+  </div>
+
+  <script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    
+    // Check for saved theme preference or use system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+      document.body.classList.add('dark-mode');
+      icon.classList.replace('fa-moon', 'fa-sun');
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>

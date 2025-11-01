@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Career Compass PRO - Resume Analysis</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #1a73e8;
+      --primary-dark: #0d47a1;
+      --secondary-color: #f8f9fa;
+      --text-color: #202124;
+      --text-light: #5f6368;
+      --bg-color: #ffffff;
+      --card-bg: #f8f9fa;
+      --border: #e0e0e0;
+      --success: #34a853;
+      --warning: #f9ab00;
+      --danger: #ea4335;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark-mode {
+      --primary-color: #4285f4;
+      --primary-dark: #3367d6;
+      --secondary-color: #202124;
+      --text-color: #e8eaed;
+      --text-light: #9aa0a6;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --border: #3c4043;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: all 0.3s ease;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background-color: var(--bg-color);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .theme-toggle {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      color: var(--text-color);
+      padding: 8px 16px;
+      border-radius: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theme-toggle:hover {
+      background: var(--primary-color);
+      color: white;
+      border-color: var(--primary-color);
+    }
+
+    .upload-section {
+      text-align: center;
+      padding: 3rem 0;
+    }
+
+    .upload-container {
+      background: var(--card-bg);
+      border: 2px dashed var(--primary-color);
+      border-radius: 15px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .upload-icon {
+      font-size: 3rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    .file-label {
+      display: inline-block;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 1rem;
+    }
+
+    .file-label:hover {
+      background: var(--primary-dark);
+    }
+
+    .results-section {
+      display: none;
+      margin-top: 2rem;
+    }
+
+    .score-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .score-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .score-value {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--primary-color);
+    }
+
+    .score-label {
+      font-size: 1.2rem;
+      color: var(--text-light);
+    }
+
+    .progress-container {
+      width: 100%;
+      height: 20px;
+      background-color: var(--secondary-color);
+      border-radius: 10px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+      border-radius: 10px;
+      transition: width 1s ease-in-out;
+    }
+
+    .role-match {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .role-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .role-title {
+      font-size: 1.8rem;
+      color: var(--primary-color);
+    }
+
+    .role-score {
+      font-size: 1.2rem;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+    }
+
+    .role-description {
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-tag {
+      background: rgba(26, 115, 232, 0.1);
+      color: var(--primary-color);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+    }
+
+    .other-roles {
+      margin-top: 2rem;
+    }
+
+    .other-roles h3 {
+      margin-bottom: 1rem;
+      color: var(--text-color);
+    }
+
+    .role-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .role-item:last-child {
+      border-bottom: none;
+    }
+
+    .improvements-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .improvement-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .improvement-item:last-child {
+      border-bottom: none;
+    }
+
+    .priority {
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .priority-high {
+      background-color: rgba(234, 67, 53, 0.1);
+      color: var(--danger);
+    }
+
+    .priority-medium {
+      background-color: rgba(249, 171, 0, 0.1);
+      color: var(--warning);
+    }
+
+    .priority-low {
+      background-color: rgba(52, 168, 83, 0.1);
+      color: var(--success);
+    }
+
+    .experience-section {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+    }
+
+    .experience-item {
+      margin-bottom: 1.5rem;
+    }
+
+    .experience-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .experience-title {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 1.5rem;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-top: 1rem;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      header {
+        padding: 1rem;
+      }
+      
+      .score-header, .role-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      
+      .upload-container {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">Career Compass <span style="color: var(--primary-dark)">PRO</span></div>
+    <button class="theme-toggle" id="themeToggle">
+      <i class="fas fa-moon"></i>
+      <span>Dark Mode</span>
+    </button>
+  </header>
+
+  <div class="container">
+    <div class="upload-section" id="uploadSection">
+      <div class="upload-container">
+        <div class="upload-icon">
+          <i class="fas fa-cloud-upload-alt"></i>
+        </div>
+        <h2>Upload Your Resume</h2>
+        <p>Get personalized career recommendations and ATS optimization tips</p>
+        <input type="file" id="resumeUpload" class="file-input" accept=".pdf,.doc,.docx">
+        <label for="resumeUpload" class="file-label">Choose File</label>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light);">Supports PDF, DOC, DOCX (Max 5MB)</p>
+      </div>
+    </div>
+
+    <div class="results-section" id="resultsSection">
+      <!-- ATS Score Card -->
+      <div class="score-card">
+        <div class="score-header">
+          <div>
+            <h2>Resume ATS Score</h2>
+            <p class="score-label">How well your resume performs in Applicant Tracking Systems</p>
+          </div>
+          <div class="score-value" id="atsScore">0</div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        <p id="atsFeedback">Analyzing your resume...</p>
+      </div>
+
+      <!-- Best Role Match -->
+      <div class="role-match">
+        <div class="role-header">
+          <h2 class="role-title" id="bestRole">Best Career Match</h2>
+          <div class="role-score" id="roleScore">0%</div>
+        </div>
+        <p class="role-description" id="roleDescription">Our AI is analyzing your skills and experience...</p>
+        
+        <h3>Key Skills Matched</h3>
+        <div class="skills-list" id="skillsList">
+          <!-- Skills will be inserted here by JavaScript -->
+        </div>
+
+        <div class="other-roles">
+          <h3>Other Potential Matches</h3>
+          <div id="otherRoles">
+            <!-- Other roles will be inserted here by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Improvement Suggestions -->
+      <div class="improvements-section">
+        <h2>Improvement Suggestions</h2>
+        <p>Enhance your resume based on our analysis</p>
+        <div id="improvementsList">
+          <!-- Improvements will be inserted here by JavaScript -->
+        </div>
+      </div>
+
+      <!-- Experience Summary -->
+      <div class="experience-section">
+        <h2>Experience Summary</h2>
+        <div id="experienceSummary">
+          <!-- Experience will be inserted here by JavaScript -->
+        </div>
+      </div>
+
+      <a href="/roles" class="btn">Explore Career Roadmaps</a>
+    </div>
+  </div>
+
+  <script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('themeToggle');
+    const icon = themeToggle.querySelector('i');
+    const text = themeToggle.querySelector('span');
+    
+    // Check for saved theme preference or use preferred color scheme
+    const currentTheme = localStorage.getItem('theme') || 
+                       (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    
+    // Apply the current theme
+    if (currentTheme === 'dark') {
+      document.body.classList.add('dark-mode');
+      icon.classList.replace('fa-moon', 'fa-sun');
+      text.textContent = 'Light Mode';
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon', 'fa-sun');
+        text.textContent = 'Light Mode';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        icon.classList.replace('fa-sun', 'fa-moon');
+        text.textContent = 'Dark Mode';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+
+    // File Upload Handling
+    const fileInput = document.getElementById('resumeUpload');
+    const uploadSection = document.getElementById('uploadSection');
+    const resultsSection = document.getElementById('resultsSection');
+    
+    fileInput.addEventListener('change', async (e) => {
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        
+        // Show loading state
+        uploadSection.innerHTML = `
+          <div class="upload-container">
+            <div style="margin-bottom: 1.5rem;">
+              <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: var(--primary-color);"></i>
+            </div>
+            <h2>Analyzing Your Resume</h2>
+            <p>This may take a few moments...</p>
+            <div style="width: 100%; height: 8px; background: var(--secondary-color); border-radius: 4px; margin-top: 2rem;">
+              <div id="analysisProgress" style="width: 0%; height: 100%; background: var(--primary-color); border-radius: 4px;"></div>
+            </div>
+          </div>
+        `;
+        
+        // Simulate progress (in a real app, this would be from the server)
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+          progress += 5;
+          document.getElementById('analysisProgress').style.width = `${Math.min(progress, 90)}%`;
+          if (progress >= 90) clearInterval(progressInterval);
+        }, 200);
+        
+        // In a real app, you would upload the file to your server here
+        // For this demo, we'll simulate a response after a delay
+        setTimeout(() => {
+          // Show results section
+          uploadSection.style.display = 'none';
+          resultsSection.style.display = 'block';
+          
+          // Simulate analysis results (replace with actual API call in production)
+          simulateAnalysisResults();
+        }, 3000);
+      }
+    });
+    
+    function simulateAnalysisResults() {
+      // These would come from your backend in a real app
+      const analysisResults = {
+        ats_score: 78,
+        role_match: {
+          best_match: "AI/ML Engineer",
+          match_score: 92,
+          role_details: {
+            description: "Builds intelligent systems using machine learning and deep learning models.",
+            keywords: ["machine learning", "deep learning", "python", "tensorflow", "pytorch", "neural networks"]
+          },
+          top_matches: [
+            {role: "Data Scientist", score: 85},
+            {role: "Software Engineer", score: 79},
+            {role: "DevOps Engineer", score: 65}
+          ]
+        },
+        skills: ["python", "machine learning", "tensorflow", "deep learning", "data analysis", "neural networks"],
+        improvements: [
+          {category: "quantifiable", suggestion: "Include quantifiable achievements (e.g., 'Improved performance by 30%')", priority: "high"},
+          {category: "action_verbs", suggestion: "Start bullet points with strong action verbs", priority: "medium"},
+          {category: "projects", suggestion: "Add relevant projects with descriptions and outcomes", priority: "low"}
+        ],
+        experience: {
+          years: 3,
+          education: ["Master of Science in Computer Science - Stanford University (2020)", "Bachelor of Engineering - MIT (2018)"]
+        }
+      };
+      
+      // Update the UI with the results
+      updateResultsUI(analysisResults);
+    }
+    
+    function updateResultsUI(results) {
+      // Update ATS Score
+      document.getElementById('atsScore').textContent = results.ats_score;
+      document.getElementById('progressBar').style.width = `${results.ats_score}%`;
+      
+      // Set ATS feedback based on score
+      let atsFeedback = "";
+      if (results.ats_score >= 80) {
+        atsFeedback = "Excellent! Your resume is well-optimized for ATS systems.";
+      } else if (results.ats_score >= 60) {
+        atsFeedback = "Good. Your resume performs well but could use some improvements.";
+      } else {
+        atsFeedback = "Needs work. Your resume may have trouble passing through ATS filters.";
+      }
+      document.getElementById('atsFeedback').textContent = atsFeedback;
+      
+      // Update Role Match
+      const roleMatch = results.role_match;
+      document.getElementById('bestRole').textContent = roleMatch.best_match;
+      document.getElementById('roleScore').textContent = `${roleMatch.match_score}%`;
+      document.getElementById('roleDescription').textContent = roleMatch.role_details.description;
+      
+      // Update Skills
+      const skillsList = document.getElementById('skillsList');
+      skillsList.innerHTML = '';
+      roleMatch.role_details.keywords.slice(0, 10).forEach(skill => {
+        const skillTag = document.createElement('div');
+        skillTag.className = 'skill-tag';
+        skillTag.textContent = skill;
+        skillsList.appendChild(skillTag);
+      });
+      
+      // Update Other Roles
+      const otherRoles = document.getElementById('otherRoles');
+      otherRoles.innerHTML = '';
+      roleMatch.top_matches.forEach(match => {
+        const roleItem = document.createElement('div');
+        roleItem.className = 'role-item';
+        roleItem.innerHTML = `
+          <span>${match.role}</span>
+          <span>${match.score}% match</span>
+        `;
+        otherRoles.appendChild(roleItem);
+      });
+      
+      // Update Improvements
+      const improvementsList = document.getElementById('improvementsList');
+      improvementsList.innerHTML = '';
+      results.improvements.forEach(improvement => {
+        const improvementItem = document.createElement('div');
+        improvementItem.className = 'improvement-item';
+        improvementItem.innerHTML = `
+          <div class="priority priority-${improvement.priority}">${improvement.priority}</div>
+          <div>
+            <h4>${improvement.suggestion}</h4>
+          </div>
+        `;
+        improvementsList.appendChild(improvementItem);
+      });
+      
+      // Update Experience
+      const experienceSummary = document.getElementById('experienceSummary');
+      experienceSummary.innerHTML = '';
+      
+      const yearsItem = document.createElement('div');
+      yearsItem.className = 'experience-item';
+      yearsItem.innerHTML = `
+        <h3 class="experience-title">Years of Experience</h3>
+        <p>${results.experience.years}+ years</p>
+      `;
+      experienceSummary.appendChild(yearsItem);
+      
+      if (results.experience.education.length > 0) {
+        const educationItem = document.createElement('div');
+        educationItem.className = 'experience-item';
+        educationItem.innerHTML = `
+          <h3 class="experience-title">Education</h3>
+          <ul style="list-style-position: inside;">
+            ${results.experience.education.map(edu => `<li>${edu}</li>`).join('')}
+          </ul>
+        `;
+        experienceSummary.appendChild(educationItem);
+      }
+    }
+  </script>
+</body>
+</html>

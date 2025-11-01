@@ -1,0 +1,13 @@
+<div class="breakdown-item">
+    <h4>Keywords <span>{{ analysis.score_components.keywords|default(0)|round(1) }}%</span></h4>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ analysis.score_components.keywords|default(0) }}%"></div>
+    </div>
+</div>
+
+<div class="breakdown-item">
+    <h4>Quantifiable <span>{{ analysis.score_components.quantifiable|default(0)|round(1) }}%</span></h4>
+    <div class="progress-bar">
+        <div class="progress-fill" style="width: {{ analysis.score_components.quantifiable|default(0) }}%"></div>
+    </div>
+</div>
