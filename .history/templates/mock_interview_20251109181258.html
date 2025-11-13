@@ -1,0 +1,433 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    :root {
+        --primary-color: #3a86ff;
+        --secondary-color: #2667cc;
+        --accent-color: #4cc9f0;
+        --text-color: #2b2d42;
+        --bg-color: #f8f9fa;
+        --card-bg: #ffffff;
+        --header-bg: #ffffff;
+        --hero-bg: linear-gradient(135deg, #3a86ff, #2667cc);
+        --border-color: rgba(0, 0, 0, 0.1);
+        --shadow: 0 4px 20px rgba(58, 134, 255, 0.15);
+        --btn-text: white;
+    }
+
+    .dark-mode {
+        --primary-color: #4cc9f0;
+        --secondary-color: #3a86ff;
+        --accent-color: #3a86ff;
+        --text-color: #f8f9fa;
+        --bg-color: #121212;
+        --card-bg: #1e1e1e;
+        --header-bg: #1a1a1a;
+        --hero-bg: linear-gradient(135deg, #0f172a, #1e3a8a);
+        --border-color: rgba(255, 255, 255, 0.1);
+        --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        --btn-text: #121212;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        padding: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: var(--primary-color);
+        border: none;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+        z-index: 1000;
+        color: white;
+        font-size: 1.2rem;
+    }
+
+    .theme-toggle:hover {
+        background: var(--secondary-color);
+        transform: scale(1.05);
+    }
+
+    .hero {
+        background: var(--hero-bg);
+        color: white;
+        padding: 100px 20px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: 40px;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1.5rem;
+        font-weight: 700;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .hero p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin: 60px 0 40px;
+        color: var(--primary-color);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .interview-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 30px;
+        margin-bottom: 60px;
+    }
+
+    .interview-category {
+        background: var(--card-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s, box-shadow 0.3s;
+        border: 1px solid var(--border-color);
+        padding: 30px;
+        text-align: center;
+    }
+
+    .interview-category:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(58, 134, 255, 0.2);
+    }
+
+    .category-icon {
+        font-size: 2.5rem;
+        color: var(--primary-color);
+        margin-bottom: 20px;
+    }
+
+    .category-name {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+    }
+
+    .category-description {
+        color: var(--text-color);
+        opacity: 0.8;
+        margin-bottom: 20px;
+        line-height: 1.5;
+    }
+
+    .practice-link {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--primary-color);
+        color: var(--btn-text);
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(58, 134, 255, 0.2);
+        transition: all 0.3s ease;
+        margin-top: 20px;
+        width: 100%;
+    }
+
+    .practice-link:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(58, 134, 255, 0.3);
+    }
+
+    .practice-link i {
+        font-size: 1rem;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: var(--primary-color);
+        color: var(--btn-text);
+        padding: 12px 25px;
+        border-radius: 50px;
+        font-weight: 500;
+        text-decoration: none;
+        box-shadow: 0 4px 15px rgba(58, 134, 255, 0.2);
+        transition: all 0.3s ease;
+        margin: 20px auto;
+        border: none;
+        cursor: pointer;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1rem;
+    }
+
+    .back-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(58, 134, 255, 0.3);
+    }
+
+    .back-btn i {
+        font-size: 1rem;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            padding: 80px 20px;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+        }
+        
+        .interview-list {
+            grid-template-columns: 1fr;
+        }
+        
+        .section-title {
+            font-size: 1.6rem;
+            margin: 40px 0 30px;
+        }
+    }
+</style>
+
+<!-- Theme Toggle -->
+<button class="theme-toggle" id="themeToggle">
+    <i class="fas fa-moon"></i>
+</button>
+
+<!-- Hero Section -->
+<div class="hero">
+    <div class="hero-content">
+        <h1>Mock Interviews</h1>
+        <p>Practice with realistic interview scenarios tailored to your dream job role. Our premium questions are curated from top tech companies and hiring managers.</p>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+    <h2 class="section-title">Choose Your Interview Practice</h2>
+    
+    <div class="interview-list">
+        <!-- AI/ML Engineer Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-robot"></i>
+            </div>
+            <h3 class="category-name">AI/ML Engineer</h3>
+            <p class="category-description">Master machine learning algorithms, neural networks, and AI system design with questions from Google Brain and OpenAI interviews.</p>
+            <a href="/mock_interview/ai_engineer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Data Scientist Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-database"></i>
+            </div>
+            <h3 class="category-name">Data Scientist</h3>
+            <p class="category-description">Prepare for statistics, data analysis, and machine learning questions from FAANG and Fortune 500 companies.</p>
+            <a href="/mock_interview/data_scientist" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Cloud Engineer Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-cloud"></i>
+            </div>
+            <h3 class="category-name">Cloud Engineer</h3>
+            <p class="category-description">Simulate cloud architecture, deployment, and infrastructure management interviews with AWS, GCP, and Azure scenarios.</p>
+            <a href="/mock_interview/cloud_engineer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Cybersecurity Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3 class="category-name">Cybersecurity</h3>
+            <p class="category-description">Practice security protocols, threat analysis, and ethical hacking scenarios from top security firms.</p>
+            <a href="/mock_interview/cybersecurity_analyst" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Full Stack Dev Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-code"></i>
+            </div>
+            <h3 class="category-name">Full Stack Dev</h3>
+            <p class="category-description">Prepare for coding challenges and system design questions from Silicon Valley tech company interviews.</p>
+            <a href="/mock_interview/full_stack_developer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- DevOps Engineer Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-server"></i>
+            </div>
+            <h3 class="category-name">DevOps Engineer</h3>
+            <p class="category-description">Practice CI/CD, containerization, and infrastructure automation questions from high-growth tech startups.</p>
+            <a href="/mock_interview/devops_engineer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Blockchain Dev Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-link"></i>
+            </div>
+            <h3 class="category-name">Blockchain Dev</h3>
+            <p class="category-description">Prepare for smart contract development and decentralized application questions from Web3 companies.</p>
+            <a href="/mock_interview/blockchain_developer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- UI/UX Designer Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-paint-brush"></i>
+            </div>
+            <h3 class="category-name">UI/UX Designer</h3>
+            <p class="category-description">Practice design thinking, user research, and prototyping interview questions from top design firms.</p>
+            <a href="/mock_interview/uiux_designer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Product Manager Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-tasks"></i>
+            </div>
+            <h3 class="category-name">Product Manager</h3>
+            <p class="category-description">Simulate product strategy, roadmap planning, and stakeholder management interviews from tech leaders.</p>
+            <a href="/mock_interview/product_manager" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+        
+        <!-- Software Engineer Card -->
+        <div class="interview-category">
+            <div class="category-icon">
+                <i class="fas fa-laptop-code"></i>
+            </div>
+            <h3 class="category-name">Software Engineer</h3>
+            <p class="category-description">Prepare for algorithm, data structure, and system design interviews at top tech companies.</p>
+            <a href="/mock_interview/software_engineer" class="practice-link">
+                Start Practice <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="button-container">
+        <button class="back-btn" onclick="window.location.href='/roles'">
+            <i class="fas fa-arrow-left"></i>
+            Back to Career Paths
+        </button>
+    </div>
+</div>
+
+<script>
+    // Theme toggle functionality
+    const toggle = document.getElementById('themeToggle');
+    const icon = toggle.querySelector('i');
+    
+    // Check for saved user preference or use system preference
+    if (localStorage.getItem('theme') === 'dark' || 
+        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    }
+    
+    toggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        
+        // Toggle icon and save user preference
+        if (document.body.classList.contains('dark-mode')) {
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            icon.classList.remove('fa-sun');
+            icon.classList.add('fa-moon');
+            localStorage.setItem('theme', 'light');
+        }
+    });
+
+    // Load Font Awesome for the icons
+    const faScript = document.createElement('script');
+    faScript.src = 'https://kit.fontawesome.com/a076d05399.js';
+    faScript.crossOrigin = 'anonymous';
+    document.head.appendChild(faScript);
+</script>
+
+{% endblock %}

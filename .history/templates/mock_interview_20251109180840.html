@@ -1,0 +1,622 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+    /* 🌟 Premium Professional Blue Theme - Consistent with Homepage */
+    :root {
+      --primary-color: #4361ee;
+      --secondary-color: #3f37c9;
+      --accent-color: #4cc9f0;
+      --text-color: #2b2d42;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+      --nav-bg: #ffffff;
+      --footer-bg: #2b2d42;
+      --footer-text: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+
+    .dark-mode {
+      --primary-color: #4cc9f0;
+      --secondary-color: #4361ee;
+      --accent-color: #f72585;
+      --text-color: #f8f9fa;
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --nav-bg: #1a1a1a;
+      --footer-bg: #0d0d0d;
+      --footer-text: #e9ecef;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 🌟 Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      transition: var(--transition);
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 600;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+    }
+    
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      color: var(--accent-color);
+    }
+
+    /* 🌟 Utility Classes */
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .section {
+      padding: 6rem 0;
+    }
+    
+    .text-center {
+      text-align: center;
+    }
+    
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    /* 🌟 Theme Toggle */
+    .theme-toggle-container {
+      position: fixed;
+      top: 2rem;
+      right: 2rem;
+      z-index: 1000;
+    }
+    
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      color: var(--primary-color);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    .dark-mode .theme-toggle i.fa-moon {
+      display: none;
+    }
+    
+    .dark-mode .theme-toggle i.fa-sun {
+      display: block;
+    }
+    
+    .theme-toggle i.fa-sun {
+      display: none;
+    }
+
+    /* 🌟 Header Section */
+    .page-header {
+      position: relative;
+      padding: 8rem 0 6rem;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(67, 97, 238, 0.03), rgba(76, 201, 240, 0.05));
+    }
+    
+    .page-header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234361ee' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+      opacity: 0.5;
+      z-index: -1;
+    }
+    
+    .page-header h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .page-header h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 2px;
+    }
+    
+    .page-header p {
+      font-size: 1.25rem;
+      color: var(--text-color);
+      opacity: 0.8;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* 🌟 Interview Cards Grid */
+    .interview-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+      padding: 2rem 0;
+      margin: 0 auto;
+    }
+    
+    /* 🌟 Premium Card Design */
+    .interview-card {
+      background: var(--card-bg);
+      border-radius: 15px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: var(--transition);
+      position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transform: translateY(0);
+      opacity: 1;
+    }
+    
+    .dark-mode .interview-card {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .interview-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    }
+    
+    .interview-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+      border-color: var(--accent-color);
+    }
+    
+    .card-content {
+      padding: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .interview-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    
+    .interview-card h3 i {
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary-color);
+      border-radius: 10px;
+      font-size: 1.25rem;
+      transition: var(--transition);
+    }
+    
+    .interview-card:hover h3 i {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    .interview-card p {
+      color: var(--text-color);
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+    
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+    
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      color: var(--primary-color);
+      padding: 0.5rem 0;
+      position: relative;
+    }
+    
+    .card-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      transition: var(--transition);
+    }
+    
+    .card-link:hover::after {
+      width: 100%;
+    }
+    
+    .card-link i {
+      transition: var(--transition);
+    }
+    
+    .card-link:hover i {
+      transform: translateX(4px);
+    }
+    
+    .premium-tag {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      box-shadow: var(--shadow);
+    }
+
+    /* 🌟 Floating Action Button */
+    .back-btn {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 100;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .back-btn:hover {
+      transform: translateX(-50%) translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .back-btn i {
+      transition: var(--transition);
+    }
+    
+    .back-btn:hover i {
+      transform: translateX(-4px);
+    }
+
+    /* 🌟 Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .animate-in {
+      animation: fadeInUp 0.6s ease-out forwards;
+    }
+
+    /* 🌟 Responsive Design */
+    @media (max-width: 1200px) {
+      .interview-list {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      }
+    }
+    
+    @media (max-width: 992px) {
+      .page-header h1 {
+        font-size: 3rem;
+      }
+      
+      .page-header p {
+        font-size: 1.15rem;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.5rem;
+      }
+      
+      .page-header {
+        padding: 6rem 0 4rem;
+      }
+      
+      .page-header h1 {
+        font-size: 2.5rem;
+      }
+      
+      .interview-list {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+      
+      .back-btn {
+        width: calc(100% - 3rem);
+        text-align: center;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .page-header h1 {
+        font-size: 2rem;
+      }
+      
+      .page-header p {
+        font-size: 1rem;
+      }
+      
+      .card-content {
+        padding: 1.5rem;
+      }
+      
+      .interview-card h3 {
+        font-size: 1.25rem;
+      }
+    }
+</style>
+
+<!-- 🌟 Theme Toggle -->
+<div class="theme-toggle-container">
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <i class="fas fa-moon"></i>
+    <i class="fas fa-sun"></i>
+  </button>
+</div>
+
+<!-- 🌟 Hero Section -->
+<section class="page-header text-center">
+  <div class="container">
+    <h1 class="gradient-text"> Mock Interviews</h1>
+    <p>Practice with realistic interview scenarios tailored to your dream job role. Our premium questions are curated from top tech companies and hiring managers.</p>
+  </div>
+</section>
+
+<!-- 🌟 Main Content -->
+<div class="container">
+  <div class="interview-list">
+    <!-- AI/ML Engineer Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.1s">
+      <div class="card-content">
+        <h3><i class="fas fa-robot"></i> AI/ML Engineer</h3>
+        <p>Master machine learning algorithms, neural networks, and AI system design with questions from Google Brain and OpenAI interviews.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/ai_engineer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Data Scientist Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.2s">
+      <div class="card-content">
+        <h3><i class="fas fa-database"></i> Data Scientist</h3>
+        <p>Prepare for statistics, data analysis, and machine learning questions from FAANG and Fortune 500 companies.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/data_scientist" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cloud Engineer Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.3s">
+      <div class="card-content">
+        <h3><i class="fas fa-cloud"></i> Cloud Engineer</h3>
+        <p>Simulate cloud architecture, deployment, and infrastructure management interviews with AWS, GCP, and Azure scenarios.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/cloud_engineer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cybersecurity Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.4s">
+      <div class="card-content">
+        <h3><i class="fas fa-shield-alt"></i> Cybersecurity</h3>
+        <p>Practice security protocols, threat analysis, and ethical hacking scenarios from top security firms.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/cybersecurity_analyst" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Full Stack Dev Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.5s">
+      <div class="card-content">
+        <h3><i class="fas fa-code"></i> Full Stack Dev</h3>
+        <p>Prepare for coding challenges and system design questions from Silicon Valley tech company interviews.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/full_stack_developer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- DevOps Engineer Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.6s">
+      <div class="card-content">
+        <h3><i class="fas fa-server"></i> DevOps Engineer</h3>
+        <p>Practice CI/CD, containerization, and infrastructure automation questions from high-growth tech startups.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/devops_engineer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Blockchain Dev Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.7s">
+      <div class="card-content">
+        <h3><i class="fas fa-link"></i> Blockchain Dev</h3>
+        <p>Prepare for smart contract development and decentralized application questions from Web3 companies.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/blockchain_developer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- UI/UX Designer Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.8s">
+      <div class="card-content">
+        <h3><i class="fas fa-paint-brush"></i> UI/UX Designer</h3>
+        <p>Practice design thinking, user research, and prototyping interview questions from top design firms.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/uiux_designer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Product Manager Card -->
+    <div class="interview-card animate-in" style="animation-delay: 0.9s">
+      <div class="card-content">
+        <h3><i class="fas fa-tasks"></i> Product Manager</h3>
+        <p>Simulate product strategy, roadmap planning, and stakeholder management interviews from tech leaders.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/product_manager" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Software Engineer Card -->
+    <div class="interview-card animate-in" style="animation-delay: 1.0s">
+      <div class="card-content">
+        <h3><i class="fas fa-laptop-code"></i> Software Engineer</h3>
+        <p>Prepare for algorithm, data structure, and system design interviews at top tech companies.</p>
+        <div class="card-footer">
+          <a href="/mock_interview/software_engineer" class="card-link">
+            Start Practice <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 🌟 Floating Action Button -->
+<button class="back-btn" onclick="window.location.href='/roles'">
+  <i class="fas fa-arrow-left"></i>
+  Back to Career Paths
+</button>
+
+<script>
+  // Enhanced Theme Toggle with System Preference Detection
+  document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.getElementById('themeToggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = localStorage.getItem('theme');
+    
+    // Set initial theme
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-mode');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      localStorage.setItem('theme', 'light');
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', function() {
+      const isDark = document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+    
+    // Listen for system theme changes
+    prefersDarkScheme.addListener(e => {
+      if (!localStorage.getItem('theme')) {
+        document.body.classList.toggle('dark-mode', e.matches);
+      }
+    });
+    
+    // Animate cards with staggered delay
+    const cards = document.querySelectorAll('.animate-in');
+    cards.forEach((card, index) => {
+      card.style.animationDelay = `${index * 0.1}s`;
+    });
+    
+    // Load Font Awesome if not already loaded
+    if (!document.querySelector('.fa')) {
+      const faScript = document.createElement('script');
+      faScript.src = 'https://kit.fontawesome.com/a076d05399.js';
+      faScript.crossOrigin = 'anonymous';
+      document.head.appendChild(faScript);
+    }
+  });
+</script>
+
+{% endblock %}
